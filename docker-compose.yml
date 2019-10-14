@@ -1,5 +1,5 @@
 # SSL certificates for development
-# $ mkcert iurii-stepanenko.local www.iurii-stepanenko.local
+# $ mkcert iurii-stepanenko.local www.iurii-stepanenko.local iurii-sky.local www.iurii-sky.local
 #
 # DEVELOPMENT:
 # $ docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
@@ -24,15 +24,15 @@ services:
     restart: always
     labels:
       # - traefik.enable=false
-      - traefik.http.frontend.rule=Host:iurii-stepanenko.local,www.iurii-stepanenko.local
+      - traefik.http.frontend.rule=Host:iurii-stepanenko.local,www.iurii-stepanenko.local,iurii-sky.local,www.iurii-sky.local
       - traefik.http.frontend.entryPoints=http
-      - traefik.https.frontend.rule=Host:iurii-stepanenko.local,www.iurii-stepanenko.local
+      - traefik.https.frontend.rule=Host:iurii-stepanenko.local,www.iurii-stepanenko.local,iurii-sky.local,www.iurii-sky.local
       - traefik.https.frontend.entryPoints=https
       - traefik.https.protocol=https
       - traefik.https.port=443
     # Must add extra_hosts to be written to /etc/hosts - otherwise containerized application can not curl itself
     extra_hosts:
-      - "iurii-stepanenko.local www.iurii-stepanenko.local:127.0.0.1"
+      - "iurii-stepanenko.local www.iurii-stepanenko.local iurii-sky.local www.iurii-sky.local:127.0.0.1"
 #    links:
 #      - memcached
     external_links:
