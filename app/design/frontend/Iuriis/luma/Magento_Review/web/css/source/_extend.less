@@ -1,0 +1,32 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    .product-reviews-summary {
+        .reviews-actions {
+            display: inline-block;
+            font-size: floor(.8 * @font-size__base);
+            vertical-align: middle;
+
+            a {
+                color: @link__review__color;
+
+                &:visited,
+                &:hover {
+                    color: @link__review__visited__color;
+                }
+
+                &:not(:last-child) {
+                    margin-right: 30px;
+                }
+
+                .action.add {
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+
+}
