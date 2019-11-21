@@ -23,7 +23,7 @@ services:
         - MEMCACHED=0
     restart: always
     labels:
-      # - traefik.enable=false
+      - traefik.enable=true
       - traefik.http.frontend.rule=Host:iurii-stepanenko.local,www.iurii-stepanenko.local,iurii-sky.local,www.iurii-sky.local
       - traefik.http.frontend.entryPoints=http
       - traefik.https.frontend.rule=Host:iurii-stepanenko.local,www.iurii-stepanenko.local,iurii-sky.local,www.iurii-sky.local

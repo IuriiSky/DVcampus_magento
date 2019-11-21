@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="1column"/>
+    <referenceContainer name="div.sidebar.additional" >
+        <block class="Magento\Cms\Block\Block" name="left_column_image" after="sidebar.additional" >
+            <arguments>
+                <argument name="block_id" xsi:type="string">left_column_image</argument>
+            </arguments>
+        </block>
+    </referenceContainer>
+</layout>
