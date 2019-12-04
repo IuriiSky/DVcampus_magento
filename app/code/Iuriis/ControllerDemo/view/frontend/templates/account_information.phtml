@@ -1,0 +1,9 @@
+<?php /** @var \Iuriis\ControllerDemo\Block\AccountInfo $block */ ?>
+<div>
+    <p><?= $block->escapeHtml(__('First name: %1', $block->getFullName())) ?></p>
+    <p><?= $block->escapeHtml(__('Repository url:'))?>
+        <a href="https://github.com/IuriiSky/DVcampus_magento" target="_blank">
+            <?= $block->escapeUrl(__($block->getRepositoryUrl()))?>
+        </a>
+    </p>
+</div>
