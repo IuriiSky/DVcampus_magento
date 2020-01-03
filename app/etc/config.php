@@ -238,6 +238,7 @@ return [
         'Amazon_Login' => 1,
         'Amazon_Payment' => 1,
         'Dotdigitalgroup_Email' => 1,
+        'Iuriis_Chatbox' => 1,
         'Iuriis_Cms' => 1,
         'Iuriis_ControllerDemo' => 1,
         'Iuriis_LayoutDebug' => 0,

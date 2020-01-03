@@ -1,0 +1,9 @@
+<?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
+<a href="javascript:void(0);"
+   class="iuriis-chat-open-button active"
+   data-mage-init='{"iuriis_chatbox_openButton":{}}'>
+    <img src='<?= $this->getViewFileUrl('Iuriis_Chatbox::images/bubble.svg') ?>'
+         class="bubble-svg" alt="chat-icon" title="<?= $block->escapeHtmlAttr(__('Open chat'))?>">
+</a>
+<button class="toggle-widget iuriis-chat-open-button"
+        data-mage-init='{"iuriis_chatbox_listenerWidgets":{}}'><?= $block->escapeHtml(__('X'))?></button>

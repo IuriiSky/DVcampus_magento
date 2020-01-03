@@ -1,0 +1,24 @@
+<?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
+<div id="iuriis-chat-box"
+     style="display: none;"
+     data-mage-init='{"iuriis_chatbox_chatBox":{}}'>
+    <div id="body-box-chat">
+        <p class="message admin-message"> <?= $block->escapeHtml(__('Please, ask a questions!')) ?></p>
+    </div>
+    <div class="textarea-box-chat">
+        <form class="form"
+              id="iuriis-chat-box-form"
+              action="javascript:void(0);"
+              method="post"
+              data-mage-init='{"iuriis_chatbox_form":{
+                "action": "<?= $block->escapeUrl($block->getUrl('iuriis_chatbox/chatbox/save'))?>"}}'>
+            <textarea rows="1" id="user-message-question" autofocus
+            data-validate="{required: true}"></textarea>
+            <input type="hidden" name="hideit" id="hideit" value=""/>
+        </form>
+    </div>
+    <button type="submit" class="action primary" id="iuriis-chat-send-ask">
+        <?= $block->escapeHtml(__('Send'))?></button>
+    <button type="button" id="iuriis-chat-close-chat-button">
+        <?= $block->escapeHtml(__('Close'))?></button>
+</div>
