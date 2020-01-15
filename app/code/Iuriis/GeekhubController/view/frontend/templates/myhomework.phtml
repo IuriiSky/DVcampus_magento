@@ -1,0 +1,6 @@
+<?php /** @var \Iuriis\GeekhubController\Block\Test $block */ ?>
+<div>
+    <p><?= $block->escapeHtml(__('Repository url:'))?>
+        <a href="<?= $block->escapeUrl(__($block->getSomeUrl()))?>" target="_blank"></a>
+    </p>
+</div>
