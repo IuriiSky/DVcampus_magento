@@ -16,13 +16,12 @@ class JsonResponse extends \Magento\Framework\App\Action\Action implements
      */
     public function execute()
     {
-        /** @var JsonAlias $responce */
-        $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-        $response->setData([
-            'route' => 'https://docs.google.com/presentation/d/1M9drvRhMuiW-kF7-0hinHWCp0wDhaekccAi5gKU16m0/edit#slide=id.g4412d7bd0f_0_299'
+        /** @var JsonAlias $result */
+        $result = $this->resultFactory->create(ResultFactory::TYPE_JSON);
+        $result->setData([
+            'Default Router Is' => 'https://inchoo.net/magento-2/routing-in-magento-2/'
         ]);
 
-
-        return $response;
+        return $result;
     }
 }

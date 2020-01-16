@@ -1,6 +1,5 @@
-<?php /** @var \Iuriis\GeekhubController\Block\Test $block */ ?>
+<?php /** @var \Iuriis\GeekhubController\Block\CustomBlock $block */ ?>
 <div>
-    <p><?= $block->escapeHtml(__('Repository url:'))?>
-        <a href="<?= $block->escapeUrl(__($block->getSomeUrl()))?>" target="_blank"></a>
-    </p>
+<!--    <a class="json-link" href="--><?//= $block->getUrl('iuriis_geekhub_controller/customcontroller/jsonresponse')?><!--">Link to Json</a>-->
+    <a class="json-link" href="<?= $block->escapeUrl(__($block->getSomeUrl())); ?>">Link to Json</a>
 </div>
