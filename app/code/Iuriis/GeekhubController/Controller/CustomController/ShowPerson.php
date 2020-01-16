@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Iuriis\GeekhubController\Controller\CustomController;
 
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\App\ResponseInterface;
 
 class ShowPerson extends \Magento\Framework\App\Action\Action implements
     \Magento\Framework\App\Action\HttpGetActionInterface
@@ -16,9 +15,17 @@ class ShowPerson extends \Magento\Framework\App\Action\Action implements
      */
     public function execute()
     {
-//        /** @var \Magento\Framework\View\Result\Layout $response */
-//        $response = $this->resultFactory->create(ResultFactory::TYPE_LAYOUT);
 
+        $firstName = "Iurii";
+        $lastName = "Stepanenko";
+        /** @var \Magento\Framework\View\Result\Page $response */
+        $response = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+        $response->getLayout()->getBlock('iuriis.links.person')
+            ->setFirstName($firstName)
+            ->setLastName($lastName);
 
+//        getBlock('iuriis.links.person')->setFullName($name);
+
+        return $response;
     }
 }

@@ -11,7 +11,7 @@ class CustomBlock extends \Magento\Framework\View\Element\Template
     public function getSomeUrl():string
     {
 //        return $this->getRequest()->getParam('Default Router Is');
-        $link = $this->getUrl('iuriis_geekhub_controller/customcontroller/jsonresponse');
-        return $link;
+        return $this->getUrl('iuriis_geekhub_controller/customcontroller/jsonresponse');
+
     }
 }
