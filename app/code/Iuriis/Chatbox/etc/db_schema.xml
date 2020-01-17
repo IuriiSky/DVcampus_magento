@@ -3,21 +3,29 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="iuriis_chatbox" resource="default" engine="innodb" comment="Chat For Customers">
         <column xsi:type="int" name="message_id" padding="10" unsigned="true" nullable="false" identity="true"
-                comment="Message ID"/>
+                comment="Message ID"
+        />
         <column xsi:type="varchar" name="author_type" nullable="false" length="127"
-                comment="Author Type"/>
+                comment="Author Type"
+        />
         <column xsi:type="int" name="author_id" padding="10" unsigned="true" nullable="false"
-                comment="Author ID"/>
+                comment="Author ID"
+        />
         <column xsi:type="varchar" name="author_name" nullable="false" length="127"
-                comment="Author Name"/>
+                comment="Author Name"
+        />
         <column xsi:type="varchar" name="message" nullable="true" length="255"
-                comment="Message"/>
+                comment="Message"
+        />
         <column xsi:type="smallint" name="website_id" padding="5" unsigned="true" nullable="false"
-                comment="Website ID"/>
+                comment="Website ID"
+        />
         <column xsi:type="varchar" name="chat_hash" nullable="false" length="255"
-                comment="Chat Hash"/>
+                comment="Chat Hash"
+        />
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
-                comment="Creation Time"/>
+                comment="Creation Time"
+        />
 
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="message_id"/>
@@ -39,10 +47,11 @@
                     column="website_id"
                     referenceTable="store_website"
                     referenceColumn="website_id"
-                    onDelete="CASCADE"/>
-
+                    onDelete="CASCADE"
+        />
         <constraint xsi:type="unique"
-                    referenceId="IURIIS_CHATBOX_MESSAGE_ID_CHAT_HASH_WEBSITE_ID">
+                    referenceId="IURIIS_CHATBOX_MESSAGE_ID_CHAT_HASH_WEBSITE_ID"
+        >
             <column name="message_id"/>
             <column name="chat_hash"/>
             <column name="website_id"/>

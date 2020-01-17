@@ -2,8 +2,8 @@
 <div>
     <p><?= $block->escapeHtml(__('First name: %1', $block->getFullName())) ?></p>
     <p><?= $block->escapeHtml(__('Repository url:'))?>
-        <a href="https://github.com/IuriiSky/DVcampus_magento" target="_blank">
-            <?= $block->escapeUrl(__($block->getRepositoryUrl()))?>
+        <a href="<?= $block->escapeUrl($block->getRepositoryUrl()) ?>" target="_blank">
+            <?= $block->escapeUrl($block->getRepositoryUrl()) ?>
         </a>
     </p>
 </div>

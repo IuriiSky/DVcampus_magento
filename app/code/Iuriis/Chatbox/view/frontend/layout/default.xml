@@ -1,24 +1,21 @@
 <?xml version="1.0"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="before.body.end">
             <container name="iuriis.chatbox">
-<!--                <block class="Magento\Framework\View\Element\Template"-->
-<!--                       name="iuriis.chatbox.openButton"-->
-<!--                       template="Iuriis_Chatbox::open_button.phtml">-->
-<!--                </block>-->
                 <block class="Magento\Framework\View\Element\Template"
                        name="iuriis.chatbox.chatBox"
-                       template="Iuriis_Chatbox::chatbox.phtml">
-                </block>
+                       template="Iuriis_Chatbox::chatbox.phtml"
+                />
             </container>
         </referenceBlock>
         <referenceContainer name="header-wrapper">
             <block class="Magento\Framework\View\Element\Template"
                    name="iuriis.chatbox.openButton"
                    template="Iuriis_Chatbox::open_button.phtml"
-                   after="logo">
-            </block>
+                   after="logo"
+            />
         </referenceContainer>
     </body>
 </page>

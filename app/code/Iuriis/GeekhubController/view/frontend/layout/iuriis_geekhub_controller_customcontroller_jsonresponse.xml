@@ -7,11 +7,6 @@
                        name="iuriis.links.geekhub"
                        template="Iuriis_GeekhubController::myhomework.phtml">
                 </block>
-
-<!--                <block class="Iuriis\GeekhubController\Block\CustomBlock"-->
-<!--                       name="iuriis.links.geekhub"-->
-<!--                       template="Iuriis_GeekhubController::myhomework.phtml">-->
-<!--                </block>-->
             </container>
         </referenceContainer>
     </body>

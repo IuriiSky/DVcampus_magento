@@ -6,19 +6,24 @@
         <p class="message admin-message"> <?= $block->escapeHtml(__('Please, ask a questions!')) ?></p>
     </div>
     <div class="textarea-box-chat">
-        <form class="form"
-              id="iuriis-chat-box-form"
-              action="javascript:void(0);"
-              method="post"
+        <form action="javascript:void(0);"
+              class="form"
               data-mage-init='{"iuriis_chatbox_form":{
-                "action": "<?= $block->escapeUrl($block->getUrl('iuriis_chatbox/chatbox/save'))?>"}}'>
-            <textarea rows="1" id="user-message-question" autofocus
-            data-validate="{required: true}"></textarea>
+                "action": "<?= $block->escapeUrl($block->getUrl('iuriis_chatbox/chatbox/save')) ?>"}}'
+              id="iuriis-chat-box-form"
+              method="post">
+            <label for="user-message-question"></label>
+            <textarea autofocus data-validate="{required: true}"
+                      id="user-message-question"
+                      name="customermesage"
+                      rows="1"
+                      title="<?= $block->escapeHtmlAttr(__('Textarea')) ?>">
+            </textarea>
             <input type="hidden" name="hideit" id="hideit" value=""/>
         </form>
     </div>
     <button type="submit" class="action primary" id="iuriis-chat-send-ask">
-        <?= $block->escapeHtml(__('Send'))?></button>
+        <?= $block->escapeHtml(__('Send')) ?></button>
     <button type="button" id="iuriis-chat-close-chat-button">
-        <?= $block->escapeHtml(__('Close'))?></button>
+        <?= $block->escapeHtml(__('Close')) ?></button>
 </div>

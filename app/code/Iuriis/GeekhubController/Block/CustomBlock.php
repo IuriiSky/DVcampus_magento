@@ -14,4 +14,20 @@ class CustomBlock extends \Magento\Framework\View\Element\Template
         return $this->getUrl('iuriis_geekhub_controller/customcontroller/jsonresponse');
 
     }
+
+    /**
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        return (string) $this->getRequest()->getParam('first_name');
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName(): string
+    {
+        return (string) $this->getRequest()->getParam('last_name');
+    }
 }

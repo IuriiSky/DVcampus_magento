@@ -75,7 +75,7 @@ define([
                              */
                             click: function () {
                                 this.closeModal(true);
-                                this.element.trigger('iuriis_chatbox_add_message');
+                                $(document).trigger('iuriis_chatbox_add_message');
                             }
                         }]
                     });

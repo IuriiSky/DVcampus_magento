@@ -22,11 +22,13 @@ define([
         },
 
         toggleChatWidget: function () {
-            if ($($('.iuriis-chat-open-button').get(0)).data('iuriisChatboxOpenButton') === undefined) {
+            var $openButton = $('.iuriis-chat-open-button:first');
+
+            if ($openButton.data('iuriisChatboxOpenButton') === undefined) {
                 $('.iuriis-chat-open-button').openButton();
                 alert('Widget "openButton" enabled');
             } else {
-                $($('.iuriis-chat-open-button').get(0)).data('iuriisChatboxOpenButton').destroy();
+                $openButton.data('iuriisChatboxOpenButton').destroy();
                 alert('Widget "openButton" disabled');
             }
         }

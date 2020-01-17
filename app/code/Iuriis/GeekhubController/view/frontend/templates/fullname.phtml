@@ -1,15 +1,13 @@
 <?php /**  @var \Iuriis\GeekhubController\Block\CustomBlock $block */ ?>
-
 <div>
     <?php if ($block->getFirstName()): ?>
-    <p>
-        First name: <?= $block->getFirstName() ?>
-    </p>
+        <p>
+            <?= $block->escapeHtml(__('First name: ')), $block->getFirstName() ?>
+        </p>
     <?php endif;?>
     <?php if ($block->getLastName()): ?>
-    <p>
-        Last name: <?= $block->getLastName() ?>
-    </p>
+        <p>
+            <?= $block->escapeHtml(__('Last name: ')), $block->getLastName() ?>
+        </p>
     <?php endif;?>
 </div>
-

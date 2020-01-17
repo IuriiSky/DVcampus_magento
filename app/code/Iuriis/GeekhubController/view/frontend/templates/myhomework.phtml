@@ -1,5 +1,5 @@
 <?php /** @var \Iuriis\GeekhubController\Block\CustomBlock $block */ ?>
 <div>
-    <!--    <a class="json-link" href="--><?//= $block->getUrl('iuriis_geekhub_controller/customcontroller/jsonresponse')?><!--">Link to Json</a>-->
-    <a class="json-link" href="<?= $block->escapeUrl(__($block->getSomeUrl())) ?>">Link to Json</a>
+<!--        <a class="json-link" href="--><?php //$block->getUrl('iuriis_geekhub_controller/customcontroller/jsonresponse')?><!--">Link to Json</a>-->
+    <a class="json-link" href="<?= $block->escapeUrl($block->getSomeUrl()) ?>"><?= $block->escapeHtml(__('Link to Json')) ?></a>
 </div>
