@@ -1,0 +1,15 @@
+//Variables
+@dropdown-list-border-color: #006400;
+@button-primary__background: @color-dark-purple;
+@button-primary__border: 1px solid @color-dark-orange;
+@font-family__base: @font-family__monospace;
+
+& when (@media-common = true) {
+
+  .example-dropdown-5 {
+    .lib-dropdown(
+      @_dropdown-list-border: 2px solid @dropdown-list-border-color;
+    );
+  }
+}
+

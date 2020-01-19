@@ -1,75 +1,78 @@
 & when (@media-common = true) {
 
-    .iuriis-chat-open-button {
-        bottom: 30px;
-        position: fixed;
-        right: -50px;
-        z-index: 10;
-        padding: 0;
+  .iuriis-chat-open-button {
+    bottom: 30px;
+    position: fixed;
+    right: -50px;
+    z-index: 10;
+    padding: 0;
 
-        &.active {
-            right: 0;
-        }
+    &.active {
+      right: 0;
     }
 
-    .bubble-svg {
-        width: 50px;
-        height: auto;
-    }
+    .lib-icon-font(
+      @_icon-font-content: @icon-comment,
+      @_icon-font-size: 50px,
+      @_icon-font-position: @icon__position,
+      @_icon-font-color: @color-dark-orange
+    );
+  }
 
-    #iuriis-chat-box {
-        background-color: @color-white;
-        border: @border-width__base solid @border-color__base;
-        bottom: 30px;
-        display: block;
-        max-height: 400px;
-        padding: 30px;
-        position: fixed;
-        right: -370px;
-        transition-property: right;
-        transition-duration: .3s;
-        overflow-y: scroll;
-        width: 300px;
-        z-index: 15;
 
-        &.active {
-            right: 0;
-        }
-    }
+  #iuriis-chat-box {
+    background-color: @color-white;
+    border: @border-width__base solid @border-color__base;
+    bottom: 30px;
+    display: block;
+    max-height: 400px;
+    padding: 30px;
+    position: fixed;
+    right: -370px;
+    transition-property: right;
+    transition-duration: .3s;
+    overflow-y: scroll;
+    width: 300px;
+    z-index: 15;
 
-    #body-box-chat {
-        display: flex;
-        flex-direction: column;
+    &.active {
+      right: 0;
     }
+  }
 
-    .message {
-        display: flex;
-        align-items: flex-end;
-        align-self: flex-end;
-        width: fit-content;
-        font-size: @font-size__base;
-        background-color: @color-brownie-light1;
-        color: white;
-        padding: 5px;
-        border-radius: 10px;
-    }
+  #body-box-chat {
+    display: flex;
+    flex-direction: column;
+  }
 
-    .admin-message {
-        background-color: @color-blue-dodger;
-        display: flex;
-        align-self: flex-start;
-    }
+  .message {
+    display: flex;
+    align-items: flex-end;
+    align-self: flex-end;
+    width: fit-content;
+    font-size: @font-size__base;
+    background-color: @color-brownie-light1;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+  }
 
-    .date-time {
-        display: flex;
-        justify-content: flex-end;
-        font-size: @font-size__base;
-    }
+  .admin-message {
+    background-color: @color-blue-dodger;
+    display: flex;
+    align-self: flex-start;
+  }
 
-    span.message-time {
-        font-size: @font-size__base;
-        padding-left: 10px;
-    }
+  .date-time {
+    display: flex;
+    justify-content: flex-end;
+    font-size: @font-size__base;
+  }
+
+  span.message-time {
+    font-size: @font-size__base;
+    padding-left: 10px;
+  }
 
     .toggle-widget {
         bottom: 5px;
@@ -88,25 +91,27 @@
 ///
 
 .media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
-    .iuriis-chat-open-button {
-        bottom: auto;
-        position: absolute;
-        right: 0;
-        z-index: 10;
-        margin: 10px 80px;
-    }
+  .iuriis-chat-open-button {
+    bottom: auto;
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    margin: 10px 80px;
+    width: 25px;
+    height: 25px;
 
-    #iuriis-chat-box {
-        max-width: 258px;
-        max-height: 200px;
-    }
+    .lib-icon-font(
+      @_icon-font-size: 25px,
+      @_icon-font-position: @icon__position
+    );
+  }
 
-    .bubble-svg {
-        width: 25px;
-        height: 25px;
-    }
+  #iuriis-chat-box {
+    max-width: 258px;
+    max-height: 200px;
+  }
 
-    .toggle-widget {
-        display: none;
-    }
+  .toggle-widget {
+    display: none;
+  }
 }
