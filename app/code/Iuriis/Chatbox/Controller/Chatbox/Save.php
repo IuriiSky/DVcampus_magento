@@ -70,8 +70,8 @@ class Save extends \Magento\Framework\App\Action\Action implements
     {
 
         /** @var Transaction $transaction */
+        //$transaction = $this->transactionFactory->create();
         $transaction = $this->transactionFactory->create();
-
         try {
 
             /** @var Message $message */
@@ -83,7 +83,6 @@ class Save extends \Magento\Framework\App\Action\Action implements
                 ->setMessage($messageValues);
 
             $transaction->addObject($message);
-
             $transaction->save();
             $message = __('Saved');
         } catch (\Exception $e) {

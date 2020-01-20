@@ -6,11 +6,13 @@ use Magento\Framework\Exception\LocalizedException;
 
 /**
  * @method int getAuthorId()
- * @method  $this setAuthorId(int $authorId)
+ * @method $this setAuthorId(int $authorId)
  * @method int getWebsiteId()
  * @method $this setWebsiteId(int $websiteId)
  * @method string getMessage()
  * @method $this setMessage(string $message)
+ * @method int getCreatedAt()
+ * @method $this setCreatedAt(int $createdAt)
  */
 class Message extends \Magento\Framework\Model\AbstractModel
 {
@@ -52,7 +54,6 @@ class Message extends \Magento\Framework\Model\AbstractModel
         return $this;
     }
 
-
     /** @throws LocalizedException */
     public function validate(): void
     {
@@ -64,5 +65,4 @@ class Message extends \Magento\Framework\Model\AbstractModel
             throw new LocalizedException(__('Cant\'t send message: is not set:', 'website_id'));
         }
     }
-
 }

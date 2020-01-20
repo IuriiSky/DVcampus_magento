@@ -73,7 +73,7 @@ define([
             $('#body-box-chat').append('<span class="date-time"></span>');
             $('#body-box-chat > span:last-child').text(dateMessage);
             $('#body-box-chat').append('<p class="message"></p>');
-            $('#body-box-chat > p:last-child').text(message).append('<span class="message-time"></span>');
+            $('#body-box-chat > p:last-child').text(message);
             $('#user-message-question').val('');
         }
 
