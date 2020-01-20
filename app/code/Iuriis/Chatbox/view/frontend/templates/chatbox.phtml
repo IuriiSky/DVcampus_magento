@@ -6,6 +6,21 @@
         <p class="message admin-message"> <?= $block->escapeHtml(__('Please, ask a questions!')) ?></p>
     </div>
     <div class="textarea-box-chat">
+
+<!--        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();-->
+<!--        $model=$objectManager->create('Test\Welcome\Model\Welcome');-->
+<!--        $datacollection=$model->getCollection();-->
+<!---->
+<!--        echo "<table border=1><tr align=center><th>Id</th><th>Fist Name</th><th>Last Name</th></tr>";-->
+<!--        foreach ($datacollection as $data) {-->
+<!--            echo "<tr align=center>";-->
+<!--            echo "<td>" . $data->getId() . "</td>";-->
+<!--            echo "<td>" . $data->getFirstname() . "</td>";-->
+<!--            echo "<td>" . $data->getLastname() . "</td>";-->
+<!--            echo "</tr>";-->
+<!--        }-->
+<!--        echo "</table>";-->
+
         <form action="javascript:void(0);"
               class="form"
               data-mage-init='{"iuriis_chatbox_form":{
@@ -13,9 +28,10 @@
               id="iuriis-chat-box-form"
               method="post">
             <label for="user-message-question"></label>
-            <textarea autofocus data-validate="{required: true}"
+            <textarea autofocus
+                      data-validate="{required: true}"
                       id="user-message-question"
-                      name="customermesage"
+                      name="messages"
                       rows="1"
                       title="<?= $block->escapeHtmlAttr(__('Textarea')) ?>">
             </textarea>

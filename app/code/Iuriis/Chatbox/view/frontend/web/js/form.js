@@ -65,7 +65,7 @@ define([
                     $('body').trigger('processStop');
                     alert({
                         title: $.mage.__('Success'),
-                        content: $.mage.__(response.message),
+                        content: response.message,
                         buttons: [{
                             text: $.mage.__('Accept'),
                             class: 'action primary accept',
