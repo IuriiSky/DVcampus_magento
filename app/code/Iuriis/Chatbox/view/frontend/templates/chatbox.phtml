@@ -1,22 +1,21 @@
-<?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
+<?php /** @var \Iuriis\Chatbox\Block\ChatBox $block */ ?>
 <div id="iuriis-chat-box"
      style="display: none;"
      data-mage-init='{"iuriis_chatbox_chatBox":{}}'>
     <div id="body-box-chat">
         <p class="message admin-message"> <?= $block->escapeHtml(__('Please, ask a questions!')) ?></p>
-
-        <?php
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $model = $objectManager->create('Iuriis\Chatbox\Model\Message');
-        $dataCollection = $model->getCollection();
-        echo $model->getSelect();
-        foreach ($dataCollection as $data) {
-//            echo '<span class="date-time">' . $data->getCreatedAt() . '</span>';
-            echo '<p class="message">' . $data->getMessage() . '</p>';
-        }
-        ?>
-
-    </div>
+        <?php if ($block->getMessageCollection()->count()): ?>
+            <ul class="chat-message-list">
+                <?php /** @var \Iuriis\Chatbox\Model\Message $message */
+                    foreach ($block->getMessageCollection() as $message) :
+                ?>
+                    <li class="chat-message <?= $block->escapeHtml($message->getAuthorType()) ?>">
+                        <span class="date-time"><?= $block->escapeHtml($message->getCreatedAt()) ?></span>
+                        <span class="message"><?= $block->escapeHtml($message->getMessage()) ?></span>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
     <div class="textarea-box-chat">
         <form action="javascript:void(0);"
               class="form"

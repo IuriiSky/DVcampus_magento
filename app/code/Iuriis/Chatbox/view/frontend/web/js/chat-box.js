@@ -70,11 +70,13 @@ define([
 
             var message = $('#user-message-question').val();
 
-            $('#body-box-chat').append('<span class="date-time"></span>');
-            $('#body-box-chat > span:last-child').text(dateMessage);
-            $('#body-box-chat').append('<p class="message"></p>');
-            $('#body-box-chat > p:last-child').text(message);
+            $('.chat-message-list').append('<li class="chat-message"></li>');
+            $('.chat-message-list > li:last-child').append('<span class="date-time"></span>');
+            $('.chat-message-list > li:last-child').append('<span class="message"></span>');
+            $('.chat-message-list > li:last-child > span:first-child').text(dateMessage);
+            $('.chat-message-list > li:last-child > span:last-child').text(message);
             $('#user-message-question').val('');
+
         }
 
     });

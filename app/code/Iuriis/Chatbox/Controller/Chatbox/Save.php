@@ -4,10 +4,8 @@ declare(strict_types=1);
 namespace Iuriis\Chatbox\Controller\Chatbox;
 
 use Iuriis\Chatbox\Model\Message;
-//use Iuuriis\Chatbox\Model\ResourceModel\Message\Collection as MessageCollection;
 use Magento\Framework\Controller\Result\Json as JsonResult;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\DB\Transaction;
 
 class Save extends \Magento\Framework\App\Action\Action implements
     \Magento\Framework\App\Action\HttpPostActionInterface
@@ -17,15 +15,10 @@ class Save extends \Magento\Framework\App\Action\Action implements
      */
     private $messageFactory;
 
-//    /**
-//     * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
-//     */
-//    private $messageCollectionFactory;
-
     /**
-     * @var \Magento\Framework\DB\TransactionFactory $transactionFactory
+     * @var \Iuriis\Chatbox\Model\ResourceModel\Message
      */
-    private $transactionFactory;
+    private $messageResource;
 
     /**
      * @var \Magento\Store\Model\StoreManagerInterface $storeManager
@@ -39,8 +32,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
 
     /**
      * @param \Iuriis\Chatbox\Model\MessageFactory $messageFactory
-//     * @param \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
-     * @param \Magento\Framework\DB\TransactionFactory $transactionFactory
+     * @param \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Framework\App\Action\Context $context
@@ -48,16 +40,14 @@ class Save extends \Magento\Framework\App\Action\Action implements
 
     public function __construct(
         \Iuriis\Chatbox\Model\MessageFactory $messageFactory,
-//        \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory,
-        \Magento\Framework\DB\TransactionFactory $transactionFactory,
+        \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Psr\Log\LoggerInterface $logger,
         \Magento\Framework\App\Action\Context $context
     ) {
         parent::__construct($context);
         $this->messageFactory = $messageFactory;
-//        $this->messageCollectionFactory = $messageCollectionFactory;
-        $this->transactionFactory = $transactionFactory;
+        $this->messageResource = $messageResource;
         $this->storeManager = $storeManager;
         $this->logger = $logger;
     }
@@ -68,22 +58,20 @@ class Save extends \Magento\Framework\App\Action\Action implements
      */
     public function execute()
     {
-
-        /** @var Transaction $transaction */
-        //$transaction = $this->transactionFactory->create();
-        $transaction = $this->transactionFactory->create();
         try {
-
             /** @var Message $message */
             $message = $this->messageFactory->create();
 
             $messageValues = $this->getRequest()->getParam('messages');
-            $message->setAuthorId(1)
-                ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
-                ->setMessage($messageValues);
 
-            $transaction->addObject($message);
-            $transaction->save();
+            /** TODO implement and ->setChatHash  */
+            $message->setAuthorType('Customer')
+                ->setAuthorId(1)
+                ->setMessage($messageValues)
+                ->setWebsiteId((int)$this->storeManager->getWebsite()->getId());
+
+            $this->messageResource->save($message);
+
             $message = __('Saved');
         } catch (\Exception $e) {
             $this->logger->critical($e);
