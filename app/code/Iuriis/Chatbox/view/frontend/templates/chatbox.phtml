@@ -4,10 +4,10 @@
      data-mage-init='{"iuriis_chatbox_chatBox":{}}'>
     <div id="body-box-chat">
         <p class="message admin-message"> <?= $block->escapeHtml(__('Please, ask a questions!')) ?></p>
-        <?php if ($block->getMessageCollection()->count()): ?>
+        <?php if ($messageArray = $block->getMessageCollection()): ?>
             <ul class="chat-message-list">
                 <?php /** @var \Iuriis\Chatbox\Model\Message $message */
-                    foreach ($block->getMessageCollection() as $message) :
+                    foreach ($messageArray as $message) :
                 ?>
                     <li class="chat-message <?= $block->escapeHtml($message->getAuthorType()) ?>">
                         <span class="date-time"><?= $block->escapeHtml($message->getCreatedAt()) ?></span>
@@ -29,9 +29,8 @@
                       id="user-message-question"
                       name="messages"
                       rows="1"
-                      title="<?= $block->escapeHtmlAttr(__('Textarea')) ?>">
-            </textarea>
-            <input id="hideit" name="form_key" type="hidden" value="<?= $block->getBlockHtml('formkey')?>">
+                      title="<?= $block->escapeHtmlAttr(__('Textarea')) ?>"
+            ></textarea>
         </form>
     </div>
     <button type="submit" class="action primary" id="iuriis-chat-send-ask">

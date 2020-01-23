@@ -8,7 +8,7 @@
         <column xsi:type="varchar" name="author_type" nullable="false" length="127"
                 comment="Author Type"
         />
-        <column xsi:type="int" name="author_id" padding="10" unsigned="true" nullable="false"
+        <column xsi:type="int" name="author_id" padding="10" unsigned="true" nullable="false" default="0"
                 comment="Author ID"
         />
         <column xsi:type="varchar" name="author_name" nullable="false" length="127"

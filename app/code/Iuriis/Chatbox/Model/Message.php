@@ -22,6 +22,10 @@ use Magento\Framework\Exception\LocalizedException;
  */
 class Message extends \Magento\Framework\Model\AbstractModel
 {
+    public const AUTHOR_TYPE_CUSTOMER = 'customer';
+
+    public const AUTHOR_TYPE_ADMIN = 'admin';
+
     /**
      * @inheritDoc
      */
@@ -45,8 +49,8 @@ class Message extends \Magento\Framework\Model\AbstractModel
     /** @throws LocalizedException */
     public function validate(): void
     {
-        if (!$this->getAuthorId()) {
-            throw new LocalizedException(__('Can\'t send message: is not set.', 'customer_id'));
+        if (!$this->getAuthorId() && $this->getAuthorType() === self::AUTHOR_TYPE_ADMIN) {
+            throw new LocalizedException(__('Can\'t send message: is not set.', 'author_id'));
         }
 
         if (!$this->getWebsiteId()) {
