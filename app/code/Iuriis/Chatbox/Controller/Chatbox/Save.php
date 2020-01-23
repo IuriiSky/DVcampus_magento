@@ -37,6 +37,10 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @var \Magento\Framework\Data\Form\FormKey\Validator
      */
     protected $formKeyValidator;
+    /**
+     * @var \Magento\Framework\App\ResourceConnection
+     */
+    private $resourceDb;
 
     /**
      * @param \Iuriis\Chatbox\Model\MessageFactory $messageFactory
@@ -45,6 +49,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
+     * @param \Magento\Framework\App\ResourceConnection $resourceDb
      * @param \Magento\Framework\App\Action\Context $context
      */
 
@@ -55,6 +60,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
         \Psr\Log\LoggerInterface $logger,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
+        \Magento\Framework\App\ResourceConnection $resourceDb,
         \Magento\Framework\App\Action\Context $context
     ) {
         parent::__construct($context);
@@ -64,6 +70,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
         $this->logger = $logger;
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
+        $this->resourceDb = $resourceDb;
     }
 
     /**
@@ -106,6 +113,14 @@ class Save extends \Magento\Framework\App\Action\Action implements
             $message = __('Your message can\'t be saved');
         }
 
+        $connection = $this->resourceDb->getConnection(\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION);
+        $connection->rawQuery('DELETE FROM `m2_iuriis_chatbox` WHERE `m2_iuriis_chatbox`.`message_id` = 102');
+
+//        if ($this->customerSession->isLoggedIn()) {
+//            $currentuserId = $this->customerSession->getId();
+//            $chatHashId = $this->customerSession->getChatHash();
+//        }
+
         /** @var JsonResult $response */
         $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
         $response->setData([
@@ -114,4 +129,21 @@ class Save extends \Magento\Framework\App\Action\Action implements
 
         return $response;
     }
+//
+//    /**
+//     * @inheritDoc
+//     * https://iurii-stepanenko.local/chatbox/chatbox/save
+//     */
+//    public function requestDb()
+//    {
+//        try {
+//            if ($this->customerSession->isLoggedIn()) {
+//                $currentuserId = $this->customerSession->getId();
+//                $chatHashId = $this->customerSession->getChatHash();
+//            }
+//        } catch (\Exception $e) {
+//            $this->logger->critical($e);
+//            $message = __('Your message can\'t be saved');
+//        }
+//    }
 }
