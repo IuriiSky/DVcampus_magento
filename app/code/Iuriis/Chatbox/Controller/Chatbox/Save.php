@@ -41,10 +41,15 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @var \Magento\Framework\App\ResourceConnection
      */
     private $resourceDb;
+    /**
+     * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory
+     */
+    private $messageCollectionFactory;
 
     /**
      * @param \Iuriis\Chatbox\Model\MessageFactory $messageFactory
      * @param \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource
+     * @param \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Customer\Model\Session $customerSession
@@ -56,6 +61,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
     public function __construct(
         \Iuriis\Chatbox\Model\MessageFactory $messageFactory,
         \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource,
+        \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Psr\Log\LoggerInterface $logger,
         \Magento\Customer\Model\Session $customerSession,
@@ -66,6 +72,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
         parent::__construct($context);
         $this->messageFactory = $messageFactory;
         $this->messageResource = $messageResource;
+        $this->messageCollectionFactory = $messageCollectionFactory;
         $this->storeManager = $storeManager;
         $this->logger = $logger;
         $this->customerSession = $customerSession;
@@ -84,10 +91,6 @@ class Save extends \Magento\Framework\App\Action\Action implements
                 throw new \Exception(__('Your message can\'t be saved'));
             }
 
-            /** @var Message $message */
-            $message = $this->messageFactory->create();
-            $messageValues = $this->getRequest()->getParam('messages');
-
             if ($this->customerSession->getChatHash()) {
                 $hashId = $this->customerSession->getChatHash();
             } else {
@@ -95,6 +98,9 @@ class Save extends \Magento\Framework\App\Action\Action implements
                 $this->customerSession->setChatHash($hashId);
             }
 
+            /** @var Message $message */
+            $message = $this->messageFactory->create();
+            $messageValues = $this->getRequest()->getParam('messages');
             $message->setAuthorType(Message::AUTHOR_TYPE_CUSTOMER)
                 ->setMessage($messageValues)
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
@@ -113,13 +119,28 @@ class Save extends \Magento\Framework\App\Action\Action implements
             $message = __('Your message can\'t be saved');
         }
 
-        $connection = $this->resourceDb->getConnection(\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION);
-        $connection->rawQuery('DELETE FROM `m2_iuriis_chatbox` WHERE `m2_iuriis_chatbox`.`message_id` = 102');
-
 //        if ($this->customerSession->isLoggedIn()) {
-//            $currentuserId = $this->customerSession->getId();
-//            $chatHashId = $this->customerSession->getChatHash();
+//            $anonymMessages = $this->messageCollectionFactory->create();
+//            $anonymMessages->addAuthorIdFilter(0);
+//            //->addFieldToFilter('chat_hash', $this->customerSession->getChatHash());
+//            $anonymMessages->getItems();
+//            foreach ($anonymMessages as $updateMessage) {
+//                //$updateMessage->authorId = $this->customerSession->getId();
+//                $updateMessage->authorId = 1;
+//                //...
+//            }
+//            $anonymMessages->update();
 //        }
+
+//        /** @var MessageCollection $messageCollection */
+//        $messageCollection = $this->messageCollectionFactory->create();
+//        $messageCollection->setOrder('message_id', Select::SQL_DESC)
+//            ->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
+//            ->setPageSize(10);
+//        $messageCollection->getItems();
+
+//        $connection = $this->resourceDb->getConnection(\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION);
+//        $connection->rawQuery('DELETE FROM `m2_iuriis_chatbox` WHERE `m2_iuriis_chatbox`.`message_id` = 102');
 
         /** @var JsonResult $response */
         $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
@@ -129,21 +150,4 @@ class Save extends \Magento\Framework\App\Action\Action implements
 
         return $response;
     }
-//
-//    /**
-//     * @inheritDoc
-//     * https://iurii-stepanenko.local/chatbox/chatbox/save
-//     */
-//    public function requestDb()
-//    {
-//        try {
-//            if ($this->customerSession->isLoggedIn()) {
-//                $currentuserId = $this->customerSession->getId();
-//                $chatHashId = $this->customerSession->getChatHash();
-//            }
-//        } catch (\Exception $e) {
-//            $this->logger->critical($e);
-//            $message = __('Your message can\'t be saved');
-//        }
-//    }
 }
