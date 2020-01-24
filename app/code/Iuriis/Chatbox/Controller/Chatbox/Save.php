@@ -41,10 +41,15 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @var \Magento\Framework\App\ResourceConnection
      */
     private $resourceDb;
+    /**
+     * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory
+     */
+    private $messageCollectionFactory;
 
     /**
      * @param \Iuriis\Chatbox\Model\MessageFactory $messageFactory
      * @param \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource
+     * @param \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Customer\Model\Session $customerSession
@@ -56,13 +61,15 @@ class Save extends \Magento\Framework\App\Action\Action implements
     public function __construct(
         \Iuriis\Chatbox\Model\MessageFactory $messageFactory,
         \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource,
+        \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Psr\Log\LoggerInterface $logger,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\App\ResourceConnection $resourceDb,
         \Magento\Framework\App\Action\Context $context
-    ) {
+    )
+    {
         parent::__construct($context);
         $this->messageFactory = $messageFactory;
         $this->messageResource = $messageResource;
@@ -71,6 +78,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
         $this->resourceDb = $resourceDb;
+        $this->messageCollectionFactory = $messageCollectionFactory;
     }
 
     /**
@@ -113,13 +121,21 @@ class Save extends \Magento\Framework\App\Action\Action implements
             $message = __('Your message can\'t be saved');
         }
 
-        $connection = $this->resourceDb->getConnection(\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION);
-        $connection->rawQuery('DELETE FROM `m2_iuriis_chatbox` WHERE `m2_iuriis_chatbox`.`message_id` = 102');
+        if ($this->customerSession->isLoggedIn()) {
 
-//        if ($this->customerSession->isLoggedIn()) {
-//            $currentuserId = $this->customerSession->getId();
-//            $chatHashId = $this->customerSession->getChatHash();
-//        }
+            /** @var MessageCollection $messageCollection */
+            $messageCollection = $this->messageCollectionFactory->create();
+            $messageCollection->addFieldToFilter('author_id', 0)
+                ->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
+                ->getItems();
+
+            foreach ($messageCollection as $updateAuthorId) {
+                $updateAuthorId->setAuthorId($this->customerSession->getCustomerId());
+            }
+
+            $messageCollection->save();
+        }
+
 
         /** @var JsonResult $response */
         $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
@@ -129,21 +145,4 @@ class Save extends \Magento\Framework\App\Action\Action implements
 
         return $response;
     }
-//
-//    /**
-//     * @inheritDoc
-//     * https://iurii-stepanenko.local/chatbox/chatbox/save
-//     */
-//    public function requestDb()
-//    {
-//        try {
-//            if ($this->customerSession->isLoggedIn()) {
-//                $currentuserId = $this->customerSession->getId();
-//                $chatHashId = $this->customerSession->getChatHash();
-//            }
-//        } catch (\Exception $e) {
-//            $this->logger->critical($e);
-//            $message = __('Your message can\'t be saved');
-//        }
-//    }
 }
