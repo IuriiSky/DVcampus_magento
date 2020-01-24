@@ -134,8 +134,17 @@ class Save extends \Magento\Framework\App\Action\Action implements
             }
 
             $messageCollection->save();
-        }
 
+            $newMessageCollection = $this->messageCollectionFactory->create();
+            $newHash = $newMessageCollection->addFieldToFilter('author_id', $this->customerSession->getCustomerId())
+                ->getFirstItem()->getData('chat_hash');
+
+            foreach ($newMessageCollection as $updateChatHash) {
+                $updateChatHash->setChatHash($newHash);
+            }
+
+            $newMessageCollection->save();
+        }
 
         /** @var JsonResult $response */
         $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
