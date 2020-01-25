@@ -41,16 +41,30 @@ class ChatBox extends \Magento\Framework\View\Element\Template
      */
     public function getMessageCollection(): array
     {
-        if (!$this->customerSession->getChatHash()) {
+        if (!$this->customerSession->getCustomerId()) {
             return [];
         }
 
         /** @var MessageCollection $messageCollection */
         $messageCollection = $this->messageCollectionFactory->create();
         $messageCollection->setOrder('message_id', Select::SQL_DESC)
-            ->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
+            ->addFieldToFilter('author_id', $this->customerSession->getCustomerId())
             ->setPageSize(10);
 
         return array_reverse($messageCollection->getItems());
     }
+//    public function getMessageCollection(): array
+//    {
+//        if (!$this->customerSession->getChatHash()) {
+//            return [];
+//        }
+//
+//        /** @var MessageCollection $messageCollection */
+//        $messageCollection = $this->messageCollectionFactory->create();
+//        $messageCollection->setOrder('message_id', Select::SQL_DESC)
+//            ->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
+//            ->setPageSize(10);
+//
+//        return array_reverse($messageCollection->getItems());
+//    }
 }

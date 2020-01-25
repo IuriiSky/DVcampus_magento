@@ -68,7 +68,8 @@ class Save extends \Magento\Framework\App\Action\Action implements
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\App\ResourceConnection $resourceDb,
         \Magento\Framework\App\Action\Context $context
-    ) {
+    )
+    {
         parent::__construct($context);
         $this->messageFactory = $messageFactory;
         $this->messageResource = $messageResource;
@@ -78,6 +79,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
         $this->resourceDb = $resourceDb;
+        $this->messageCollectionFactory = $messageCollectionFactory;
     }
 
     /**
@@ -119,28 +121,30 @@ class Save extends \Magento\Framework\App\Action\Action implements
             $message = __('Your message can\'t be saved');
         }
 
-//        if ($this->customerSession->isLoggedIn()) {
-//            $anonymMessages = $this->messageCollectionFactory->create();
-//            $anonymMessages->addAuthorIdFilter(0);
-//            //->addFieldToFilter('chat_hash', $this->customerSession->getChatHash());
-//            $anonymMessages->getItems();
-//            foreach ($anonymMessages as $updateMessage) {
-//                //$updateMessage->authorId = $this->customerSession->getId();
-//                $updateMessage->authorId = 1;
-//                //...
-//            }
-//            $anonymMessages->update();
-//        }
+        if ($this->customerSession->isLoggedIn()) {
 
-//        /** @var MessageCollection $messageCollection */
-//        $messageCollection = $this->messageCollectionFactory->create();
-//        $messageCollection->setOrder('message_id', Select::SQL_DESC)
-//            ->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
-//            ->setPageSize(10);
-//        $messageCollection->getItems();
+            /** @var MessageCollection $messageCollection */
+            $messageCollection = $this->messageCollectionFactory->create();
+            $messageCollection->addFieldToFilter('author_id', 0)
+                ->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
+                ->getItems();
 
-//        $connection = $this->resourceDb->getConnection(\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION);
-//        $connection->rawQuery('DELETE FROM `m2_iuriis_chatbox` WHERE `m2_iuriis_chatbox`.`message_id` = 102');
+            foreach ($messageCollection as $updateAuthorId) {
+                $updateAuthorId->setAuthorId($this->customerSession->getCustomerId());
+            }
+
+            $messageCollection->save();
+
+            $newMessageCollection = $this->messageCollectionFactory->create();
+            $newHash = $newMessageCollection->addFieldToFilter('author_id', $this->customerSession->getCustomerId())
+                ->getFirstItem()->getData('chat_hash');
+
+            foreach ($newMessageCollection as $updateChatHash) {
+                $updateChatHash->setChatHash($newHash);
+            }
+
+            $newMessageCollection->save();
+        }
 
         /** @var JsonResult $response */
         $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
