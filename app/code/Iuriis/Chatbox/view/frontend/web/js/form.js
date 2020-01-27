@@ -1,9 +1,10 @@
 define([
     'jquery',
+    'Magento_Customer/js/customer-data',
     'Magento_Ui/js/modal/alert',
     'mage/translate'
 
-], function ($, alert) {
+], function ($, customerData, alert) {
     'use strict';
 
     $.widget('iuriisChatbox.form', {
@@ -16,6 +17,10 @@ define([
          */
         _create: function () {
             $(document).on('iuriis_chatbox_saveMessage.iuriis_chatbox', $.proxy(this.saveMessage, this));
+            console.log(customerData.get('customer-chat-messages')());
+            customerData.get('customer-chat-messages').subscribe(function (value) {
+                console.log(value);
+            });
         },
 
         _destroy: function () {
