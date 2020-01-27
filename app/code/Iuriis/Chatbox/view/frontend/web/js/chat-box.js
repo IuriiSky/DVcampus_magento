@@ -23,6 +23,29 @@ define([
 
             // make the hidden form visible after the styles are initialized
             $(this.element).show();
+
+            this.messages = [{
+                authorType: 'admin',
+                createdAt: '2020',
+                message: 'Lorem ipsum dolor sit amet'
+            }, {
+                authorType: 'admin',
+                createdAt: '2020',
+                message: 'Lorem ipsum dolor sit amet'
+            },{
+                authorType: 'customer',
+                createdAt: '2049',
+                message: 'Test message form customer'
+            }, {
+                authorType: 'customer',
+                createdAt: '2049',
+                message: 'Test message form customer 2'
+            }, {
+                authorType: 'admin',
+                createdAt: '2020',
+                message: 'Lorem ipsum'
+            }];
+            this.renderMessages();
         },
 
         _destroy: function () {
@@ -64,19 +87,31 @@ define([
             return dd + '.' + mm + '.' + yy + ' ' + hours + '.' + minutes;
         },
 
+        renderMessages: function () {
+            var messagesHtml = '';
+
+            this.messages.forEach(function (message) {
+                messagesHtml += `
+                    <li class="chat-message ${message.authorType}">
+                        <span class="date-time">${message.createdAt}</span>
+                         <span class="message">${message.message}</span>
+                    </li>
+                `;
+            });
+
+            $('.chat-message-list').html(messagesHtml);
+        },
+
         addMessage: function () {
-            var currentDate = new Date();
-            var dateMessage = this.formatDate(currentDate);
+            var currentDate = new Date(),
+                message = {
+                    authorType: 'customer',
+                    createdAt: this.formatDate(currentDate),
+                    message: $('#user-message-question').val('')
+                };
 
-            var message = $('#user-message-question').val();
-
-            $('.chat-message-list').append('<li class="chat-message"></li>');
-            $('.chat-message-list > li:last-child').append('<span class="date-time"></span>');
-            $('.chat-message-list > li:last-child').append('<span class="message"></span>');
-            $('.chat-message-list > li:last-child > span:first-child').text(dateMessage);
-            $('.chat-message-list > li:last-child > span:last-child').text(message);
-            $('#user-message-question').val('');
-
+            this.messages.push(message);
+            this.renderMessages();
         }
 
     });

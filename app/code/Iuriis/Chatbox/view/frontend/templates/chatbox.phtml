@@ -4,18 +4,8 @@
      data-mage-init='{"iuriis_chatbox_chatBox":{}}'>
     <div id="body-box-chat">
         <p class="message admin-message"> <?= $block->escapeHtml(__('Please, ask a questions!')) ?></p>
-        <?php if ($messageArray = $block->getMessageCollection()): ?>
-            <ul class="chat-message-list">
-                <?php /** @var \Iuriis\Chatbox\Model\Message $message */
-                    foreach ($messageArray as $message) :
-                ?>
-                    <li class="chat-message <?= $block->escapeHtml($message->getAuthorType()) ?>">
-                        <span class="date-time"><?= $block->escapeHtml($message->getCreatedAt()) ?></span>
-                        <span class="message"><?= $block->escapeHtml($message->getMessage()) ?></span>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+        <ul class="chat-message-list"></ul>
+    </div>
     <div class="textarea-box-chat">
         <form action="javascript:void(0);"
               class="form"

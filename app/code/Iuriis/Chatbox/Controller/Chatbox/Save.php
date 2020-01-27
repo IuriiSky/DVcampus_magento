@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace Iuriis\Chatbox\Controller\Chatbox;
 
 use Iuriis\Chatbox\Model\Message;
+use Iuriis\Chatbox\Model\ResourceModel\Message\Collection as MessageCollection;
 use Magento\Framework\Controller\Result\Json as JsonResult;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\DB\Select;
 
 class Save extends \Magento\Framework\App\Action\Action implements
     \Magento\Framework\App\Action\HttpPostActionInterface
@@ -68,8 +70,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\App\ResourceConnection $resourceDb,
         \Magento\Framework\App\Action\Context $context
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->messageFactory = $messageFactory;
         $this->messageResource = $messageResource;
@@ -79,7 +80,6 @@ class Save extends \Magento\Framework\App\Action\Action implements
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
         $this->resourceDb = $resourceDb;
-        $this->messageCollectionFactory = $messageCollectionFactory;
     }
 
     /**
@@ -90,9 +90,40 @@ class Save extends \Magento\Framework\App\Action\Action implements
     {
         try {
             if (!$this->formKeyValidator->validate($this->getRequest())) {
-                throw new \Exception(__('Your message can\'t be saved'));
+                throw new \InvalidArgumentException(__('Your message can\'t be saved'));
             }
 
+            // Update existing customer messages
+            // @TODO: move this to observers
+            if ($this->customerSession->isLoggedIn()) {
+                $newMessageCollection = $this->messageCollectionFactory->create();
+                $newMessageCollection->addFieldToFilter('author_id', $this->customerSession->getCustomerId())
+                    ->getSelect()
+                    ->order('message_id ' . Select::SQL_ASC)
+                    ->limit(1);
+
+                $customerChatHash = $newMessageCollection->getFirstItem()->getData('chat_hash');
+
+                /** @var MessageCollection $messageCollection */
+                $messageCollection = $this->messageCollectionFactory->create();
+                $messageCollection->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
+                    ->getItems();
+
+                /** @var Message $message */
+                foreach ($messageCollection as $message) {
+                    if (!$message->getAuthorId()) {
+                        $message->setAuthorId($this->customerSession->getCustomerId());
+                    }
+
+                    $message->setChatHash($customerChatHash);
+                }
+
+                $messageCollection->save();
+
+                $this->customerSession->getChatHash($customerChatHash);
+            }
+
+            // Save new message with the proper chat hash
             if ($this->customerSession->getChatHash()) {
                 $hashId = $this->customerSession->getChatHash();
             } else {
@@ -119,31 +150,6 @@ class Save extends \Magento\Framework\App\Action\Action implements
         } catch (\Exception $e) {
             $this->logger->critical($e);
             $message = __('Your message can\'t be saved');
-        }
-
-        if ($this->customerSession->isLoggedIn()) {
-
-            /** @var MessageCollection $messageCollection */
-            $messageCollection = $this->messageCollectionFactory->create();
-            $messageCollection->addFieldToFilter('author_id', 0)
-                ->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
-                ->getItems();
-
-            foreach ($messageCollection as $updateAuthorId) {
-                $updateAuthorId->setAuthorId($this->customerSession->getCustomerId());
-            }
-
-            $messageCollection->save();
-
-            $newMessageCollection = $this->messageCollectionFactory->create();
-            $newHash = $newMessageCollection->addFieldToFilter('author_id', $this->customerSession->getCustomerId())
-                ->getFirstItem()->getData('chat_hash');
-
-            foreach ($newMessageCollection as $updateChatHash) {
-                $updateChatHash->setChatHash($newHash);
-            }
-
-            $newMessageCollection->save();
         }
 
         /** @var JsonResult $response */
