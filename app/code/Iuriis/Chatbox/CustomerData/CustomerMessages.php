@@ -2,9 +2,8 @@
 
 namespace Iuriis\Chatbox\CustomerData;
 
-use Iuriis\Chatbox\Model\ResourceModel\Message;
-use Iuriis\Chatbox\Model\ResourceModel\Message\Collection as MessageCollection;
 use Magento\Framework\DB\Select;
+use Iuriis\Chatbox\Model\ResourceModel\Message\Collection as MessageCollection;
 
 class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceInterface
 {
@@ -13,7 +12,7 @@ class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceIn
      */
     private $customerSession;
     /**
-     * @var \Iurii\Chatbox\Model\ResourceModel\Message\CollectionFactory
+     * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory
      */
     private $messageCollectionFactory;
     /**
@@ -24,12 +23,12 @@ class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceIn
     /**
      * CustomerMessages constructor.
      * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Iurii\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
+     * @param \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      */
-    private function __construct(
+    public function __construct(
         \Magento\Customer\Model\Session $customerSession,
-        \Iurii\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory,
+        \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         $this->customerSession = $customerSession;
@@ -38,15 +37,11 @@ class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceIn
     }
 
     /**
-     * Get data
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getSectionData(): array
     {
-        if (!$this->customerSession->getChatHash()) {
-            return [];
-        }
+
 
         /** @var MessageCollection $messageCollection */
         $messageCollection = $this->messageCollectionFactory->create();

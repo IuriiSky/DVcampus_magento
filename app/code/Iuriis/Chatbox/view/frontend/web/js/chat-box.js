@@ -92,9 +92,9 @@ define([
 
             this.messages.forEach(function (message) {
                 messagesHtml += `
-                    <li class="chat-message ${message.authorType}">
+                    <li class="chat-message ">
                         <span class="date-time">${message.createdAt}</span>
-                         <span class="message">${message.message}</span>
+                         <span class="message ${message.authorType}">${message.message}</span>
                     </li>
                 `;
             });

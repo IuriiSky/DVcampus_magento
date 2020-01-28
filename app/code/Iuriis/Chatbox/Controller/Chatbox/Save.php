@@ -8,6 +8,7 @@ use Iuriis\Chatbox\Model\ResourceModel\Message\Collection as MessageCollection;
 use Magento\Framework\Controller\Result\Json as JsonResult;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\DB\Select;
+use Magento\Framework\DB\Transaction;
 
 class Save extends \Magento\Framework\App\Action\Action implements
     \Magento\Framework\App\Action\HttpPostActionInterface
@@ -31,22 +32,25 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @var \Psr\Log\LoggerInterface
      */
     private $logger;
+
     /**
      * @var \Magento\Customer\Model\Session
      */
     private $customerSession;
+
     /**
      * @var \Magento\Framework\Data\Form\FormKey\Validator
      */
     protected $formKeyValidator;
-    /**
-     * @var \Magento\Framework\App\ResourceConnection
-     */
-    private $resourceDb;
+
     /**
      * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory
      */
     private $messageCollectionFactory;
+    /**
+     * @var \Magento\Framework\DB\TransactionFactory $transactionFactory
+     */
+    private $transactionFactory;
 
     /**
      * @param \Iuriis\Chatbox\Model\MessageFactory $messageFactory
@@ -56,7 +60,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
-     * @param \Magento\Framework\App\ResourceConnection $resourceDb
+     * @param \Magento\Framework\DB\TransactionFactory $transactionFactory
      * @param \Magento\Framework\App\Action\Context $context
      */
 
@@ -68,7 +72,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
         \Psr\Log\LoggerInterface $logger,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
-        \Magento\Framework\App\ResourceConnection $resourceDb,
+        \Magento\Framework\DB\TransactionFactory $transactionFactory,
         \Magento\Framework\App\Action\Context $context
     ) {
         parent::__construct($context);
@@ -79,7 +83,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
         $this->logger = $logger;
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
-        $this->resourceDb = $resourceDb;
+        $this->transactionFactory = $transactionFactory;
     }
 
     /**
@@ -92,7 +96,6 @@ class Save extends \Magento\Framework\App\Action\Action implements
             if (!$this->formKeyValidator->validate($this->getRequest())) {
                 throw new \InvalidArgumentException(__('Your message can\'t be saved'));
             }
-
             // Update existing customer messages
             // @TODO: move this to observers
             if ($this->customerSession->isLoggedIn()) {
@@ -109,6 +112,9 @@ class Save extends \Magento\Framework\App\Action\Action implements
                 $messageCollection->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
                     ->getItems();
 
+                /** @var Transaction $transaction */
+                $transaction = $this->transactionFactory->create();
+
                 /** @var Message $message */
                 foreach ($messageCollection as $message) {
                     if (!$message->getAuthorId()) {
@@ -116,11 +122,12 @@ class Save extends \Magento\Framework\App\Action\Action implements
                     }
 
                     $message->setChatHash($customerChatHash);
+                    $transaction->addObject($message);
                 }
 
-                $messageCollection->save();
+                $transaction->save();
 
-                $this->customerSession->getChatHash($customerChatHash);
+                $this->customerSession->setChatHash($customerChatHash);
             }
 
             // Save new message with the proper chat hash
