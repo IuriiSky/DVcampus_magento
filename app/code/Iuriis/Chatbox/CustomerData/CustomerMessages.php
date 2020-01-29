@@ -2,8 +2,8 @@
 
 namespace Iuriis\Chatbox\CustomerData;
 
-use Magento\Framework\DB\Select;
 use Iuriis\Chatbox\Model\ResourceModel\Message\Collection as MessageCollection;
+use Magento\Framework\DB\Select;
 
 class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceInterface
 {
@@ -15,25 +15,18 @@ class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceIn
      * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory
      */
     private $messageCollectionFactory;
-    /**
-     * @var \Magento\Store\Model\StoreManagerInterface
-     */
-    private $storeManager;
 
     /**
      * CustomerMessages constructor.
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
-     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      */
     public function __construct(
         \Magento\Customer\Model\Session $customerSession,
-        \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory,
-        \Magento\Store\Model\StoreManagerInterface $storeManager
+        \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
     ) {
         $this->customerSession = $customerSession;
         $this->messageCollectionFactory = $messageCollectionFactory;
-        $this->storeManager = $storeManager;
     }
 
     /**
@@ -41,21 +34,22 @@ class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceIn
      */
     public function getSectionData(): array
     {
-
-
-        /** @var MessageCollection $messageCollection */
-        $messageCollection = $this->messageCollectionFactory->create();
-
         if ($this->customerSession->isLoggedIn()) {
-            $messageCollection->setOrder('created_at', Select::SQL_DESC)
+            $data = [];
+            /** @var MessageCollection $messageCollection */
+            $messageCollection = $this->messageCollectionFactory->create();
+            $messageCollection->setOrder('message_id', Select::SQL_DESC)
                 ->addFieldToFilter('author_id', $this->customerSession->getCustomerId())
                 ->setPageSize(10);
+
+            foreach ($messageCollection as $customerMessages) {
+                $data[$customerMessages->getAuthorId()] = $customerMessages->getMessage();
+            }
         } else {
-            $messageCollection->setOrder('created_at', Select::SQL_DESC)
-                ->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
-                ->setPageSize(10);
+            $data[$this->customerSession->getChatHash()] = $this->customerSession->getData('message') ?? [];
         }
 
-        return array_reverse($messageCollection->getItems());
+        return $data;
+
     }
 }

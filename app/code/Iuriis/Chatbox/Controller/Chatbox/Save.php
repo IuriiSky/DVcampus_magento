@@ -151,7 +151,9 @@ class Save extends \Magento\Framework\App\Action\Action implements
                     ->setAuthorId($this->customerSession->getId());
             }
 
+            $this->customerSession->setMessage($message->getMessage());
             $this->messageResource->save($message);
+
 
             $message = __('Saved');
         } catch (\Exception $e) {
