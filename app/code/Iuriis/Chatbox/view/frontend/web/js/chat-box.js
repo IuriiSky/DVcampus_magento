@@ -32,7 +32,7 @@ define([
                 authorType: 'admin',
                 createdAt: '2020',
                 message: 'Lorem ipsum dolor sit amet'
-            },{
+            }, {
                 authorType: 'customer',
                 createdAt: '2049',
                 message: 'Test message form customer'
@@ -107,14 +107,13 @@ define([
                 message = {
                     authorType: 'customer',
                     createdAt: this.formatDate(currentDate),
-                    message: $('#user-message-question').val('')
+                    message: $('#user-message-question').val()
                 };
 
             this.messages.push(message);
             this.renderMessages();
+            $('#user-message-question').val('')
         }
-
     });
-
     return $.iuriisChatbox.chatBox;
 });
