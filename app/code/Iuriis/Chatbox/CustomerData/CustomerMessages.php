@@ -34,20 +34,29 @@ class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceIn
      */
     public function getSectionData(): array
     {
+        //$data = ['test1','test2'];
+        $data = [];
         if ($this->customerSession->isLoggedIn()) {
-            $data = [];
             /** @var MessageCollection $messageCollection */
             $messageCollection = $this->messageCollectionFactory->create();
             $messageCollection->setOrder('message_id', Select::SQL_DESC)
                 ->addFieldToFilter('author_id', $this->customerSession->getCustomerId())
-                ->setPageSize(10);
+                ->setPageSize(5);
+
 
             foreach ($messageCollection as $customerMessages) {
-                $data[$customerMessages->getAuthorId()] = $customerMessages->getMessage();
+
+                //$data[$customerMessages->getAuthorId()] = $customerMessages->getMessage();
+//                array_push($data, $customerMessages);
+                array_push($data, $customerMessages->getMessage());
             }
+
         } else {
-            $data[$this->customerSession->getChatHash()] = $this->customerSession->getData('message') ?? [];
+//            array_push($data, $this->customerSession->getData('message') ?? []);
+//            $data[$this->customerSession->getChatHash()] = $this->customerSession->getData('message') ?? [];
+            $data = $this->customerSession->getData('message') ?? [];
         }
+
 
         return $data;
 

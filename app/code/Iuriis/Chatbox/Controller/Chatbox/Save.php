@@ -118,7 +118,9 @@ class Save extends \Magento\Framework\App\Action\Action implements
                 /** @var Message $message */
                 foreach ($messageCollection as $message) {
                     if (!$message->getAuthorId()) {
+                        //if ($message->getAuthorId() === 0) {
                         $message->setAuthorId($this->customerSession->getCustomerId());
+                        $message->setAuthorName($this->customerSession->getCustomer()->getName());
                     }
 
                     $message->setChatHash($customerChatHash);
@@ -151,9 +153,15 @@ class Save extends \Magento\Framework\App\Action\Action implements
                     ->setAuthorId($this->customerSession->getId());
             }
 
-            $this->customerSession->setMessage($message->getMessage());
-            $this->messageResource->save($message);
+//            $this->customerSession->setMessage($message->getMessage());
+            $this->customerSession->setMessage(
+                array_merge(
+                    $this->customerSession->getData('message') ?? [],
+                    [$message->getMessage()]
+                )
+            );
 
+            $this->messageResource->save($message);
 
             $message = __('Saved');
         } catch (\Exception $e) {
