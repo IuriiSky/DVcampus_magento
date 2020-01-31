@@ -1,0 +1,26 @@
+<div id="body-box-chat">
+    <p class="message admin-message">
+        <span translate="'Please, ask a questions!'"></span></p>
+    <ul class="chat-message-list"></ul>
+</div>
+<div class="textarea-box-chat">
+    <form action="javascript:void(0);"
+          class="form"
+          method="post">
+        <label for="user-message-question"></label>
+        <textarea data-bind="value: inputValue"
+                  autofocus
+                  data-validate="{required: true}"
+                  id="user-message-question"
+                  name="messages"
+                  rows="1"
+                  title="<?= $block->escapeHtmlAttr(__('Textarea')) ?>"
+        ></textarea>
+    </form>
+</div>
+<button type="submit" class="action primary" id="iuriis-chat-send-ask">
+    <?= $block->escapeHtml(__('Send')) ?>
+</button>
+<button type="button" id="iuriis-chat-close-chat-button">
+    <?= $block->escapeHtml(__('Close')) ?>
+</button>

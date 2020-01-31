@@ -1,9 +1,29 @@
 define([
     'jquery',
+    'ko',
+    'uiComponent',
     'iuriis_chatbox_form',
     'mage/translate'
-], function ($) {
+], function ($, ko, Component) {
     'use strict';
+
+    return Component.extend({
+        defaults: {
+            template: 'Iuriis_Chatbox/chat-box'
+        },
+
+        inputValue: ko.observable(),
+
+        initObservable: function () {
+            this._super();
+
+            this.inputValue.subscribe(function (newValue) {
+                console.log(newValue);
+            });
+
+            return this;
+        }
+    });
 
     $.widget('iuriisChatbox.chatBox', {
         options: {
