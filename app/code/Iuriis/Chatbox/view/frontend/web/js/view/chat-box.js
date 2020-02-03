@@ -9,7 +9,8 @@ define([
 
     return Component.extend({
         defaults: {
-            template: 'Iuriis_Chatbox/chat-box'
+            template: 'Iuriis_Chatbox/chat-box',
+            action: ''
         },
 
         chatBoxClass: ko.observable(''),

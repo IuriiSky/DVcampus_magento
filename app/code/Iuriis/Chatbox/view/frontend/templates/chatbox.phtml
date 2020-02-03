@@ -8,7 +8,8 @@
         "Magento_Ui/js/core/app": {
            "components": {
                 "chatBoxMessages": {
-                    "component": "iuriis_chatbox_chatBox"
+                    "component": "iuriis_chatbox_chatBox",
+                    "action": "<?= $block->escapeUrl($block->getUrl('iuriis_chatbox/chatbox/save')) ?>"
                 }
             }
         }
