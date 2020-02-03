@@ -15,7 +15,10 @@ define([
          */
         _create: function () {
             $(this.element).on('click.iuriis_chatbox', $.proxy(this.openChat, this));
-            $(this.element).on('iuriis_chatbox_close_chatbox.iuriis_chatbox', $.proxy(this.closeChat, this));
+            this.hash = Math.random().toString(36).substr(2, 9);
+            $(document).on('iuriis_chatbox_close_chatbox.' + this.hash, $.proxy(this.closeChat, this));
+
+            // $(document).on('iuriis_chatbox_close_chatbox.iuriis_chatbox', $.proxy(this.closeChat, this));
         },
 
         /**
@@ -24,7 +27,8 @@ define([
          */
         _destroy: function () {
             $(this.element).off('click.iuriis_chatbox');
-            $(this.element).off('iuriis_chatbox_close_chat.iuriis_chatbox');
+            // $(this.element).off('iuriis_chatbox_close_chat.iuriis_chatbox');
+            $(this.element).off('iuriis_chatbox_close_chat.' + this.hash);
         },
 
         openChat: function () {

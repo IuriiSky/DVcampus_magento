@@ -12,17 +12,26 @@ define([
             template: 'Iuriis_Chatbox/chat-box'
         },
 
-        inputValue: ko.observable(),
+        chatBoxClass: ko.observable(''),
 
-        initObservable: function () {
+        initialize: function () {
             this._super();
+            $(document).on('iuriis_chatbox_openChat.iuriis_chatbox', $.proxy(this.openChat, this));
+        },
 
-            this.inputValue.subscribe(function (newValue) {
-                console.log(newValue);
-            });
+        openChat: function () {
+            this.chatBoxClass('active')
+        },
 
-            return this;
-        }
+        closeChat: function () {
+            this.chatBoxClass('');
+            $(document).trigger('iuriis_chatbox_close_chatbox');
+        },
+
+        //     initObservable: function () {
+        //     this._super();
+        //     return this;
+        // }
     });
 
     $.widget('iuriisChatbox.chatBox', {

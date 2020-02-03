@@ -1,26 +1,40 @@
+<div id="iuriis-chat-box" data-bind="attr: { class: chatBoxClass }">
 <div id="body-box-chat">
     <p class="message admin-message">
         <span translate="'Please, ask a questions!'"></span></p>
     <ul class="chat-message-list"></ul>
 </div>
+
 <div class="textarea-box-chat">
     <form action="javascript:void(0);"
           class="form"
           method="post">
-        <label for="user-message-question"></label>
-        <textarea data-bind="value: inputValue"
+        <label data-bind=" attr: {'for': 'user-message-question'}"></label>
+        <textarea data-bind="
+                attr: {
+                    name: 'messages',
+                    title: $t('Textarea'),
+                    id: 'user-message-question'
+                     }"
                   autofocus
-                  data-validate="{required: true}"
-                  id="user-message-question"
-                  name="messages"
                   rows="1"
-                  title="<?= $block->escapeHtmlAttr(__('Textarea')) ?>"
         ></textarea>
     </form>
 </div>
-<button type="submit" class="action primary" id="iuriis-chat-send-ask">
-    <?= $block->escapeHtml(__('Send')) ?>
+
+<button type="submit"
+        class="action primary"
+        id="iuriis-chat-send-ask"
+        data-bind="attr: {title: $t('Send')}"
+>
+    <span translate="'Send'"></span>
 </button>
-<button type="button" id="iuriis-chat-close-chat-button">
-    <?= $block->escapeHtml(__('Close')) ?>
+
+<button type="button"
+        id="iuriis-chat-close-chat-button"
+        data-bind="attr: {title: $t('Close')},
+                    click: closeChat "
+>
+    <span translate="'Close'"></span>
 </button>
+</div>
