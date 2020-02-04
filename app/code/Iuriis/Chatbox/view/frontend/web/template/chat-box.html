@@ -2,40 +2,45 @@
     <div id="body-box-chat">
         <p class="message admin-message">
             <span translate="'Please, ask a questions!'"></span></p>
-        <ul class="chat-message-list"></ul>
+        <ul class="chat-message-list" data-bind="foreach: messagesList()['messages']">
+            <li class="chat-message ">
+                <span class="date-time" data-bind="text: created_at"></span>
+                <span class="message" data-bind="text: message"></span>
+            </li>
+        </ul>
     </div>
 
-    <div class="textarea-box-chat">
-        <form action="javascript:void(0);"
-              class="form"
-              method="post"
-              >
-            <label data-bind=" attr: {'for': 'user-message-question'}"></label>
-            <textarea data-bind="
-                attr: {
-                    name: 'messages',
-                    title: $t('Textarea'),
-                    id: 'user-message-question'}"
-                      autofocus
-                      rows="1"
-            ></textarea>
-        </form>
-    </div>
-
-    <button type="submit"
-            class="action primary"
-            id="iuriis-chat-send-ask"
-            data-bind="attr: {title: $t('Send'),
-                    click: submitMessage }"
+    <form action="javascript:void(0);"
+          class="form"
+          method="post"
+          data-bind="submit: saveMessage"
     >
-        <span translate="'Send'"></span>
-    </button>
-
-    <button type="button"
-            id="iuriis-chat-close-chat-button"
-            data-bind="attr: {title: $t('Close')},
-                    click: closeChat "
-    >
-        <span translate="'Close'"></span>
-    </button>
+        <label for="user-message-question"></label>
+        <textarea id="user-message-question"
+                  data-bind="
+                    value: message,
+                    attr: {
+                        title: $t('Textarea'),
+                    }"
+                  name="message"
+                  autofocus
+                  rows="1"
+        ></textarea>
+        <button type="submit"
+                class="action primary"
+                id="iuriis-chat-send-ask"
+                data-bind="attr: {title: $t('Send')}"
+        >
+            <span translate="'Send'"></span>
+        </button>
+        <button type="button"
+                id="iuriis-chat-close-chat-button"
+                data-bind="
+                    attr: {title: $t('Close')},
+                    click: closeChat
+                "
+        >
+            <span translate="'Close'"></span>
+        </button>
+    </form>
 </div>
