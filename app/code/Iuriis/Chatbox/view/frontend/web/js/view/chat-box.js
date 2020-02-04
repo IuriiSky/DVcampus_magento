@@ -21,17 +21,34 @@ define([
         initialize: function () {
             this._super();
             $(document).on('iuriis_chatbox_openChat.iuriis_chatbox', $.proxy(this.openChat, this));
+            $(document).on('iuriis_chatbox_clearTextarea.iurii_chatbox', $.proxy(this.clearTextarea, this));
         },
 
+        /**
+         * Open chat box
+         */
         openChat: function () {
             this.chatBoxClass('active')
         },
 
+        /**
+         * Close chat box
+         */
         closeChat: function () {
             this.chatBoxClass('');
             $(document).trigger('iuriis_chatbox_close_chatbox');
         },
 
+        /**
+         * Clear textarea after save message
+         */
+        clearTextarea: function () {
+            this.message('');
+        },
+
+        /**
+         * Submit request via AJAX. Add form key to the post data.
+         */
         saveMessage: function () {
             var payload = {
                 message: this.message,
@@ -39,9 +56,6 @@ define([
                 isAjax: 1
             };
 
-            /**
-             * Submit request via AJAX. Add form key to the post data.
-             */
             $.ajax({
                 url: this.action,
                 data: payload,
@@ -63,6 +77,13 @@ define([
                         buttons: [{
                             text: $.mage.__('Accept'),
                             class: 'action primary accept',
+                            /**
+                             * Click handler.
+                             */
+                            click: function () {
+                                this.closeModal(true);
+                                $(document).trigger('iuriis_chatbox_clearTextarea');
+                            }
                         }]
                     });
                 },
