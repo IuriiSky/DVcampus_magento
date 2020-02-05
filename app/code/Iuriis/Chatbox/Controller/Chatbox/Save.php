@@ -47,6 +47,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory
      */
     private $messageCollectionFactory;
+
     /**
      * @var \Magento\Framework\DB\TransactionFactory $transactionFactory
      */
@@ -123,7 +124,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
                         $message->setAuthorName($this->customerSession->getCustomer()->getName());
                     }
 
-                    $message->setChatHash($customerChatHash);
+                    $message->setChatHash((string)$customerChatHash);
                     $transaction->addObject($message);
                 }
 
@@ -142,7 +143,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
 
             /** @var Message $message */
             $message = $this->messageFactory->create();
-            $messageValues = $this->getRequest()->getParam('messages');
+            $messageValues = $this->getRequest()->getParam('message');
             $message->setAuthorType(Message::AUTHOR_TYPE_CUSTOMER)
                 ->setMessage($messageValues)
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())

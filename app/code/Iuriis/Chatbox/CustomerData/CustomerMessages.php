@@ -34,34 +34,30 @@ class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceIn
      */
     public function getSectionData(): array
     {
-        $data = [];
+        $data = [
+            'messages' => []
+        ];
 
         /** @var MessageCollection $messageCollection */
         $messageCollection = $this->messageCollectionFactory->create();
+        $messageCollection->setOrder('created_at', Select::SQL_DESC)
+            ->setPageSize(10);
 
         if ($this->customerSession->isLoggedIn()) {
-            $messageCollection->setOrder('created_at', Select::SQL_DESC)
-                ->addFieldToFilter('author_id', $this->customerSession->getCustomerId())
-                ->setPageSize(10);
-
-            foreach ($messageCollection as $customerMessages) {
-                $data[] = ['message' => $customerMessages->getMessage(),
-                    'created_at' => $customerMessages->getCreatedAt(),
-                    'author_name' => $customerMessages->getAuthorName()
-                ];
-            }
+            $messageCollection->addFieldToFilter('author_id', $this->customerSession->getCustomerId());
         } else {
-            $messageCollection->setOrder('created_at', Select::SQL_DESC)
-                ->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
-                ->setPageSize(10);
-
-            foreach ($messageCollection as $customerMessages) {
-                $data[] = ['message' => $customerMessages->getMessage(),
-                    'created_at' => $customerMessages->getCreatedAt(),
-                    'author_name' => $customerMessages->getAuthorName()
-                ];
-            }
+            $messageCollection->addFieldToFilter('chat_hash', $this->customerSession->getChatHash());
         }
+
+        foreach ($messageCollection as $customerMessages) {
+            $data['messages'][] = ['message' => $customerMessages->getMessage(),
+                'created_at' => $customerMessages->getCreatedAt(),
+                'author_name' => $customerMessages->getAuthorName()
+            ];
+        }
+
+        $data['messages'] = array_reverse($data['messages']);
+
         return $data;
     }
 }
