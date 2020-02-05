@@ -2,17 +2,14 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="content">
-            <container name="iuriis.homework.geekhub">
-                <referenceBlock name="customer_form_register">
+        <referenceBlock name="customer.form.register.fields.before">
+            <container name="iuriis.homework.geekhub" before="-">
                     <block class="Magento\Framework\View\Element\Template"
                            name="iuriis.homeworkgeekhub"
                            template="Iuriis_HomeworkGeekhub::homework5.phtml"
                     >
                     </block>
-                </referenceBlock>
             </container>
-        </referenceContainer>
-
+        </referenceBlock>
     </body>
 </page>
