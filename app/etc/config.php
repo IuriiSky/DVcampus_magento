@@ -242,6 +242,7 @@ return [
         'Iuriis_Cms' => 1,
         'Iuriis_ControllerDemo' => 1,
         'Iuriis_GeekhubController' => 1,
+        'Iuriis_HomeworkGeekhub' => 1,
         'Iuriis_LayoutDebug' => 0,
         'Klarna_Core' => 1,
         'Klarna_Ordermanagement' => 1,
