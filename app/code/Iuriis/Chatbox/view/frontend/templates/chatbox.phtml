@@ -1,19 +1,12 @@
 <?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
-<div data-bind="scope:'chatBoxMessages'">
+<div id="chat-box-messages" data-bind="scope:'chatBoxMessages'">
     <!-- ko template: getTemplate() --><!-- /ko -->
-</div>
+
 <script type="text/x-magento-init">
 {
-    "*": {
-        "Magento_Ui/js/core/app": {
-           "components": {
-                "chatBoxMessages": {
-                    "component": "iuriis_chatbox_chatBox",
-                    "action": "<?= $block->escapeUrl($block->getUrl('iuriis_chatbox/chatbox/save')) ?>"
-                }
-            }
-        }
+    "#chat-box-messages": {
+        "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
     }
 }
-
 </script>
+</div>

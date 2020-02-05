@@ -4,10 +4,24 @@
     <body>
         <referenceBlock name="before.body.end">
             <container name="iuriis.chatbox">
-                <block class="Iuriis\Chatbox\Block\ChatBox"
+                <block class="Magento\Framework\View\Element\Template"
                        name="iuriis.chatbox.chatBox"
                        template="Iuriis_Chatbox::chatbox.phtml"
-                />
+                >
+                    <arguments>
+                        <argument name="jsLayout" xsi:type="array">
+                            <item name="components" xsi:type="array">
+                                <item name="chatBoxMessages" xsi:type="array">
+                                    <item name="component" xsi:type="string">iuriis_chatbox_chatBox</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="template" xsi:type="string">Iuriis_Chatbox/chat-box</item>
+                                        <item name="action" xsi:type="url" path="iuriis_chatbox/chatbox/save"/>
+                                    </item>
+                                </item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
             </container>
         </referenceBlock>
         <referenceContainer name="header-wrapper">

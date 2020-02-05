@@ -9,9 +9,6 @@ define([
     'use strict';
 
     return Component.extend({
-        defaults: {
-            template: 'Iuriis_Chatbox/chat-box'
-        },
 
         chatBoxClass: ko.observable(''),
         message: ko.observable(''),
