@@ -1,12 +1,11 @@
 <?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
 <div id="chat-box-messages" data-bind="scope:'chatBoxMessages'">
     <!-- ko template: getTemplate() --><!-- /ko -->
-
-<script type="text/x-magento-init">
-{
-    "#chat-box-messages": {
-        "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
-    }
-}
-</script>
+    <script type="text/x-magento-init">
+        {
+            "#chat-box-messages": {
+                "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+            }
+        }
+    </script>
 </div>

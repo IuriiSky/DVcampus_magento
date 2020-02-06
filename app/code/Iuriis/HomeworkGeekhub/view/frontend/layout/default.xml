@@ -4,7 +4,7 @@
     <body>
         <referenceBlock name="customer.form.register.fields.before">
             <container name="iuriis.homework.geekhub" before="-">
-                    <block class="Magento\Framework\View\Element\Template"
+                    <block class="Magento\Customer\Block\Form\Register"
                            name="iuriis.homeworkgeekhub"
                            template="Iuriis_HomeworkGeekhub::homework5.phtml"
                     >
