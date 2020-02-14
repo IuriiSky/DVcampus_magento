@@ -13,6 +13,10 @@ use Magento\Framework\DB\Transaction;
 class Save extends \Magento\Framework\App\Action\Action implements
     \Magento\Framework\App\Action\HttpPostActionInterface
 {
+    public const XML_PATH_IURIIS_CHAT_BOX_GENERAL_ENABLED = 'iuriis_chat_box/general/enabled';
+
+    public const XML_PATH_ALLOW_FOR_GUESTS_GENERAL_ENABLED = 'iuriis_chat_box/general/allow_for_guests';
+
     /**
      * @var \Iuriis\Chatbox\Model\MessageFactory $messageFactory
      */
@@ -52,6 +56,10 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @var \Magento\Framework\DB\TransactionFactory $transactionFactory
      */
     private $transactionFactory;
+    /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    private $scopeConfig;
 
     /**
      * @param \Iuriis\Chatbox\Model\MessageFactory $messageFactory
@@ -63,6 +71,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      * @param \Magento\Framework\DB\TransactionFactory $transactionFactory
      * @param \Magento\Framework\App\Action\Context $context
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
 
     public function __construct(
@@ -74,6 +83,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\DB\TransactionFactory $transactionFactory,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\App\Action\Context $context
     ) {
         parent::__construct($context);
@@ -85,6 +95,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
         $this->transactionFactory = $transactionFactory;
+        $this->scopeConfig = $scopeConfig;
     }
 
     /**
@@ -94,7 +105,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
     public function execute()
     {
         try {
-            if (!$this->formKeyValidator->validate($this->getRequest())) {
+            if (!$this->validateRequest()) {
                 throw new \InvalidArgumentException(__('Your message can\'t be saved'));
             }
             // Update existing customer messages
@@ -169,5 +180,30 @@ class Save extends \Magento\Framework\App\Action\Action implements
         ]);
 
         return $response;
+    }
+
+    /**
+     * @return bool
+     */
+    private function validateRequest(): bool
+    {
+        $allowSendingMessages = true;
+
+        if (!$this->formKeyValidator->validate($this->getRequest())) {
+            $allowSendingMessages = false;
+        }
+
+        if (!$this->scopeConfig->getValue(self::XML_PATH_IURIIS_CHAT_BOX_GENERAL_ENABLED)
+            || (!$this->customerSession->isLoggedIn() && !$this->scopeConfig->getValue(self::XML_PATH_ALLOW_FOR_GUESTS_GENERAL_ENABLED))
+        ) {
+            $allowSendingMessages = false;
+        }
+//
+//        $eventParameters = [
+//            'allow_saving_preferences' => $allowSavingPreferences
+//        ];
+//        $this->_eventManager->dispatch('dvcampus_customer_preferences_allow_save', $eventParameters);
+
+        return $allowSendingMessages;
     }
 }
