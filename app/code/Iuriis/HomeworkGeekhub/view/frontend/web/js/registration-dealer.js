@@ -14,7 +14,7 @@ define([
          */
         _create: function () {
             $(document).on('click.iuriis_homework', $.proxy(this.openModalWindow, this));
-            $(document).on('click.iuriis_homework', $.proxy(this.changeId, this));
+            // $(document).on('click.iuriis_homework', $.proxy(this.changeId, this));
             this.modal = $(this.element);
 
         },
@@ -31,22 +31,13 @@ define([
             })
         },
 
-        changeId: function () {
-            $('#form-validate-dealer').find("[id]").each(function () {
-                this.id = this.id + '-dealer';
-            })
-        }
+        // changeId: function () {
+        //     $('#form-validate-dealer').find("[id]").each(function () {
+        //         this.id = this.id + '-dealer';
+        //     })
+        // }
 
     });
     return $.iuriisHomework.registrationDealer;
 });
 
-
-// var myFeatured = $('div.featured').attr('id');
-// var theHidden;
-// $('div.article').each(function(){
-//     theHidden = $(this).attr('id');
-//     if(theHidden == myFeatured){
-//         $('div#'+theHidden).hide();
-//     }
-// });
