@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="customer_login">
+        <observer name="customer_login_observer" instance="Iuriis\Chatbox\Observer\CustomerLogin" />
+    </event>
+
+<!--    <event name="customer_customer_authenticated">-->
+<!--        <observer name="customer_password" instance="Magento\Customer\Observer\UpgradeCustomerPasswordObserver" />-->
+<!--        <observer name="customer_unlock" instance="Magento\Customer\Observer\CustomerLoginSuccessObserver" />-->
+<!--    </event>-->
+</config>

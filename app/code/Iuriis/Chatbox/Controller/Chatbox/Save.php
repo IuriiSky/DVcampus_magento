@@ -110,39 +110,39 @@ class Save extends \Magento\Framework\App\Action\Action implements
             }
             // Update existing customer messages
             // @TODO: move this to observers
-            if ($this->customerSession->isLoggedIn()) {
-                $newMessageCollection = $this->messageCollectionFactory->create();
-                $newMessageCollection->addFieldToFilter('author_id', $this->customerSession->getCustomerId())
-                    ->getSelect()
-                    ->order('message_id ' . Select::SQL_ASC)
-                    ->limit(1);
-
-                $customerChatHash = $newMessageCollection->getFirstItem()->getData('chat_hash');
-
-                /** @var MessageCollection $messageCollection */
-                $messageCollection = $this->messageCollectionFactory->create();
-                $messageCollection->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
-                    ->getItems();
-
-                /** @var Transaction $transaction */
-                $transaction = $this->transactionFactory->create();
-
-                /** @var Message $message */
-                foreach ($messageCollection as $message) {
-                    if (!$message->getAuthorId()) {
-                        //if ($message->getAuthorId() === 0) {
-                        $message->setAuthorId($this->customerSession->getCustomerId());
-                        $message->setAuthorName($this->customerSession->getCustomer()->getName());
-                    }
-
-                    $message->setChatHash((string)$customerChatHash);
-                    $transaction->addObject($message);
-                }
-
-                $transaction->save();
-
-                $this->customerSession->setChatHash($customerChatHash);
-            }
+//            if ($this->customerSession->isLoggedIn()) {
+//                $newMessageCollection = $this->messageCollectionFactory->create();
+//                $newMessageCollection->addFieldToFilter('author_id', $this->customerSession->getCustomerId())
+//                    ->getSelect()
+//                    ->order('message_id ' . Select::SQL_ASC)
+//                    ->limit(1);
+//
+//                $customerChatHash = $newMessageCollection->getFirstItem()->getData('chat_hash');
+//
+//                /** @var MessageCollection $messageCollection */
+//                $messageCollection = $this->messageCollectionFactory->create();
+//                $messageCollection->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
+//                    ->getItems();
+//
+//                /** @var Transaction $transaction */
+//                $transaction = $this->transactionFactory->create();
+//
+//                /** @var Message $message */
+//                foreach ($messageCollection as $message) {
+//                    if (!$message->getAuthorId()) {
+//                        //if ($message->getAuthorId() === 0) {
+//                        $message->setAuthorId($this->customerSession->getCustomerId());
+//                        $message->setAuthorName($this->customerSession->getCustomer()->getName());
+//                    }
+//
+//                    $message->setChatHash((string)$customerChatHash);
+//                    $transaction->addObject($message);
+//                }
+//
+//                $transaction->save();
+//
+//                $this->customerSession->setChatHash($customerChatHash);
+//            }
 
             // Save new message with the proper chat hash
             if ($this->customerSession->getChatHash()) {
