@@ -4,11 +4,8 @@ declare(strict_types=1);
 namespace Iuriis\Chatbox\Controller\Chatbox;
 
 use Iuriis\Chatbox\Model\Message;
-use Iuriis\Chatbox\Model\ResourceModel\Message\Collection as MessageCollection;
 use Magento\Framework\Controller\Result\Json as JsonResult;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\DB\Select;
-use Magento\Framework\DB\Transaction;
 
 class Save extends \Magento\Framework\App\Action\Action implements
     \Magento\Framework\App\Action\HttpPostActionInterface
@@ -108,41 +105,6 @@ class Save extends \Magento\Framework\App\Action\Action implements
             if (!$this->validateRequest()) {
                 throw new \InvalidArgumentException(__('Your message can\'t be saved'));
             }
-            // Update existing customer messages
-            // @TODO: move this to observers
-//            if ($this->customerSession->isLoggedIn()) {
-//                $newMessageCollection = $this->messageCollectionFactory->create();
-//                $newMessageCollection->addFieldToFilter('author_id', $this->customerSession->getCustomerId())
-//                    ->getSelect()
-//                    ->order('message_id ' . Select::SQL_ASC)
-//                    ->limit(1);
-//
-//                $customerChatHash = $newMessageCollection->getFirstItem()->getData('chat_hash');
-//
-//                /** @var MessageCollection $messageCollection */
-//                $messageCollection = $this->messageCollectionFactory->create();
-//                $messageCollection->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
-//                    ->getItems();
-//
-//                /** @var Transaction $transaction */
-//                $transaction = $this->transactionFactory->create();
-//
-//                /** @var Message $message */
-//                foreach ($messageCollection as $message) {
-//                    if (!$message->getAuthorId()) {
-//                        //if ($message->getAuthorId() === 0) {
-//                        $message->setAuthorId($this->customerSession->getCustomerId());
-//                        $message->setAuthorName($this->customerSession->getCustomer()->getName());
-//                    }
-//
-//                    $message->setChatHash((string)$customerChatHash);
-//                    $transaction->addObject($message);
-//                }
-//
-//                $transaction->save();
-//
-//                $this->customerSession->setChatHash($customerChatHash);
-//            }
 
             // Save new message with the proper chat hash
             if ($this->customerSession->getChatHash()) {
@@ -198,11 +160,6 @@ class Save extends \Magento\Framework\App\Action\Action implements
         ) {
             $allowSendingMessages = false;
         }
-//
-//        $eventParameters = [
-//            'allow_saving_preferences' => $allowSavingPreferences
-//        ];
-//        $this->_eventManager->dispatch('dvcampus_customer_preferences_allow_save', $eventParameters);
 
         return $allowSendingMessages;
     }

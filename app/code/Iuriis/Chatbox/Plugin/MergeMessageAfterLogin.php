@@ -38,7 +38,6 @@ class MergeMessageAfterLogin
         $this->messageCollectionFactory = $messageCollectionFactory;
         $this->customerSession = $customerSession;
         $this->transactionFactory = $transactionFactory;
-
     }
 
     public function afterExecute()

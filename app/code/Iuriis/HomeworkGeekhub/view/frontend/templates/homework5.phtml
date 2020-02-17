@@ -180,7 +180,7 @@
         'mage/mage'
     ], function($){
 
-        var dataForm = $('#form-validate');
+        var dataForm = $('#form-validate-dealer');
         var ignore = <?= /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
 
         dataForm.mage('validation', {
