@@ -4,10 +4,15 @@
     <body>
         <referenceBlock name="customer.form.register.fields.before">
             <container name="iuriis.homework.geekhub" before="-">
-                    <block class="Iuriis\HomeworkGeekhub\Block\DealerFormRegistration"
+                    <block class="Magento\Customer\Block\Form\Register"
                            name="iuriis.homeworkgeekhub"
                            template="Iuriis_HomeworkGeekhub::homework5.phtml"
                     >
+                        <arguments>
+                            <argument name="attribute_data" xsi:type="object">Magento\Customer\Block\DataProviders\AddressAttributeData</argument>
+                        </arguments>
+                        <container name="dealer.form.additional.info" as="dealer_form_additional_info"/>
+                        <container name="dealer.form.register.fields.before" as="dealer_form_fields_before" label="Form Fields Before" htmlTag="div" htmlClass="customer-form-before"/>
                     </block>
             </container>
         </referenceBlock>

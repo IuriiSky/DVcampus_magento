@@ -17,7 +17,15 @@
             <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
         </arguments>
     </type>
-    <type name="Iuriis\Chatbox\Controller\CustomerLogin">
-        <plugin name="merge_messages" type="\Iuriis\Chatbox\Plugin\MergeMessageAfterLogin" sortOrder="1" disabled="false" />
+    <type name="Magento\Customer\Controller\Account\LoginPost">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+        <plugin name="merge_messages" type="Iuriis\Chatbox\Plugin\MergeMessageAfterLogin" sortOrder="10" />
+    </type>
+    <type name="Iuriis\Chatbox\VievModel\ShowOpenButton">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
     </type>
 </config>

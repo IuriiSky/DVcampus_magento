@@ -1,25 +1,34 @@
 <?php
 /** @var \Iuriis\HomeworkGeekhub\Block\DealerFormRegistration $block */
 ?>
-
 <div id="wrapper-registration-dealer">
     <button id="registration-dealer-btn"><?= $block->escapeHtml(__('Registration dealer'))?></button>
 </div>
-
-
-<?= $block->getChildHtml('form_fields_before') ?>
+dfgdfggdgdfgdf
+<?= $block->getChildHtml('dealer_form_fields_before') ?>
 <?php /* Extensions placeholder */ ?>
 <?= $block->getChildHtml('customer.form.register.extra') ?>
-<form class="form create account form-create-account" action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>" method="post"
-      id="form-validate-dealer" enctype="multipart/form-data" autocomplete="off"
-        style="display: none" data-mage-init='{"iuriis_homeworkgeekhub_registrationDealer":{}}'
+<form class="form create account form-create-dealer-account"
+      action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
+      method="post"
+      id="form-validate-dealer"
+      enctype="multipart/form-data"
+      autocomplete="off"
+      style="display: none"
+      data-mage-init='{"iuriis_homeworkgeekhub_registrationDealer":{}}'
 >
     <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
     <fieldset class="fieldset create info">
         <legend class="legend"><span><?= $block->escapeHtml(__('Personal Information')) ?></span></legend><br>
         <input type="hidden" name="success_url" value="<?= $block->escapeUrl($block->getSuccessUrl()) ?>">
         <input type="hidden" name="error_url" value="<?= $block->escapeUrl($block->getErrorUrl()) ?>">
-        <?= $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Name::class)->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+        <?= $block->getLayout()
+            ->createBlock(\Magento\Customer\Block\Widget\Name::class)
+            ->setObject($block->getFormData())
+            ->setForceUseCustomerAttributes(true)
+            ->setFieldIdFormat('dealer_%s')
+            ->toHtml()
+        ?>
         <?php if ($block->isNewsletterEnabled()) : ?>
             <div class="field choice newsletter">
                 <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()) : ?> checked="checked"<?php endif; ?> class="checkbox">
@@ -30,39 +39,39 @@
         <?php endif ?>
 
         <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
-        <?php if ($_dob->isEnabled()) : ?>
+<!--        --><?php //if ($_dob->isEnabled()) : ?>
             <?= $_dob->setDate($block->getFormData()->getDob())->toHtml() ?>
-        <?php endif ?>
+<!--        --><?php //endif ?>
 
         <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
-        <?php if ($_taxvat->isEnabled()) : ?>
+<!--        --><?php //if ($_taxvat->isEnabled()) : ?>
             <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
-        <?php endif ?>
+<!--        --><?php //endif ?>
 
         <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
-        <?php if ($_gender->isEnabled()) : ?>
+<!--        --><?php //if ($_gender->isEnabled()) : ?>
             <?= $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
-        <?php endif ?>
+<!--        --><?php //endif ?>
     </fieldset>
-    <?php if ($block->getShowAddressFields()) : ?>
+<!--    --><?php //if ($block->getShowAddressFields()) : ?>
         <fieldset class="fieldset address">
             <legend class="legend"><span><?= $block->escapeHtml(__('Address Information')) ?></span></legend><br>
             <input type="hidden" name="create_address" value="1" />
 
             <?php $_company = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Company::class) ?>
-            <?php if ($_company->isEnabled()) : ?>
+<!--            --><?php //if ($_company->isEnabled()) : ?>
                 <?= $_company->setCompany($block->getFormData()->getCompany())->toHtml() ?>
-            <?php endif ?>
+<!--            --><?php //endif ?>
 
             <?php $_telephone = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Telephone::class) ?>
-            <?php if ($_telephone->isEnabled()) : ?>
+<!--            --><?php //if ($_telephone->isEnabled()) : ?>
                 <?= $_telephone->setTelephone($block->getFormData()->getTelephone())->toHtml() ?>
-            <?php endif ?>
+<!--            --><?php //endif ?>
 
             <?php $_fax = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Fax::class) ?>
-            <?php if ($_fax->isEnabled()) : ?>
+<!--            --><?php //if ($_fax->isEnabled()) : ?>
                 <?= $_fax->setFax($block->getFormData()->getFax())->toHtml() ?>
-            <?php endif ?>
+<!--            --><?php //endif ?>
 
             <?php $_streetValidationClass = $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('street'); ?>
 
@@ -127,7 +136,7 @@
             <input type="hidden" name="default_shipping" value="1">
         </fieldset>
 
-    <?php endif; ?>
+<!--    --><?php //endif; ?>
     <fieldset class="fieldset create account" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
         <legend class="legend"><span><?= $block->escapeHtml(__('Sign-in Information')) ?></span></legend><br>
         <div class="field required">
@@ -163,7 +172,7 @@
                 <input type="password" name="password_confirmation" title="<?= $block->escapeHtmlAttr(__('Confirm Password')) ?>" id="password-confirmation" class="input-text" data-validate="{required:true, equalTo:'#password'}" autocomplete="off">
             </div>
         </div>
-        <?= $block->getChildHtml('form_additional_info') ?>
+        <?= $block->getChildHtml('dealer_form_additional_info') ?>
     </fieldset>
     <div class="actions-toolbar">
         <div class="primary">
@@ -205,7 +214,7 @@
 
     });
 </script>
-<?php if ($block->getShowAddressFields()) : ?>
+<?php //if ($block->getShowAddressFields()) : ?>
     <script type="text/x-magento-init">
     {
         "#country": {
@@ -222,13 +231,13 @@
         }
     }
 </script>
-<?php endif; ?>
+<?php //endif; ?>
 
 <script type="text/x-magento-init">
     {
         ".field.password": {
             "passwordStrengthIndicator": {
-                "formSelector": "form.form-create-account"
+                "formSelector": "form.form-create-dealer-account"
             }
         }
     }

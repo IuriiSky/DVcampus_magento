@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <tab id="chatbox" sortOrder="350">
-            <label>Customer chat-box</label>
+            <label>Iuriis chat-box</label>
         </tab>
         <section id="iuriis_chat_box" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1"
                  showInStore="1">

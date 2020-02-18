@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Iuriis\Chatbox\Controller\Chatbox;
@@ -20,7 +21,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
     private $messageFactory;
 
     /**
-     * @var \Iuriis\Chatbox\Model\ResourceModel\Message
+     * @var \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource
      */
     private $messageResource;
 
@@ -30,43 +31,32 @@ class Save extends \Magento\Framework\App\Action\Action implements
     private $storeManager;
 
     /**
-     * @var \Psr\Log\LoggerInterface
+     * @var \Psr\Log\LoggerInterface $logger
      */
     private $logger;
 
     /**
-     * @var \Magento\Customer\Model\Session
+     * @var \Magento\Customer\Model\Session $customerSession
      */
     private $customerSession;
 
     /**
-     * @var \Magento\Framework\Data\Form\FormKey\Validator
+     * @var \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      */
     protected $formKeyValidator;
 
     /**
-     * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory
-     */
-    private $messageCollectionFactory;
-
-    /**
-     * @var \Magento\Framework\DB\TransactionFactory $transactionFactory
-     */
-    private $transactionFactory;
-    /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     private $scopeConfig;
 
     /**
      * @param \Iuriis\Chatbox\Model\MessageFactory $messageFactory
      * @param \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource
-     * @param \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
-     * @param \Magento\Framework\DB\TransactionFactory $transactionFactory
      * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
@@ -74,24 +64,20 @@ class Save extends \Magento\Framework\App\Action\Action implements
     public function __construct(
         \Iuriis\Chatbox\Model\MessageFactory $messageFactory,
         \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource,
-        \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Psr\Log\LoggerInterface $logger,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
-        \Magento\Framework\DB\TransactionFactory $transactionFactory,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\App\Action\Context $context
     ) {
         parent::__construct($context);
         $this->messageFactory = $messageFactory;
         $this->messageResource = $messageResource;
-        $this->messageCollectionFactory = $messageCollectionFactory;
         $this->storeManager = $storeManager;
         $this->logger = $logger;
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
-        $this->transactionFactory = $transactionFactory;
         $this->scopeConfig = $scopeConfig;
     }
 

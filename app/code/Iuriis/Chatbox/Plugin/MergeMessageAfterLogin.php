@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Iuriis\Chatbox\Plugin;
 
 use Iuriis\Chatbox\Model\Message;
@@ -10,12 +12,12 @@ use Magento\Framework\DB\Transaction;
 class MergeMessageAfterLogin
 {
     /**
-     * @var \Magento\Customer\Model\Session
+     * @var \Magento\Customer\Model\Session $customerSession
      */
     private $customerSession;
 
     /**
-     * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory
+     * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
      */
     private $messageCollectionFactory;
 
@@ -40,7 +42,11 @@ class MergeMessageAfterLogin
         $this->transactionFactory = $transactionFactory;
     }
 
-    public function afterExecute()
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    public function afterExecute($subject, $result)
     {
         if ($this->customerSession->isLoggedIn()) {
             $newMessageCollection = $this->messageCollectionFactory->create();
@@ -53,8 +59,7 @@ class MergeMessageAfterLogin
 
             /** @var MessageCollection $messageCollection */
             $messageCollection = $this->messageCollectionFactory->create();
-            $messageCollection->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
-                ->getItems();
+            $messageCollection->addFieldToFilter('chat_hash', $this->customerSession->getChatHash());
 
             /** @var Transaction $transaction */
             $transaction = $this->transactionFactory->create();
@@ -62,7 +67,6 @@ class MergeMessageAfterLogin
             /** @var Message $message */
             foreach ($messageCollection as $message) {
                 if (!$message->getAuthorId()) {
-                    //if ($message->getAuthorId() === 0) {
                     $message->setAuthorId($this->customerSession->getCustomerId());
                     $message->setAuthorName($this->customerSession->getCustomer()->getName());
                 }
@@ -75,5 +79,7 @@ class MergeMessageAfterLogin
 
             $this->customerSession->setChatHash($customerChatHash);
         }
+
+        return $result;
     }
 }

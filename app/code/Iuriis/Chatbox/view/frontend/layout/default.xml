@@ -31,7 +31,11 @@
                    template="Iuriis_Chatbox::open_button.phtml"
                    after="logo"
                    ifconfig="iuriis_chat_box/general/enabled"
-            />
+            >
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Iuriis\Chatbox\ViewModel\ShowOpenButton</argument>
+                </arguments>
+            </block>
         </referenceContainer>
     </body>
 </page>
