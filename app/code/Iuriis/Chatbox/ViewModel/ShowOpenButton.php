@@ -37,21 +37,17 @@ class ShowOpenButton implements \Magento\Framework\View\Element\Block\ArgumentIn
         $this->scopeConfig = $scopeConfig;
     }
 
-    public function isGuestEnabled()
+    /** @return bool */
+    public function isGuestEnabled(): bool
     {
         $allowSendingMessages = true;
 
-        if ($this->customerSession->isLoggedIn()) {
-            $allowSendingMessages = true;
-        } elseif (!$this->scopeConfig->getValue(self::XML_PATH_ALLOW_FOR_GUESTS_GENERAL_ENABLED)) {
+        if (!$this->scopeConfig->getValue(self::XML_PATH_IURIIS_CHAT_BOX_GENERAL_ENABLED)
+            || (!$this->customerSession->isLoggedIn() && !$this->scopeConfig->getValue(self::XML_PATH_ALLOW_FOR_GUESTS_GENERAL_ENABLED))
+        ) {
             $allowSendingMessages = false;
         }
+
         return $allowSendingMessages;
     }
 }
-
-//if (!$this->scopeConfig->getValue(self::XML_PATH_IURIIS_CHAT_BOX_GENERAL_ENABLED)
-//    || (!$this->customerSession->isLoggedIn() && !$this->scopeConfig->getValue(self::XML_PATH_ALLOW_FOR_GUESTS_GENERAL_ENABLED))
-//) {
-//    $allowSendingMessages = false;
-//}
