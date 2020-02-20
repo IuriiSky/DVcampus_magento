@@ -14,7 +14,6 @@ define([
          */
         _create: function () {
             $(document).on('click.iuriis_homework', $.proxy(this.openModalWindow, this));
-            // $(document).on('click.iuriis_homework', $.proxy(this.changeId, this));
             this.modal = $(this.element);
 
         },
@@ -30,13 +29,6 @@ define([
                 }).modal('openModal');
             })
         },
-
-        // changeId: function () {
-        //     $('#form-validate-dealer').find("[id]").each(function () {
-        //         this.id = this.id + '-dealer';
-        //     })
-        // }
-
     });
     return $.iuriisHomework.registrationDealer;
 });

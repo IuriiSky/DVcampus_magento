@@ -1,12 +1,9 @@
-<?php /** @var \Magento\Framework\View\Element\Template $block */
-    /** @var  \Iuriis\Chatbox\ViewModel\ShowOpenButton $viewModel */
-
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var  \Iuriis\Chatbox\ViewModel\ShowOpenButton $viewModel */
 $viewModel = $block->getData('view_model');
-
 ?>
-
-<?php if (true === $viewModel->isGuestEnabled()): ?>
-
+<?php if ($viewModel->isGuestEnabled()): ?>
     <a href="javascript:void(0);"
        class="iuriis-chat-open-button active"
        data-mage-init='{"iuriis_chatbox_openButton":{}}'
@@ -19,5 +16,4 @@ $viewModel = $block->getData('view_model');
             data-mage-init='{"iuriis_chatbox_listenerWidgets":{}}'
     >X
     </button>
-
 <?php endif ?>

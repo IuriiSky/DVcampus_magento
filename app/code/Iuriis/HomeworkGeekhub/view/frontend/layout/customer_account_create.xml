@@ -6,7 +6,7 @@
             <container name="iuriis.homework.geekhub" before="-">
                     <block class="Magento\Customer\Block\Form\Register"
                            name="iuriis.homeworkgeekhub"
-                           template="Iuriis_HomeworkGeekhub::homework5.phtml"
+                           template="Iuriis_HomeworkGeekhub::dealer-registration.phtml"
                     >
                         <arguments>
                             <argument name="attribute_data" xsi:type="object">Magento\Customer\Block\DataProviders\AddressAttributeData</argument>

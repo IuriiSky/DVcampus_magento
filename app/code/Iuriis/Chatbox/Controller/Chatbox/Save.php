@@ -142,7 +142,8 @@ class Save extends \Magento\Framework\App\Action\Action implements
         }
 
         if (!$this->scopeConfig->getValue(self::XML_PATH_IURIIS_CHAT_BOX_GENERAL_ENABLED)
-            || (!$this->customerSession->isLoggedIn() && !$this->scopeConfig->getValue(self::XML_PATH_ALLOW_FOR_GUESTS_GENERAL_ENABLED))
+            || (!$this->customerSession->isLoggedIn()
+                && !$this->scopeConfig->getValue(self::XML_PATH_ALLOW_FOR_GUESTS_GENERAL_ENABLED))
         ) {
             $allowSendingMessages = false;
         }

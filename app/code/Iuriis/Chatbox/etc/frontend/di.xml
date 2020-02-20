@@ -23,7 +23,7 @@
         </arguments>
         <plugin name="merge_messages" type="Iuriis\Chatbox\Plugin\MergeMessageAfterLogin" sortOrder="10" />
     </type>
-    <type name="Iuriis\Chatbox\VievModel\ShowOpenButton">
+    <type name="Iuriis\Chatbox\ViewModel\ShowOpenButton">
         <arguments>
             <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
         </arguments>
