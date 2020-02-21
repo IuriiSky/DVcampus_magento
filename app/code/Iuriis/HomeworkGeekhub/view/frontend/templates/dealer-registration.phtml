@@ -46,12 +46,10 @@
 
 
 
-            <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
+            <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class)
+                ->setFieldIdFormat('dealer_%s') ?>
             <?php if ($_dob->isEnabled()) : ?>
-                <?= $_dob->setDate($block->getFormData()->getDob())
-                    ->setFieldHtml()->setData(['id' => 'dealer'])
-                    ->toHtml()
-                ?>
+                <?= $_dob->setDate($block->getFormData()->getDob())->toHtml() ?>
             <?php endif ?>
 
 
@@ -68,7 +66,7 @@
             <?php endif ?>
         </fieldset>
 
-<!--        --><?php //if ($block->getShowAddressFields()) : ?>
+<!--        --><?php //if ($block->getShowAddressFields()) :?>
             <fieldset class="fieldset address">
                 <legend class="legend"><span><?= $block->escapeHtml(__('Address Information')) ?></span></legend>
                 <br>
@@ -183,7 +181,7 @@
                 <input type="hidden" name="default_shipping" value="1">
             </fieldset>
 
-<!--        --><?php //endif; ?>
+<!--        --><?php //endif;?>
         <fieldset class="fieldset create account"
                   data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
             <legend class="legend"><span><?= $block->escapeHtml(__('Sign-in Information')) ?></span></legend>
