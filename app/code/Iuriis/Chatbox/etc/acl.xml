@@ -4,6 +4,9 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
+                <resource id="Magento_Customer::customer">
+                    <resource id="Iuriis_Chatbox::listing" title="Chatbox" translate="title" sortOrder="50"/>
+                </resource>
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
@@ -14,9 +17,6 @@
                             </resource>
                         </resource>
                     </resource>
-                </resource>
-                <resource id="Magento_Customer::customer">
-                    <resource id="Iuriis_Chatbox::listing" title="Chatbox" translate="title" sortOrder="50"/>
                 </resource>
             </resource>
         </resources>

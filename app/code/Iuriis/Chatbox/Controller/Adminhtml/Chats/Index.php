@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace DvCampus\CustomerPreferences\Controller\Adminhtml\Preferences;
+namespace Iuriis\Chatbox\Controller\Adminhtml\Chats;
 
 use Magento\Framework\Controller\ResultFactory;
 
 class Index extends \Magento\Backend\App\Action
 {
+    public const ADMIN_RESOURCE = 'Iuriis_Chatbox::listing';
+
     /**
      * @inheritDoc
      */

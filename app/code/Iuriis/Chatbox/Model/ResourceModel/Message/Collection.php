@@ -1,9 +1,15 @@
 <?php
+declare(strict_types=1);
 
 namespace Iuriis\Chatbox\Model\ResourceModel\Message;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
+    protected $_idFieldName = 'message_id';
+
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

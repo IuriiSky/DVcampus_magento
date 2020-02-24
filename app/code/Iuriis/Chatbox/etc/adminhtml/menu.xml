@@ -9,13 +9,13 @@
              parent="Magento_Customer::customer"
              resource="Iuriis_Chatbox::listing"
         />
-        <add id="Iuriis_Chatbox::listing"
+        <add id="Iuriis_Chatbox::chatbox_listing"
              title="Customer Chatbox"
              translate="title"
              module="Iuriis_Chatbox"
              sortOrder="10"
              parent="Iuriis_Chatbox::chatbox"
-             action="iuriis_chatbox/chats/index"
+             action="iuriis_chatbox/index"
              resource="Iuriis_Chatbox::listing"
         />
     </menu>
