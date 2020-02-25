@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Iuriis_NewModule::stepanenko"
+             title="Stepanenko"
+             translate="title"
+             module="Iuriis_NewModule"
+             parent="Magento_Customer::customer"
+             sortOrder="50"
+             resource="Iuriis_NewModule::stepanenko"/>
+
+        <add id="Iuriis_NewModule::stepanenko_helloworld"
+             title="Hello World"
+             translate="title"
+             module="Iuriis_NewModule"
+             parent="Iuriis_NewModule::stepanenko"
+             sortOrder="10"
+             action="iuriis_new_module/helloworld"
+             resource="Iuriis_NewModule::stepanenko"/>
+    </menu>
+</config>
