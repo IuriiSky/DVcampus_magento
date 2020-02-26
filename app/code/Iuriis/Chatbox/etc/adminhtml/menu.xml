@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Iuriis_Chatbox::chats"
+             title="Iuriis"
+             translate="title"
+             module="Iuriis_Chatbox"
+             parent="Magento_Customer::customer"
+             sortOrder="50"
+             resource="Iuriis_Chatbox::listing"/>
+
+        <add id="Iuriis_Chatbox::chats_listing"
+             title="Chats"
+             translate="title"
+             module="Iuriis_Chatbox"
+             parent="Iuriis_Chatbox::chats"
+             sortOrder="10"
+             action="iuriis_chatbox/chats"
+             resource="Iuriis_Chatbox::listing"/>
+    </menu>
+</config>

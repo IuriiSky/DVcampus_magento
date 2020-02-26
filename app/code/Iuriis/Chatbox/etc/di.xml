@@ -5,7 +5,7 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="chats_box_listing_data_source" xsi:type="string">Iuriis\Chatbox\Model\ResourceModel\Message\Grid\Collection</item>
+                <item name="chatbox_listing_data_source" xsi:type="string">Iuriis\Chatbox\Model\ResourceModel\Message\Grid\Collection</item>
             </argument>
         </arguments>
     </type>

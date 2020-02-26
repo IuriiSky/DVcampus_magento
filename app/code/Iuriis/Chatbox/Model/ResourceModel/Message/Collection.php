@@ -45,4 +45,13 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     {
         return $this->addFieldToFilter('author_type', $authorType);
     }
+
+    /**
+     * @param string $chatHash
+     * @return $this
+     */
+    public function addChatHashFilter(string $chatHash): self
+    {
+        return $this->addFieldToFilter('chat_hash', $chatHash);
+    }
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">chatbox_answer_form.chatbox_answer_form_data_source</item>
+        </item>
+<!--        <item name="template" xsi:type="string">templates/form/collapsible</item>-->
+    </argument>
+    <settings>
+
+<!--        <buttons>-->
+<!--            <button name="save" class="Geekhub\Lesson9\Block\Adminhtml\Job\Edit\SaveButton"/>-->
+<!--        </buttons>-->
+
+        <namespace>chatbox_answer_form</namespace>
+        <dataScope>data</dataScope>
+
+        <deps>
+            <dep>chatbox_answer_form.chatbox_answer_form_data_source</dep>
+        </deps>
+
+    </settings>
+
+    <dataSource name="chatbox_answer_form_data_source" component="Magento_Ui/js/form/provider">
+
+<!--        <settings>-->
+<!--            <submitUrl path="lesson9/cron/save"/>-->
+<!--        </settings>-->
+
+        <dataProvider class="Iuriis\Chatbox\Ui\Component\Form\DataProvider" name="chatbox_answer_form_data_source">
+
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>chat_hash</primaryFieldName>
+            </settings>
+
+        </dataProvider>
+
+    </dataSource>
+
+
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+
+        <field name="chat_hash" sortOrder="10" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>chat_hash</dataScope>
+            </settings>
+        </field>
+
+
+        <field name="messages" sortOrder="40" formElement="textarea">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Messages</label>
+            </settings>
+        </field>
+    </fieldset>
+</form>
