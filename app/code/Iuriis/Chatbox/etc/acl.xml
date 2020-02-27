@@ -5,7 +5,9 @@
         <resources>
             <resource id="Magento_Backend::admin">
                 <resource id="Magento_Customer::customer">
-                    <resource id="Iuriis_Chatbox::listing" title="Customer Chats" translate="title" sortOrder="50"/>
+                    <resource id="Iuriis_Chatbox::listing" title="Customer Chats" translate="title" sortOrder="50">
+                        <resource id="Iuriis_Chatbox::form" title="Form answer" translate="title" sortOrder="60"/>
+                    </resource>
                 </resource>
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">

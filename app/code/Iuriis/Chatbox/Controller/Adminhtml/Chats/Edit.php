@@ -7,7 +7,7 @@ use Magento\Framework\Controller\ResultFactory;
 
 class Edit extends \Magento\Backend\App\Action
 {
-    public const ADMIN_RESOURCE = 'Iuriis_Chatbox::listing';
+    public const ADMIN_RESOURCE = 'Iuriis_Chatbox::form';
 
     /**
      * @inheritDoc

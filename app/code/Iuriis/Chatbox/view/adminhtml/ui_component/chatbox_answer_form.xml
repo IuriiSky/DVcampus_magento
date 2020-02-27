@@ -4,36 +4,30 @@
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">chatbox_answer_form.chatbox_answer_form_data_source</item>
         </item>
-<!--        <item name="template" xsi:type="string">templates/form/collapsible</item>-->
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
     </argument>
     <settings>
-
 <!--        <buttons>-->
-<!--            <button name="save" class="Geekhub\Lesson9\Block\Adminhtml\Job\Edit\SaveButton"/>-->
+<!--            <button name="save" class=""/>-->
 <!--        </buttons>-->
-
         <namespace>chatbox_answer_form</namespace>
         <dataScope>data</dataScope>
-
         <deps>
             <dep>chatbox_answer_form.chatbox_answer_form_data_source</dep>
         </deps>
-
     </settings>
 
     <dataSource name="chatbox_answer_form_data_source" component="Magento_Ui/js/form/provider">
 
 <!--        <settings>-->
-<!--            <submitUrl path="lesson9/cron/save"/>-->
+<!--            <submitUrl path="iuriis-chatbox/chats/edit"/>-->
 <!--        </settings>-->
 
         <dataProvider class="Iuriis\Chatbox\Ui\Component\Form\DataProvider" name="chatbox_answer_form_data_source">
-
             <settings>
                 <requestFieldName>id</requestFieldName>
-                <primaryFieldName>chat_hash</primaryFieldName>
+                <primaryFieldName>message_id</primaryFieldName>
             </settings>
-
         </dataProvider>
 
     </dataSource>
@@ -44,11 +38,11 @@
             <label/>
         </settings>
 
-        <field name="chat_hash" sortOrder="10" formElement="input">
+        <field name="message_id" sortOrder="10" formElement="input">
             <settings>
                 <dataType>text</dataType>
                 <visible>false</visible>
-                <dataScope>chat_hash</dataScope>
+                <dataScope>message_id</dataScope>
             </settings>
         </field>
 

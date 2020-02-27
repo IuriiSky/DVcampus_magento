@@ -27,8 +27,8 @@
 
         <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="chatbox_listing_data_source">
             <settings>
-                <requestFieldName>chat_hash</requestFieldName>
-                <primaryFieldName>chat_hash</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>message_id</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>
@@ -54,13 +54,16 @@
                     <label translate="true">Delete Chat</label>
                 </settings>
             </action>
+
             <action name="edit">
                 <settings>
                     <url path="iuriis_chatbox/chats/edit"/>
                     <type>edit</type>
-                    <label translate="true">Edit Chat</label>
+                    <label translate="true">Edit</label>
                 </settings>
             </action>
+
+
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
@@ -68,52 +71,38 @@
     <columns name="chatbox_listing_columns">
 
         <settings>
+
             <editorConfig>
-                <param name="indexField" xsi:type="string">chat_hash</param>
-                <param name="enabled" xsi:type="boolean">true</param>
-                <param name="selectProvider" xsi:type="string">chatbox_listing.chatbox_listing.chatbox_listing_columns.ids</param>
+                <param name="enabled" xsi:type="boolean">false</param>
             </editorConfig>
+
             <childDefaults>
                 <param name="fieldAction" xsi:type="array">
-                    <item name="provider" xsi:type="string">chatbox_listing.chatbox_listing.chatbox_listing_columns_editor</item>
-                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="provider" xsi:type="string">chatbox_listing.chatbox_listing.chatbox_listing_columns.actions</item>
+                    <item name="target" xsi:type="string">applyAction</item>
                     <item name="params" xsi:type="array">
-                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
-                        <item name="1" xsi:type="boolean">true</item>
+                        <item name="0" xsi:type="string">edit</item>
+                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
                     </item>
                 </param>
             </childDefaults>
-<!--            <editorConfig>-->
-<!--                <param name="enabled" xsi:type="boolean">false</param>-->
-<!--                <param name="selectProvider" xsi:type="string">chatbox_listing.chatbox_listing.chatbox_columns.ids</param>-->
-<!--            </editorConfig>-->
 
-<!--            <childDefaults>-->
-<!--                <param name="fieldAction" xsi:type="array">-->
-<!--                    <item name="provider" xsi:type="string">chatbox_listing.chatbox_listing.chatbox_listing_editor</item>-->
-<!--                    <item name="target" xsi:type="string">startEdit</item>-->
-<!--                    <item name="params" xsi:type="array">-->
-<!--                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>-->
-<!--                        <item name="1" xsi:type="boolean">true</item>-->
-<!--                    </item>-->
-<!--                </param>-->
-<!--            </childDefaults>-->
 
         </settings>
 
         <selectionsColumn name="ids" sortOrder="0">
             <settings>
-                <indexField>chat_hash</indexField>
+                <indexField>message_id</indexField>
             </settings>
         </selectionsColumn>
 
-<!--        <column name="message_id" sortOrder="10">-->
-<!--            <settings>-->
-<!--                <filter>textRange</filter>-->
-<!--                <sorting>asc</sorting>-->
-<!--                <label translate="true">Message ID</label>-->
-<!--            </settings>-->
-<!--        </column>-->
+        <column name="message_id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <sorting>asc</sorting>
+                <label translate="true">Message ID</label>
+            </settings>
+        </column>
 
         <column name="author_type" sortOrder="20">
             <settings>
@@ -121,14 +110,6 @@
                 <label translate="true">Author Type</label>
             </settings>
         </column>
-
-<!--        <column name="author_id" sortOrder="30">-->
-<!--            <settings>-->
-<!--                <filter>textRange</filter>-->
-<!--                <sorting>asc</sorting>-->
-<!--                <label translate="true">Author ID</label>-->
-<!--            </settings>-->
-<!--        </column>-->
 
         <column name="author_name" sortOrder="40">
             <settings>
@@ -170,7 +151,7 @@
 
         <actionsColumn name="actions" class="Iuriis\Chatbox\Ui\Component\Listing\Column\Actions">
             <settings>
-                <indexField>chat_hash</indexField>
+                <indexField>message_id</indexField>
             </settings>
 
         </actionsColumn>
