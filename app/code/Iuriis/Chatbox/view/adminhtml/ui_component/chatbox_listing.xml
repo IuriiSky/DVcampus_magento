@@ -55,15 +55,6 @@
                 </settings>
             </action>
 
-            <action name="edit">
-                <settings>
-                    <url path="iuriis_chatbox/chats/edit"/>
-                    <type>edit</type>
-                    <label translate="true">Edit</label>
-                </settings>
-            </action>
-
-
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
@@ -153,7 +144,6 @@
             <settings>
                 <indexField>message_id</indexField>
             </settings>
-
         </actionsColumn>
     </columns>
 </listing>

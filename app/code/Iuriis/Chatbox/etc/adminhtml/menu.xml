@@ -17,15 +17,5 @@
              sortOrder="10"
              action="iuriis_chatbox/chats/index"
              resource="Iuriis_Chatbox::listing"/>
-
-        <add id="Iuriis_Chatbox::chats_form"
-             title="Answer form"
-             translate="title"
-             module="Iuriis_Chatbox"
-             parent="Iuriis_Chatbox::chats"
-             sortOrder="20"
-             action="iuriis_chatbox/chats/edit"
-             resource="Iuriis_Chatbox::form"/>
-
     </menu>
 </config>

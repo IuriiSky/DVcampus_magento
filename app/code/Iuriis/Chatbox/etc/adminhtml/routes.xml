@@ -1,6 +1,6 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
     <router id="admin">
-        <route id="iuriis_chatbox" frontName="iuriis-chatbox">
+        <route id="iuriis_chatbox" frontName="iuriis_chatbox">
             <module name="Iuriis_Chatbox" before="Magento_Backend"/>
         </route>
     </router>

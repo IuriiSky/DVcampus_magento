@@ -29,8 +29,8 @@ class Actions extends Column
         array $components = [],
         array $data = []
     ) {
-        $this->urlBuilder = $urlBuilder;
         parent::__construct($context, $uiComponentFactory, $components, $data);
+        $this->urlBuilder = $urlBuilder;
     }
 
     /**
@@ -46,7 +46,7 @@ class Actions extends Column
                 if (isset($item['message_id'])) {
                     $item[$this->getData('name')]['edit'] = [
                         'href' => $this->urlBuilder->getUrl(
-                            'iuriis-chatbox/chats/edit',
+                            'iuriis_chatbox/chats/edit',
                             [
                                 'id' => $item['message_id']
                             ]

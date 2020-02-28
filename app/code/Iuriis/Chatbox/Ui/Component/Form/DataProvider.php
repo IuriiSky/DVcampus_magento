@@ -11,7 +11,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
 
     /**
-     * @var \Iuriis\Chatbox\Model\ResourceModel\Message\Collection
+     * @var \Magento\Cron\Model\ResourceModel\Schedule\Collection
      */
     protected $collection;
     /**
@@ -22,7 +22,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
     /**
      * @var PoolInterface
      */
-    private $pool;
+    protected $pool;
 
     /**
      * @param string $name
@@ -42,19 +42,20 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         array $meta = [],
         array $data = []
     ) {
-        parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
         $this->collection = $collectionFactory->create();
         $this->pool = $pool;
+        parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
 
     /**
-     * {@inheritdoc}
-     * @since 101.0.0
+     * @inheritdoc
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getData()
     {
         if (!isset($this->loadedData)) {
             $items = $this->collection->getItems();
+            /** @var \Iuriis\Chatbox\Model\Message $chat */
             foreach ($items as $chat) {
                 $this->loadedData[$chat->getId()] = $chat->getData();
             }
@@ -70,8 +71,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
     }
 
     /**
-     * {@inheritdoc}
-     * @since 101.0.0
+     * @inheritdoc
      */
     public function getMeta()
     {
