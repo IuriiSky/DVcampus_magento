@@ -48,7 +48,8 @@ class Actions extends Column
                         'href' => $this->urlBuilder->getUrl(
                             'iuriis_chatbox/chats/edit',
                             [
-                                'id' => $item['message_id']
+                                'chat_hash' => $item['chat_hash'],
+                                '_nosid' => true
                             ]
                         ),
                         'label' => __('Edit'),
@@ -56,7 +57,6 @@ class Actions extends Column
                 }
             }
         }
-
         return $dataSource;
     }
 }

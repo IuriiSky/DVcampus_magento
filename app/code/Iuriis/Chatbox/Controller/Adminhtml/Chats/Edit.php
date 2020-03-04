@@ -17,8 +17,8 @@ class Edit extends \Magento\Backend\App\Action
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->getConfig()->getTitle()->prepend(__('Chat'));
 
-        if ($this->getRequest()->getParam('id')) {
-            $resultPage->getConfig()->getTitle()->prepend(__('Chat with contidion'));
+        if ($this->getRequest()->getParam('chat_hash')) {
+            $resultPage->getConfig()->getTitle()->prepend(__('Chat with condition'));
         }
         return $resultPage;
     }

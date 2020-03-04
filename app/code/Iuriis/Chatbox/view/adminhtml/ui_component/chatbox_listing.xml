@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd"
+>
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">chatbox_listing.chatbox_listing_data_source</item>
@@ -21,11 +21,17 @@
                 <param name="indexField" xsi:type="string">message_id</param>
             </storageConfig>
             <updateUrl path="mui/index/render"/>
+
+            <filterUrlParams>
+                <param name="main_table.chat_hash">*</param>
+            </filterUrlParams>
+
         </settings>
 
         <aclResource>Iuriis_Chatbox::listing</aclResource>
 
-        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="chatbox_listing_data_source">
+<!--        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="chatbox_listing_data_source">-->
+        <dataProvider class="Iuriis\Chatbox\Ui\Component\Listing\CustomDataProvider" name="chatbox_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
                 <primaryFieldName>message_id</primaryFieldName>
@@ -60,9 +66,7 @@
     </listingToolbar>
 
     <columns name="chatbox_listing_columns">
-
         <settings>
-
             <editorConfig>
                 <param name="enabled" xsi:type="boolean">false</param>
             </editorConfig>
@@ -73,7 +77,7 @@
                     <item name="target" xsi:type="string">applyAction</item>
                     <item name="params" xsi:type="array">
                         <item name="0" xsi:type="string">edit</item>
-                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="string">${ $.$data.chat_hash }</item>
                     </item>
                 </param>
             </childDefaults>
@@ -129,6 +133,8 @@
             <settings>
                 <filter>text</filter>
                 <label translate="true">Chat Hash</label>
+                <controlVisibility>false</controlVisibility>
+                <visible>false</visible>
             </settings>
         </column>
 
@@ -142,7 +148,7 @@
 
         <actionsColumn name="actions" class="Iuriis\Chatbox\Ui\Component\Listing\Column\Actions">
             <settings>
-                <indexField>message_id</indexField>
+                <indexField>chat_hash</indexField>
             </settings>
         </actionsColumn>
     </columns>

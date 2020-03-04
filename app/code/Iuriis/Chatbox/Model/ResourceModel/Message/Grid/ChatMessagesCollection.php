@@ -18,10 +18,12 @@ class ChatMessagesCollection extends \Magento\Framework\View\Element\UiComponent
          */
 
         $currentChatMessages = $this->getConnection()->select();
+
         $currentChatMessages->from(
-            $this->getTable('m2_iuriis_chatbox')
+            $this->getTable('iuriis_chatbox')
         );
-        $this->getSelect()->where('chat_hash', 'test5e4a987dc0f8f1.69329627');
+        $this->getSelect()->where("chat_hash = 'test5e4a987dc0f8f1.69329627'");
+
         return $this;
     }
 }

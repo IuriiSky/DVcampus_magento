@@ -26,7 +26,7 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
         $maxMessageIdSelect->from(
             $this->getTable('iuriis_chatbox'),
             [
-                'last_message_id' =>  new \Zend_Db_Expr('MAX(message_id)'),
+                'last_message_id' => new \Zend_Db_Expr('MAX(message_id)'),
                 'chat_hash' => 'chat_hash'
             ]
         )->group('chat_hash');
@@ -43,6 +43,5 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
         return $this;
     }
 }
-
 
 //Зробити тута if

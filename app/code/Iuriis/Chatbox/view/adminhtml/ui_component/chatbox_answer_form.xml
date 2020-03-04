@@ -11,8 +11,9 @@
         <buttons>
             <button name="save" class="Iuriis\Chatbox\Block\Adminhtml\Chats\Edit\SendButton"/>
         </buttons>
-        <namespace>chatbox_answer_form</namespace>
-        <dataScope>data</dataScope>
+        <ajaxSaveType>simple</ajaxSaveType>
+<!--        <namespace>chatbox_answer_form</namespace>-->
+<!--        <dataScope>data</dataScope>-->
         <deps>
             <dep>chatbox_answer_form.chatbox_answer_form_data_source</dep>
         </deps>
@@ -20,9 +21,9 @@
 
     <dataSource name="chatbox_answer_form_data_source" component="Magento_Ui/js/form/provider">
 
-        <!--        <settings>-->
-        <!--            <submitUrl path="iuriis-chatbox/chats/edit"/>-->
-        <!--        </settings>-->
+        <settings>
+            <submitUrl path="iuriis_chatbox/chats/save"/>
+        </settings>
 
         <dataProvider class="Iuriis\Chatbox\Ui\Component\Form\DataProvider" name="chatbox_answer_form_data_source">
             <settings>
@@ -32,6 +33,17 @@
         </dataProvider>
 
     </dataSource>
+    <insertListing name="chatbox_listing" >
+        <settings>
+            <dataLinks>
+                <exports>false</exports>
+                <imports>true</imports>
+            </dataLinks>
+            <autoRender>true</autoRender>
+            <dataScope>chatbox_listing</dataScope>
+            <ns>chatbox_listing</ns>
+        </settings>
+    </insertListing>
 
 
 <!--        <htmlContent name="test">-->
@@ -51,22 +63,6 @@
         <settings>
             <label/>
         </settings>
-
-        <field name="message_id" sortOrder="10" formElement="input">
-            <settings>
-                <dataType>text</dataType>
-                <visible>false</visible>
-                <dataScope>message_id</dataScope>
-            </settings>
-        </field>
-
-        <field name="message" sortOrder="20" formElement="input">
-            <settings>
-                <dataType>text</dataType>
-                <dataScope>message</dataScope>
-            </settings>
-        </field>
-
 
         <field name="answer" sortOrder="30" formElement="textarea">
             <settings>
