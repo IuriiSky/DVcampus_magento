@@ -4,18 +4,18 @@
 >
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">chatbox_listing.chatbox_listing_data_source</item>
+            <item name="provider" xsi:type="string">chatbox_listing_form.chatbox_listing_form_data_source</item>
         </item>
     </argument>
 
     <settings>
-        <spinner>chatbox_listing_columns</spinner>
+        <spinner>chatbox_listing_form_columns</spinner>
         <deps>
-            <dep>chatbox_listing.chatbox_listing_data_source</dep>
+            <dep>chatbox_listing_form.chatbox_listing_form_data_source</dep>
         </deps>
     </settings>
 
-    <dataSource name="chatbox_listing_data_source" component="Magento_Ui/js/grid/provider">
+    <dataSource name="chatbox_listing_form_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
             <storageConfig>
                 <param name="indexField" xsi:type="string">message_id</param>
@@ -23,7 +23,8 @@
             <updateUrl path="mui/index/render"/>
         </settings>
         <aclResource>Iuriis_Chatbox::listing</aclResource>
-        <dataProvider class="Iuriis\Chatbox\Ui\Component\Listing\DataProvider" name="chatbox_listing_data_source">
+
+        <dataProvider class="Iuriis\Chatbox\Ui\Component\Listing\DataProvider" name="chatbox_listing_form_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
                 <primaryFieldName>message_id</primaryFieldName>
@@ -37,42 +38,47 @@
         </settings>
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
-        <filterSearch name="fulltext"/>
+<!--        <filterSearch name="fulltext"/>-->
         <filters name="listing_filters"/>
         <exportButton name="export_button"/>
-        <massaction name="listing_massaction">
-            <action name="delete">
-                <settings>
-                    <confirm>
-                        <message translate="true">Are you sure you want to delete the selected chat?</message>
-                        <title translate="true">Delete Chat</title>
-                    </confirm>
-                    <url path="iuriis_chatbox/chats/delete"/>
-                    <type>delete</type>
-                    <label translate="true">Delete Chat</label>
-                </settings>
-            </action>
+<!--        <massaction name="listing_massaction">-->
+<!--            <action name="delete">-->
+<!--                <settings>-->
+<!--                    <confirm>-->
+<!--                        <message translate="true">Are you sure you want to delete the selected chat?</message>-->
+<!--                        <title translate="true">Delete Chat</title>-->
+<!--                    </confirm>-->
+<!--                    <url path="iuriis_chatbox/chats/delete"/>-->
+<!--                    <type>delete</type>-->
+<!--                    <label translate="true">Delete Chat</label>-->
+<!--                </settings>-->
+<!--            </action>-->
 
-        </massaction>
+<!--        </massaction>-->
         <paging name="listing_paging"/>
     </listingToolbar>
 
-    <columns name="chatbox_listing_columns">
+    <columns name="chatbox_listing_form_columns">
         <settings>
-            <editorConfig>
-                <param name="enabled" xsi:type="boolean">false</param>
-            </editorConfig>
-
-            <childDefaults>
-                <param name="fieldAction" xsi:type="array">
-                    <item name="provider" xsi:type="string">chatbox_listing.chatbox_listing.chatbox_listing_columns.actions</item>
-                    <item name="target" xsi:type="string">applyAction</item>
-                    <item name="params" xsi:type="array">
-                        <item name="0" xsi:type="string">edit</item>
-                        <item name="1" xsi:type="string">${ $.$data.chat_hash }</item>
-                    </item>
-                </param>
-            </childDefaults>
+<!--            <editorConfig>-->
+<!--                <param name="clientConfig" xsi:type="array">-->
+<!--                    <item name="saveUrl" xsi:type="url" path="iuriis_chatbox/chats/inlineEdit"/>-->
+<!--                    <item name="validateBeforeSave" xsi:type="boolean">false</item>-->
+<!--                </param>-->
+<!--                <param name="indexField" xsi:type="string">message_id</param>-->
+<!--                <param name="enabled" xsi:type="boolean">true</param>-->
+<!--                <param name="selectProvider" xsi:type="string">chatbox_listing_form.chatbox_listing_form.chatbox_listing_form_columns.ids</param>-->
+<!--            </editorConfig>-->
+<!--            <childDefaults>-->
+<!--                <param name="fieldAction" xsi:type="array">-->
+<!--                    <item name="provider" xsi:type="string">chatbox_listing_form.chatbox_listing_form.chatbox_listing_form_columns_editor</item>-->
+<!--                    <item name="target" xsi:type="string">startEdit</item>-->
+<!--                    <item name="params" xsi:type="array">-->
+<!--                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>-->
+<!--                        <item name="1" xsi:type="boolean">true</item>-->
+<!--                    </item>-->
+<!--                </param>-->
+<!--            </childDefaults>-->
         </settings>
 
         <selectionsColumn name="ids" sortOrder="0">
@@ -123,8 +129,8 @@
             <settings>
                 <filter>text</filter>
                 <label translate="true">Chat Hash</label>
-<!--                <controlVisibility>false</controlVisibility>-->
-<!--                <visible>false</visible>-->
+                <controlVisibility>false</controlVisibility>
+                <visible>false</visible>
             </settings>
         </column>
 
@@ -138,7 +144,7 @@
 
         <actionsColumn name="actions" class="Iuriis\Chatbox\Ui\Component\Listing\Column\Actions">
             <settings>
-                <indexField>chat_hash</indexField>
+                <indexField>message_id</indexField>
             </settings>
         </actionsColumn>
     </columns>

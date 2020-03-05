@@ -31,33 +31,18 @@
                 <primaryFieldName>message_id</primaryFieldName>
             </settings>
         </dataProvider>
-
     </dataSource>
-    <insertListing name="chatbox_listing" >
-        <settings>
-            <dataLinks>
-                <exports>false</exports>
-                <imports>true</imports>
-            </dataLinks>
-            <autoRender>true</autoRender>
-            <dataScope>chatbox_listing</dataScope>
-            <ns>chatbox_listing</ns>
-        </settings>
-    </insertListing>
-
-
-<!--        <htmlContent name="test">-->
-<!--            <settings>-->
-<!--                <additionalClasses>-->
-<!--                    <class name="first-test">true</class>-->
-<!--                </additionalClasses>-->
-<!--            </settings>-->
-<!--            <block name="html_test" class="Magento\Backend\Block\Template">-->
-<!--                <arguments>-->
-<!--                    <argument name="template" xsi:type="string">Iuriis_Chatbox::chats.phtml</argument>-->
-<!--                </arguments>-->
-<!--            </block>-->
-<!--        </htmlContent>-->
+        <insertListing class="Iuriis\Chatbox\Ui\Component\Listing\Container" name="chatbox_listing_form">
+            <settings>
+                <dataLinks>
+                    <exports>false</exports>
+                    <imports>true</imports>
+                </dataLinks>
+                <autoRender>true</autoRender>
+                <dataScope>chatbox_listing_form</dataScope>
+                <ns>chatbox_listing_form</ns>
+            </settings>
+        </insertListing>
 
     <fieldset name="general">
         <settings>

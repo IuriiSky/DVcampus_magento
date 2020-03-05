@@ -42,11 +42,6 @@ class Save extends \Magento\Backend\App\Action implements
     protected $formKeyValidator;
 
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     */
-    private $scopeConfig;
-
-    /**
      * @param \Iuriis\Chatbox\Model\MessageFactory $messageFactory
      * @param \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
@@ -74,7 +69,6 @@ class Save extends \Magento\Backend\App\Action implements
         $this->logger = $logger;
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
-        $this->scopeConfig = $scopeConfig;
     }
 
     /**
