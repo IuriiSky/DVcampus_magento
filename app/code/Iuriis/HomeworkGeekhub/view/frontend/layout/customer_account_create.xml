@@ -13,7 +13,11 @@
                             <argument name="show_address_fields" xsi:type="boolean">true</argument>
                         </arguments>
                         <container name="dealer.form.additional.info" as="dealer_form_additional_info"/>
-                        <container name="dealer.form.register.fields.before" as="dealer_form_fields_before" label="Form Fields Before" htmlTag="div" htmlClass="customer-form-before"/>
+                        <container name="dealer.form.register.fields.before" as="dealer_form_fields_before"
+                                   label="Form Fields Before"
+                                   htmlTag="div"
+                                   htmlClass="customer-form-before"
+                        />
                     </block>
             </container>
         </referenceBlock>

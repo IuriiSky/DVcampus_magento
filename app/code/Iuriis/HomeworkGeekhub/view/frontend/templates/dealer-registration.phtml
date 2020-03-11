@@ -116,31 +116,59 @@
                 </div>
 
                 <div class="field required">
-                    <label for="city" class="label"><span><?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('city') ?></span></label>
+                    <label for="dealer_city" class="label"><span><?= /* @noEscape */
+                            $block->getAttributeData()->getFrontendLabel('city') ?></span></label>
                     <div class="control">
-                        <input type="text" name="city" value="<?= $block->escapeHtmlAttr($block->getFormData()->getCity()) ?>" title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('city') ?>" class="input-text <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('city')) ?>" id="city">
+                        <input type="text"
+                               name="city"
+                               value="<?= $block->escapeHtmlAttr($block->getFormData()->getCity()) ?>"
+                               title="<?= /* @noEscape */
+                               $block->getAttributeData()->getFrontendLabel('city') ?>"
+                               class="input-text <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('city')) ?>"
+                               id="dealer_city">
                     </div>
                 </div>
 
                 <div class="field region required">
-                    <label for="region_id" class="label"><span><?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('region') ?></span></label>
+                    <label for="dealer_region_id" class="label"><span><?= /* @noEscape */
+                            $block->getAttributeData()->getFrontendLabel('region') ?></span></label>
                     <div class="control">
-                        <select id="region_id" name="region_id" title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('region') ?>" class="validate-select region_id" style="display:none;">
+                        <select id="dealer_region_id"
+                                name="region_id"
+                                title="<?= /* @noEscape */
+                                $block->getAttributeData()->getFrontendLabel('region') ?>"
+                                class="validate-select region_id" style="display:none;">
                             <option value=""><?= $block->escapeHtml(__('Please select a region, state or province.')) ?></option>
                         </select>
-                        <input type="text" id="region" name="region" value="<?= $block->escapeHtml($block->getRegion()) ?>" title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('region') ?>" class="input-text <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('region')) ?>" style="display:none;">
+                        <input type="text"
+                               id="dealer_region"
+                               name="region"
+                               value="<?= $block->escapeHtml($block->getRegion()) ?>"
+                               title="<?= /* @noEscape */
+                               $block->getAttributeData()->getFrontendLabel('region') ?>"
+                               class="input-text <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('region')) ?>"
+                               style="display:none;">
                     </div>
                 </div>
 
                 <div class="field zip required">
-                    <label for="zip" class="label"><span><?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('postcode') ?></span></label>
+                    <label for="dealer_zip" class="label"><span><?= /* @noEscape */
+                            $block->getAttributeData()->getFrontendLabel('postcode') ?></span></label>
                     <div class="control">
-                        <input type="text" name="postcode" value="<?= $block->escapeHtmlAttr($block->getFormData()->getPostcode()) ?>" title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('postcode') ?>" id="zip" class="input-text validate-zip-international <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('postcode')) ?>">
+                        <input type="text" name="postcode"
+                               value="<?= $block->escapeHtmlAttr($block->getFormData()->getPostcode()) ?>"
+                               title="<?= /* @noEscape */
+                               $block->getAttributeData()->getFrontendLabel('postcode') ?>"
+                               id="dealer_zip"
+                               class="input-text validate-zip-international <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('postcode')) ?>">
                     </div>
                 </div>
 
                 <div class="field country required">
-                    <label for="country" class="label"><span><?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('country_id') ?></span></label>
+                    <label for="dealer_country" class="label">
+                        <span><?= /* @noEscape */
+                            $block->getAttributeData()->getFrontendLabel('country_id') ?></span>
+                    </label>
                     <div class="control">
                         <?= $block->getCountryHtmlSelect() ?>
                     </div>
@@ -253,7 +281,7 @@
 <?php if ($block->getShowAddressFields()) : ?>
     <script type="text/x-magento-init">
     {
-        "#country": {
+        "#dealer_country": {
             "regionUpdater": {
                 "optionalRegionAllowed": <?= /* @noEscape */
         $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>,
@@ -272,6 +300,8 @@
 
 
 
+
+
     </script>
 <?php endif; ?>
 
@@ -283,6 +313,11 @@
             }
         }
     }
+
+
+
+
+
 
 
 </script>
