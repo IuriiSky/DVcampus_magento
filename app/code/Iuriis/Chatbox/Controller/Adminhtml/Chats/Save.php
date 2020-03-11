@@ -81,13 +81,15 @@ class Save extends \Magento\Backend\App\Action implements
                 throw new \InvalidArgumentException(__('Your message can\'t be saved'));
             }
 
+            $requestData = $this->getRequest()->getPostValue();
+
             $hashId = 'test5e53a5f7234339.75943858';
 
             /** @var Message $message */
             $message = $this->messageFactory->create();
-//            $messageValues = $this->getRequest()->getPostValue();
+
             $message->setAuthorType(Message::AUTHOR_TYPE_ADMIN)
-                ->setMessage('hello admin')
+                ->setMessage($requestData)
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
                 ->setChatHash($hashId)
                 ->setAuthorName($this->customerSession->getCustomer()->getName())

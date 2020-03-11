@@ -11,7 +11,7 @@
         <buttons>
             <button name="save" class="Iuriis\Chatbox\Block\Adminhtml\Chats\Edit\SendButton"/>
         </buttons>
-        <ajaxSaveType>simple</ajaxSaveType>
+<!--        <ajaxSaveType>simple</ajaxSaveType>-->
 <!--        <namespace>chatbox_answer_form</namespace>-->
 <!--        <dataScope>data</dataScope>-->
         <deps>
