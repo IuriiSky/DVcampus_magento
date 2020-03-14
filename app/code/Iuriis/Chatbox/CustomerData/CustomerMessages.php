@@ -2,8 +2,7 @@
 
 namespace Iuriis\Chatbox\CustomerData;
 
-use Iuriis\Chatbox\Model\ResourceModel\Message\Collection as MessageCollection;
-use Magento\Framework\DB\Select;
+use Iuriis\Chatbox\Model\MessageData;
 
 class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceInterface
 {
@@ -12,25 +11,27 @@ class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceIn
      */
     private $customerSession;
     /**
-     * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory
+     * @var \Iuriis\Chatbox\Model\MessageManagement $messageManagement
      */
-    private $messageCollectionFactory;
+    private $messageManagement;
 
     /**
      * CustomerMessages constructor.
      * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
+     * @param \Iuriis\Chatbox\Model\MessageManagement $messageManagement
      */
+
     public function __construct(
         \Magento\Customer\Model\Session $customerSession,
-        \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
+        \Iuriis\Chatbox\Model\MessageRepository $messageManagement
     ) {
         $this->customerSession = $customerSession;
-        $this->messageCollectionFactory = $messageCollectionFactory;
+        $this->messageManagement = $messageManagement;
     }
 
     /**
      * @inheritDoc
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getSectionData(): array
     {
@@ -38,21 +39,21 @@ class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceIn
             'messages' => []
         ];
 
-        /** @var MessageCollection $messageCollection */
-        $messageCollection = $this->messageCollectionFactory->create();
-        $messageCollection->setOrder('created_at', Select::SQL_DESC)
-            ->setPageSize(10);
-
         if ($this->customerSession->isLoggedIn()) {
-            $messageCollection->addFieldToFilter('author_id', $this->customerSession->getCustomerId());
+            $customerMessages = $this->messageManagement->getCustomerMessagesId(
+                (int) $this->customerSession->getId()
+            );
         } else {
-            $messageCollection->addFieldToFilter('chat_hash', $this->customerSession->getChatHash());
+            $customerMessages = $this->messageManagement->getCustomerMessagesChatHash(
+                (string) $this->customerSession->getChatHash()
+            );
         }
 
-        foreach ($messageCollection as $customerMessages) {
-            $data['messages'][] = ['message' => $customerMessages->getMessage(),
-                'created_at' => $customerMessages->getCreatedAt(),
-                'author_name' => $customerMessages->getAuthorName()
+        /** @var  MessageData $customerMessage */
+        foreach ($customerMessages as $customerMessage) {
+            $data['messages'][] = ['message' => $customerMessage->getMessage(),
+                'created_at' => $customerMessage->getCreatedAt(),
+                'author_name' => $customerMessage->getAuthorName()
             ];
         }
 
