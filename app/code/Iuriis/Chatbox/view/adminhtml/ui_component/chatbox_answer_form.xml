@@ -11,9 +11,8 @@
         <buttons>
             <button name="save" class="Iuriis\Chatbox\Block\Adminhtml\Chats\Edit\SendButton"/>
         </buttons>
-<!--        <ajaxSaveType>simple</ajaxSaveType>-->
-<!--        <namespace>chatbox_answer_form</namespace>-->
-<!--        <dataScope>data</dataScope>-->
+        <namespace>chatbox_answer_form</namespace>
+        <dataScope>data</dataScope>
         <deps>
             <dep>chatbox_answer_form.chatbox_answer_form_data_source</dep>
         </deps>
@@ -32,6 +31,7 @@
             </settings>
         </dataProvider>
     </dataSource>
+
         <insertListing class="Iuriis\Chatbox\Ui\Component\Listing\Container" name="chatbox_listing_form">
             <settings>
                 <dataLinks>
@@ -53,8 +53,8 @@
             <settings>
                 <dataType>text</dataType>
                 <label translate="true">Answer</label>
+                <dataScope>data</dataScope>
             </settings>
         </field>
     </fieldset>
-
 </form>

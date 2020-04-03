@@ -11,6 +11,8 @@ class Save extends \Magento\Backend\App\Action implements
     \Magento\Framework\App\Action\HttpPostActionInterface
 {
 
+    public const ADMIN_RESOURCE = 'Iuriis_Chatbox::form';
+
     /**
      * @var \Iuriis\Chatbox\Model\MessageFactory $messageFactory
      */
