@@ -129,8 +129,8 @@
             <settings>
                 <filter>text</filter>
                 <label translate="true">Chat Hash</label>
-                <controlVisibility>false</controlVisibility>
-                <visible>false</visible>
+                <controlVisibility>true</controlVisibility>
+                <visible>true</visible>
             </settings>
         </column>
 

@@ -4,13 +4,11 @@ declare(strict_types=1);
 namespace Iuriis\Chatbox\Controller\Adminhtml\Chats;
 
 use Iuriis\Chatbox\Model\Message;
-use Magento\Framework\Controller\Result\Json as JsonResult;
 use Magento\Framework\Controller\ResultFactory;
 
 class Save extends \Magento\Backend\App\Action implements
     \Magento\Framework\App\Action\HttpPostActionInterface
 {
-
     public const ADMIN_RESOURCE = 'Iuriis_Chatbox::form';
 
     /**
@@ -50,8 +48,7 @@ class Save extends \Magento\Backend\App\Action implements
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
-     * @param \Magento\Framework\App\Action\Context $context
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Backend\App\Action\Context $context
      */
 
     public function __construct(
@@ -61,8 +58,7 @@ class Save extends \Magento\Backend\App\Action implements
         \Psr\Log\LoggerInterface $logger,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Framework\App\Action\Context $context
+        \Magento\Backend\App\Action\Context $context
     ) {
         parent::__construct($context);
         $this->messageFactory = $messageFactory;
@@ -85,34 +81,26 @@ class Save extends \Magento\Backend\App\Action implements
 
             $requestData = $this->getRequest()->getPostValue();
 
-            $hashId = 'test5e53a5f7234339.75943858';
+            $hashId = 'test5e8c7e235c1c28.65402199';
 
             /** @var Message $message */
             $message = $this->messageFactory->create();
 
             $message->setAuthorType(Message::AUTHOR_TYPE_ADMIN)
-                ->setMessage($requestData)
+                ->setMessage($requestData['data'])
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
-                ->setChatHash($hashId)
-                ->setAuthorName($this->customerSession->getCustomer()->getName())
-                ->setAuthorId($this->customerSession->getId());
+                ->setChatHash($hashId);
+//                ->setAuthorId($this->customerSession->getId());
 
             $this->messageResource->save($message);
-
-            $message = __('Saved');
-
         } catch (\Exception $e) {
             $this->logger->critical($e);
             $message = __('Your message 100% can\'t be saved');
         }
 
-        /** @var JsonResult $response */
-        $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-        $response->setData([
-            'message' => $message
-        ]);
-
-        return $response;
+        /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        return $resultRedirect->setPath('*/*/edit');
     }
 
     /**

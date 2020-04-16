@@ -56,5 +56,13 @@
                 <dataScope>data</dataScope>
             </settings>
         </field>
+
+        <field name="chat_hash" sortOrder="40" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Hash</label>
+                <dataScope>data</dataScope>
+            </settings>
+        </field>
     </fieldset>
 </form>
