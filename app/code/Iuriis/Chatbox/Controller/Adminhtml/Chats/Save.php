@@ -32,22 +32,22 @@ class Save extends \Magento\Backend\App\Action implements
     private $logger;
 
     /**
-     * @var \Magento\Customer\Model\Session $customerSession
-     */
-    private $customerSession;
-
-    /**
      * @var \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      */
-    protected $formKeyValidator;
+    private $formKeyValidator;
+
+    /**
+     * @var \Magento\Backend\Model\Auth\Session $authSession
+     */
+    private $authSession;
 
     /**
      * @param \Iuriis\Chatbox\Model\MessageFactory $messageFactory
      * @param \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Psr\Log\LoggerInterface $logger
-     * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
+     * @param \Magento\Backend\Model\Auth\Session $authSession
      * @param \Magento\Backend\App\Action\Context $context
      */
 
@@ -56,8 +56,8 @@ class Save extends \Magento\Backend\App\Action implements
         \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Psr\Log\LoggerInterface $logger,
-        \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
+        \Magento\Backend\Model\Auth\Session $authSession,
         \Magento\Backend\App\Action\Context $context
     ) {
         parent::__construct($context);
@@ -65,8 +65,8 @@ class Save extends \Magento\Backend\App\Action implements
         $this->messageResource = $messageResource;
         $this->storeManager = $storeManager;
         $this->logger = $logger;
-        $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
+        $this->authSession = $authSession;
     }
 
     /**
@@ -80,15 +80,18 @@ class Save extends \Magento\Backend\App\Action implements
             }
 
             $requestData = $this->getRequest()->getPostValue();
+            $adminMessage = $requestData['answer'];
+            $chatHash = $requestData['chat_hash'];
 
             /** @var Message $message */
             $message = $this->messageFactory->create();
 
             $message->setAuthorType(Message::AUTHOR_TYPE_ADMIN)
-                ->setMessage($requestData['answer'])
+                ->setMessage($adminMessage)
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
-                ->setChatHash($requestData['chat_hash']);
-//                ->setAuthorId($this->customerSession->getId());
+                ->setChatHash($chatHash)
+                ->setAuthorId((int)$this->authSession->getUser()->getId())
+                ->setAuthorName($this->authSession->getUser()->getName());
 
             $this->messageResource->save($message);
         } catch (\Exception $e) {
@@ -98,7 +101,8 @@ class Save extends \Magento\Backend\App\Action implements
 
         /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        return $resultRedirect->setPath('*/*/edit');
+
+        return $resultRedirect->setPath('*/*/edit/chat_hash/' . $chatHash);
     }
 
     /**

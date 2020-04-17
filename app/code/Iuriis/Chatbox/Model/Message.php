@@ -49,9 +49,9 @@ class Message extends \Magento\Framework\Model\AbstractModel
     /** @throws LocalizedException */
     public function validate(): void
     {
-//        if (!$this->getAuthorId() && $this->getAuthorType() === self::AUTHOR_TYPE_ADMIN) {
-//            throw new LocalizedException(__('Can\'t send message: is not set.', 'author_id'));
-//        }
+        if (!$this->getAuthorId() && $this->getAuthorType() === self::AUTHOR_TYPE_ADMIN) {
+            throw new LocalizedException(__('Can\'t send message: is not set.', 'author_id'));
+        }
 
         if (!$this->getWebsiteId()) {
             throw new LocalizedException(__('Cant\'t send message: is not set:', 'website_id'));

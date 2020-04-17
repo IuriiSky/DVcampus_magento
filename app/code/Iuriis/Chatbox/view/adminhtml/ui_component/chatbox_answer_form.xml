@@ -10,6 +10,7 @@
     <settings>
         <buttons>
             <button name="save" class="Iuriis\Chatbox\Block\Adminhtml\Chats\Edit\SendButton"/>
+            <button name="back" class="Iuriis\Chatbox\Block\Adminhtml\Chats\Edit\BackButton"/>
         </buttons>
         <namespace>chatbox_answer_form</namespace>
         <dataScope>data</dataScope>
