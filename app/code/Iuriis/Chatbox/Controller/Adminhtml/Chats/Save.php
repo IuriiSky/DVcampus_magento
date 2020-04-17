@@ -81,15 +81,13 @@ class Save extends \Magento\Backend\App\Action implements
 
             $requestData = $this->getRequest()->getPostValue();
 
-            $hashId = 'test5e8c7e235c1c28.65402199';
-
             /** @var Message $message */
             $message = $this->messageFactory->create();
 
             $message->setAuthorType(Message::AUTHOR_TYPE_ADMIN)
-                ->setMessage($requestData['data'])
+                ->setMessage($requestData['answer'])
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
-                ->setChatHash($hashId);
+                ->setChatHash($requestData['chat_hash']);
 //                ->setAuthorId($this->customerSession->getId());
 
             $this->messageResource->save($message);

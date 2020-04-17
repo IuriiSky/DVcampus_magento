@@ -26,42 +26,43 @@
 
         <dataProvider class="Iuriis\Chatbox\Ui\Component\Form\DataProvider" name="chatbox_answer_form_data_source">
             <settings>
-                <requestFieldName>id</requestFieldName>
-                <primaryFieldName>message_id</primaryFieldName>
+                <requestFieldName>chat_hash</requestFieldName>
+                <primaryFieldName>chat_hash</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>
 
-        <insertListing class="Iuriis\Chatbox\Ui\Component\Listing\Container" name="chatbox_listing_form">
-            <settings>
-                <dataLinks>
-                    <exports>false</exports>
-                    <imports>true</imports>
-                </dataLinks>
-                <autoRender>true</autoRender>
-                <dataScope>chatbox_listing_form</dataScope>
-                <ns>chatbox_listing_form</ns>
-            </settings>
-        </insertListing>
+    <insertListing class="Iuriis\Chatbox\Ui\Component\Listing\Container" name="chatbox_listing_form">
+        <settings>
+            <dataLinks>
+                <exports>false</exports>
+                <imports>true</imports>
+            </dataLinks>
+            <autoRender>true</autoRender>
+            <dataScope>chatbox_listing_form</dataScope>
+            <ns>chatbox_listing_form</ns>
+        </settings>
+    </insertListing>
 
     <fieldset name="general">
         <settings>
             <label/>
         </settings>
 
-        <field name="answer" sortOrder="30" formElement="textarea">
+        <field name="answer" sortOrder="10" formElement="textarea">
             <settings>
                 <dataType>text</dataType>
                 <label translate="true">Answer</label>
-                <dataScope>data</dataScope>
+                <dataScope>answer</dataScope>
             </settings>
         </field>
 
-        <field name="chat_hash" sortOrder="40" formElement="input">
+        <field name="chat_hash" sortOrder="20" formElement="input">
             <settings>
                 <dataType>text</dataType>
                 <label translate="true">Hash</label>
-                <dataScope>data</dataScope>
+                <dataScope>chat_hash</dataScope>
+                <visible>false</visible>
             </settings>
         </field>
     </fieldset>
