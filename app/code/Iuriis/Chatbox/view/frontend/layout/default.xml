@@ -16,7 +16,8 @@
                                     <item name="component" xsi:type="string">iuriis_chatbox_chatBox</item>
                                     <item name="config" xsi:type="array">
                                         <item name="template" xsi:type="string">Iuriis_Chatbox/chat-box</item>
-                                        <item name="action" xsi:type="url" path="iuriis_chatbox/chatbox/save"/>
+                                        <item name="url" xsi:type="url" path="iuriis_chatbox/chatbox/save"/>
+                                        <item name="action" xsi:type="url" path="iuriis_chatbox/chatbox/getadminmessage"/>
                                     </item>
                                 </item>
                             </item>

@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace Iuriis\Chatbox\CustomerData;
 
+use Iuriis\Chatbox\Model\Message;
 use Iuriis\Chatbox\Model\ResourceModel\Message\Collection as MessageCollection;
 use Magento\Framework\DB\Select;
 
@@ -46,17 +48,17 @@ class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceIn
         if ($this->customerSession->isLoggedIn()) {
             $messageCollection->addFieldToFilter('author_id', $this->customerSession->getCustomerId());
         } else {
-            $messageCollection->addFieldToFilter('chat_hash', $this->customerSession->getChatHash());
+            $messageCollection->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
+                ->addFieldToFilter('author_type', Message::AUTHOR_TYPE_CUSTOMER);
         }
 
         foreach ($messageCollection as $customerMessages) {
             $data['messages'][] = ['message' => $customerMessages->getMessage(),
                 'created_at' => $customerMessages->getCreatedAt(),
-                'author_name' => $customerMessages->getAuthorName()
+                'author_name' => $customerMessages->getAuthorName(),
+                'author_type' => $customerMessages->getAuthorType(),
             ];
         }
-
-        $data['messages'] = array_reverse($data['messages']);
 
         return $data;
     }
