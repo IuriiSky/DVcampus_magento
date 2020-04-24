@@ -37,6 +37,7 @@ define([
                         click: function () {
                             this.closeModal(true);
                             $(document).trigger('iuriis_chatbox_clearTextarea');
+                            $(document).trigger('iuriis_chatbox_concatenateArrays');
                         }
                     }]
                 });

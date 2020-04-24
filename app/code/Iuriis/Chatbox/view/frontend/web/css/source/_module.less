@@ -42,50 +42,64 @@
         }
     }
 
-     .message {
-        display: flex;
-        align-items: flex-end;
-        align-self: flex-end;
-        width: fit-content;
-        font-size: @font-size__base;
-        background-color: @color-brownie-light1;
-        color: white;
-        padding: 5px;
-        border-radius: 10px;
-    }
-
-    .admin-message {
-        background-color: @color-blue-dodger;
-        display: flex;
+    .default-message {
         align-self: flex-start;
+        background-color: @color-dark-green1;
+        border-radius: 10px;
+        color: @color-white;
+        padding: 5px;
+        width: fit-content;
     }
 
     .chat-message-list {
+        display: flex;
+        flex-direction: column;
         list-style: none;
         padding-left: 0;
     }
 
-    .chat-message {
+    .customer-message {
+        align-self: flex-end;
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse;
+        max-width: 70%;
     }
 
+    .customer-message > .message {
+        background-color: @color-gray_light;
+    }
 
-    .admin {
+    .admin-message {
         align-self: flex-start;
-        background-color: #008bdb;
+        display: flex;
+        flex-direction: column-reverse;
+        max-width: 70%;
+    }
+
+    .admin-message > .message {
+        background-color: @color-sky-blue1;
+    }
+
+    .message {
+        padding: 5px;
+        border-radius: 5px;
     }
 
     .date-time {
-        display: flex;
-        justify-content: flex-end;
-        font-size: @font-size__base;
+        font-size: 11px;
+        margin: 5px 0;
+        width: 100%;
     }
 
-    //span.message-time {
-    //    font-size: @font-size__base;
-    //    padding-left: 10px;
-    //}
+    .customer-message > .date-time {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .admin-message > .date-time {
+        display: flex;
+        justify-content: flex-start;
+    }
 
     #iuriis-chat-send-ask,
     #iuriis-chat-close-chat-button {
@@ -103,12 +117,11 @@
         width: 50px;
         height: 30px;
     }
-
+}
 
     ///
     /// Mobile
     ///
-}
 
 .media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
     .iuriis-chat-open-button {

@@ -23,4 +23,23 @@
         </arguments>
         <plugin name="merge_messages" type="Iuriis\Chatbox\Plugin\MergeMessageAfterLogin" sortOrder="10" />
     </type>
+
+<!--    <virtualType name="Iuriis\Chatbox\Ui\Component\Form\DataProvider\Modifier\Pool" -->
+<!--                 type="Magento\Ui\DataProvider\Modifier\Pool">-->
+<!--        <arguments>-->
+<!--            <argument name="modifiers" xsi:type="array">-->
+<!--                <item name="chatHash" xsi:type="array">-->
+<!--                    <item name="class" xsi:type="string">Iuriis\Chatbox\Ui\Component\Form\DataProvider\Modifier\ChatHashField</item>-->
+<!--                    <item name="sortOrder" xsi:type="number">10</item>-->
+<!--                </item>-->
+<!--            </argument>-->
+<!--        </arguments>-->
+<!--    </virtualType>-->
+
+<!--    <type name="Iuriis\Chatbox\Ui\Component\Form\DataProvider">-->
+<!--        <arguments>-->
+<!--            <argument name="pool" xsi:type="object">Iuriis\Chatbox\Ui\Component\Form\DataProvider\Modifier\Pool</argument>-->
+<!--        </arguments>-->
+<!--    </type>-->
+
 </config>

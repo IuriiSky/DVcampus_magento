@@ -3,14 +3,12 @@ declare(strict_types=1);
 
 namespace Iuriis\Chatbox\Block\Adminhtml\Chats\Edit;
 
-use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
-
-class SendButton implements ButtonProviderInterface
+class SendButton implements \Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface
 {
     /**
      * @return array
      */
-    public function getButtonData()
+    public function getButtonData(): array
     {
         return [
             'label' => __('Send Answer'),

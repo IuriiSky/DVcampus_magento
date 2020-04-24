@@ -27,8 +27,8 @@ class ChatHash extends \Magento\Ui\Component\Listing\Columns\Column
         array $data = []
     ) {
         if ($context->getRequestParam('chat_hash')) {
-            $data['config']['controlVisibility'] = false;
-            $data['config']['visible'] = false;
+            $data['config']['controlVisibility'] = true;
+            $data['config']['visible'] = true;
         }
 
         parent::__construct($context, $uiComponentFactory, $components, $data);

@@ -1,11 +1,12 @@
 <div id="iuriis-chat-box" data-bind="attr: { class: chatBoxClass }">
     <div id="body-box-chat">
-        <p class="message admin-message">
+        <p class="default-message">
             <span translate="'Please, ask a questions!'"></span></p>
-        <ul class="chat-message-list" data-bind="foreach: messagesList()['messages']">
-            <li class="chat-message ">
-                <span class="date-time" data-bind="text: created_at"></span>
+        <ul class="chat-message-list" data-bind="foreach: allMessages()">
+            <li class="customer-message">
                 <span class="message" data-bind="text: message"></span>
+                <sup class="date-time" data-bind="text: created_at"></sup>
+                <span class="author_type" data-bind="value: author_type"> </span>
             </li>
         </ul>
     </div>

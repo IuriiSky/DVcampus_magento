@@ -114,7 +114,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="field required">
                     <label for="dealer_city" class="label"><span><?= /* @noEscape */
                             $block->getAttributeData()->getFrontendLabel('city') ?></span></label>
@@ -128,7 +127,6 @@
                                id="dealer_city">
                     </div>
                 </div>
-
                 <div class="field region required">
                     <label for="dealer_region_id" class="label"><span><?= /* @noEscape */
                             $block->getAttributeData()->getFrontendLabel('region') ?></span></label>
@@ -150,7 +148,6 @@
                                style="display:none;">
                     </div>
                 </div>
-
                 <div class="field zip required">
                     <label for="dealer_zip" class="label"><span><?= /* @noEscape */
                             $block->getAttributeData()->getFrontendLabel('postcode') ?></span></label>
@@ -163,14 +160,16 @@
                                class="input-text validate-zip-international <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('postcode')) ?>">
                     </div>
                 </div>
-
                 <div class="field country required">
                     <label for="dealer_country" class="label">
                         <span><?= /* @noEscape */
-                            $block->getAttributeData()->getFrontendLabel('country_id') ?></span>
+                            $block->getAttributeData()->getFrontendLabel('country_id') ?>
+                        </span>
                     </label>
                     <div class="control">
-                        <?= $block->getCountryHtmlSelect() ?>
+                        <div class="control">
+                            <?= $block->getCountryHtmlSelect($defValue = null, $name = 'country_id', $id = 'dealer_country', $title = 'Country') ?>
+                        </div>
                     </div>
                 </div>
                 <?php $addressAttributes = $block->getChildBlock('customer_form_address_user_attributes'); ?>
@@ -183,7 +182,6 @@
                 <input type="hidden" name="default_billing" value="1">
                 <input type="hidden" name="default_shipping" value="1">
             </fieldset>
-
         <?php endif; ?>
         <fieldset class="fieldset create account"
                   data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
@@ -220,7 +218,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="field confirmation required">
                 <label for="dealer_password-confirmation"
@@ -229,7 +226,9 @@
                     <input type="password" name="password_confirmation"
                            title="<?= $block->escapeHtmlAttr(__('Confirm Password')) ?>"
                            id="dealer_password-confirmation"
-                           class="input-text" data-validate="{required:true, equalTo:'#password'}" autocomplete="off">
+                           class="input-text"
+                           data-validate="{required:true, equalTo:'#dealer_password'}"
+                           autocomplete="off">
                 </div>
             </div>
             <?= $block->getChildHtml('dealer_form_additional_info') ?>
@@ -297,11 +296,6 @@
             }
         }
     }
-
-
-
-
-
     </script>
 <?php endif; ?>
 
@@ -313,11 +307,4 @@
             }
         }
     }
-
-
-
-
-
-
-
 </script>
