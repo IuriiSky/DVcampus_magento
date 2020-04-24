@@ -14,25 +14,27 @@ class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceIn
      */
     private $customerSession;
     /**
-     * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory
+     * @var \Iuriis\Chatbox\Model\MessageManagement $messageManagement
      */
-    private $messageCollectionFactory;
+    private $messageManagement;
 
     /**
      * CustomerMessages constructor.
      * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
+     * @param \Iuriis\Chatbox\Model\MessageManagement $messageManagement
      */
+
     public function __construct(
         \Magento\Customer\Model\Session $customerSession,
-        \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
+        \Iuriis\Chatbox\Model\MessageRepository $messageManagement
     ) {
         $this->customerSession = $customerSession;
-        $this->messageCollectionFactory = $messageCollectionFactory;
+        $this->messageManagement = $messageManagement;
     }
 
     /**
      * @inheritDoc
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getSectionData(): array
     {
@@ -40,13 +42,10 @@ class CustomerMessages implements \Magento\Customer\CustomerData\SectionSourceIn
             'messages' => []
         ];
 
-        /** @var MessageCollection $messageCollection */
-        $messageCollection = $this->messageCollectionFactory->create();
-        $messageCollection->setOrder('created_at', Select::SQL_DESC)
-            ->setPageSize(10);
-
         if ($this->customerSession->isLoggedIn()) {
-            $messageCollection->addFieldToFilter('author_id', $this->customerSession->getCustomerId());
+            $customerMessages = $this->messageManagement->getCustomerMessagesId(
+                (int) $this->customerSession->getId()
+            );
         } else {
             $messageCollection->addFieldToFilter('chat_hash', $this->customerSession->getChatHash())
                 ->addFieldToFilter('author_type', Message::AUTHOR_TYPE_CUSTOMER);

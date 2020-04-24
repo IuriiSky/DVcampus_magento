@@ -1,7 +1,0 @@
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
-    <router id="admin">
-        <route id="iuriis_new_module" frontName="iuriis_new_module">
-            <module name="Iuriis_NewModule" before="Magento_Backend"/>
-        </route>
-    </router>
-</config>
