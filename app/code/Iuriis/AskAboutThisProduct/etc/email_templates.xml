@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="iuriis_ask_about_this_product"
+              label="Email Ask Product"
+              file="email_ask_product.html"
+              type="html"
+              module="Iuriis_AskAboutThisProduct"
+              area="frontend"
+    />
+</config>

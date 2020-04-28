@@ -13,12 +13,14 @@ define([
          * @private
          */
         _create: function () {
-            $(document).on('click.iuriis_askaboutthisproduct', $.proxy(this.openModalWindow, this));
+            $(this.element).on('click.iuriis_askaboutthisproduct', $.proxy(this.openModalWindow, this));
+            $(document).on('iuriis_askaboutthisproduct_close_modal', $.proxy(this.closeModalWindow, this));
             this.modal = $(this.element);
         },
 
         _destroy: function () {
-            $(document).off('click.iuriis_askaboutthisproduct');
+            $(this.element).off('click.iuriis_askaboutthisproduct');
+            $(document).off('iuriis_askaboutthisproduct_close_modal');
         },
 
         openModalWindow: function () {
@@ -28,6 +30,12 @@ define([
                 }).modal('openModal');
             })
         },
+
+        closeModalWindow: function () {
+            $('#ask-form').modal({
+                buttons: [],
+            }).modal('closeModal');
+        }
     });
     return $.iuriisAskAboutThisProduct.askAboutProduct;
 });

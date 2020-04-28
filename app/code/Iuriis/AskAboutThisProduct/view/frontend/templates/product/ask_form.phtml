@@ -1,25 +1,29 @@
-<?php
-/** @var \Magento\Contact\Block\ContactForm $block */
-?>
+<?php /** @var \Iuriis\AskAboutThisProduct\Block\GetSkuProduct $block */ ?>
 <form class="form contact"
-      style="display: none"
-      action="<?= $block->escapeUrl($block->getFormAction()) ?>"
+      action="javascript:void(0);"
       id="ask-form"
       method="post"
       data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
-      data-mage-init='{"validation":{}}'>
+      data-mage-init='{"iuriis_askaboutthisproduct_sendEmail":{
+        "action": "<?= $block->escapeUrl($block->getUrl('email-ask-product/email/sendmailtoadmin'))?>"}}'>
     <fieldset class="fieldset">
-        <legend class="legend"><span><?= $block->escapeHtml(__('Ask Us')) ?></span></legend>
+        <legend class="legend">
+            <span><?= $block->escapeHtml(__('Ask Us')) ?></span>
+        </legend>
         <br/>
         <div class="field note no-label"><?= $block->escapeHtml(__('Jot us a note and we’ll get back to you as quickly as possible.')) ?></div>
         <div class="field name required">
-            <label class="label" for="name"><span><?= $block->escapeHtml(__('Name')) ?></span></label>
+            <label class="label" for="name">
+                <span><?= $block->escapeHtml(__('Name')) ?></span>
+            </label>
             <div class="control">
-                <input name="name" id="name" title="<?= $block->escapeHtmlAttr(__('Name')) ?>"
-                       value="<?= $block->escapeHtmlAttr($this->helper(\Magento\Contact\Helper\Data::class)
-                           ->getPostValue('name') ?: $this->helper(\Magento\Contact\Helper\Data::class)
-                           ->getUserName()) ?>"
-                       class="input-text" type="text" data-validate="{required:true}"/>
+                <input name="name"
+                       id="name"
+                       title="<?= $block->escapeHtmlAttr(__('Name')) ?>"
+                       value="<?= $block->getCustomerName() ?>"
+                       class="input-text"
+                       type="text"
+                       data-validate="{required:true}"/>
             </div>
         </div>
         <div class="field email required">
@@ -28,9 +32,7 @@
                 <input name="email"
                        id="email"
                        title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
-                       value="<?= $block->escapeHtmlAttr($this->helper(\Magento\Contact\Helper\Data::class)
-                           ->getPostValue('email') ?: $this->helper(\Magento\Contact\Helper\Data::class)
-                           ->getUserEmail()) ?>"
+                       value="<?= $block->getCustomerEmail() ?>"
                        class="input-text"
                        type="email"
                        data-validate="{required:true, 'validate-email':true}"
@@ -38,20 +40,22 @@
             </div>
         </div>
         <div class="field comment required">
-            <label class="label" for="comment"><span><?= $block->escapeHtml(__('Question')) ?></span></label>
+            <label class="label" for="comment">
+                <span><?= $block->escapeHtml(__('Question')) ?></span>
+            </label>
             <div class="control">
-                <textarea name="comment" id="comment" title="<?= $block->escapeHtmlAttr(__('Question')) ?>"
+                <textarea name="comment"
+                          id="comment"
+                          title="<?= $block->escapeHtmlAttr(__('Question')) ?>"
                           class="input-text"
                           cols="5" rows="3"
-                          data-validate="{required:true}"><?= $block->escapeHtml($this->helper(\Magento\Contact\Helper\Data::class)
-                        ->getPostValue('comment')) ?>
-                </textarea>
+                          data-validate="{required:true}"></textarea>
             </div>
         </div>
         <?= $block->getChildHtml('form.additional.info') ?>
     </fieldset>
     <div class="actions-toolbar">
-        <div class="primary" style="margin-bottom: 20px; display: none">
+        <div class="primary" style="margin-bottom: 20px;">
             <input type="hidden" name="hideit" id="hideit" value=""/>
             <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
                 <span><?= $block->escapeHtml(__('Submit')) ?></span>
