@@ -1,0 +1,14 @@
+<?php /** @var  \Iuriis\AskAboutThisProduct\Block\GetSkuProduct $block */ ?>
+<div class="field sku required" style="display: none">
+    <label class="label" for="sku"><span><?= $block->escapeHtml(__('Sku')) ?></span></label>
+    <div class="control">
+        <input name="sku"
+               id="sku"
+               title="<?= $block->escapeHtmlAttr(__('sku')) ?>"
+               value="<?= $block->getProduct()->getSku() ?>"
+               class="input-text"
+               type="text"
+               data-validate="{required:true, 'validate-email':true}"
+        />
+    </div>
+</div>
