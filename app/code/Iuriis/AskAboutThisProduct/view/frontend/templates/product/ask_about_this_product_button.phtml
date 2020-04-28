@@ -1,0 +1,15 @@
+<?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
+<div class="actions">
+    <button id="ask-about-product"
+            type="submit"
+            class="action primary tocart"
+            title="Ask about this product"
+            style="margin-bottom: 20px; width: 49%; height: 49px; font-size: 1.5rem;">
+        <span><?= $block->escapeHtml(__('Ask about this product')) ?></span>
+    </button>
+</div>
+
+<form id="test-form">
+    <textarea placeholder="Hello"
+              data-mage-init='{"iuriis_askaboutthisproduct_askAboutProduct":{}}'></textarea>
+</form>

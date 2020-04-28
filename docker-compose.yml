@@ -39,6 +39,7 @@ services:
       - redis
     external_links:
       - mysql57:mysql
+      - mailhog
 #    networks:
 #      - reverse-proxy
     network_mode: bridge
