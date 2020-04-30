@@ -67,3 +67,5 @@ atlassian*
 !/generated/.htaccess
 .DS_Store
 auth.json
+
+/test_folder/*
