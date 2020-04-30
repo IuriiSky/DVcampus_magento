@@ -74,7 +74,7 @@ class EmailToAdmin
                     ]
                 )
                 ->setTemplateVars($templateVariables)
-                ->setFromByScope('support')
+                ->setFromByScope($templateVariables, ['email'])
                 ->addTo('support@example.com')
                 ->setReplyTo('support@example.com', 'Administrator')
                 ->getTransport();

@@ -1,0 +1,35 @@
+<?php /** @var \Iuriis\AskAboutThisProduct\Block\CaptchaForm $block */ ?>
+<div class="block">
+    <form id="form1"
+          data-hasrequired="* Required Fields"
+          method="post"
+          action="/captchaForm/capcha/captchaFormPost"
+          class="form">
+        <?php echo $block->getBlockHtml('formkey'); ?>
+        <fieldset class="fieldset info">
+            <legend class="legend"><span> <?php echo __("Captcha Form"); ?></span></legend><br>
+            <div class="field required">
+                <label for="message" class="label">
+                    <span><?php echo __("Text"); ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           data-validate=""
+                           class="input-text"
+                           title="Message"
+                           value="" id="message"
+                           name="message">
+                </div>
+            </div>
+            <!-- Captcha -->
+            <?php echo $block->getChildHtml('iuriis.captchaform.captchaform1'); ?>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button title="Submit" class="action save primary" type="submit">
+                    <span><?php echo __("Submit"); ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
