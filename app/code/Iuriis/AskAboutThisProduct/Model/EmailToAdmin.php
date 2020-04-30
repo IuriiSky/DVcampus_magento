@@ -21,29 +21,45 @@ class EmailToAdmin
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     private $storeManager;
-    /**;
+
+    /**
+     * @var \Magento\Framework\App\Action\Action
+     */
+    private $request;
 
     /**
      * Email constructor.
      * @param \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
      * @param \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\App\Action\Action $request
      */
     public function __construct(
         \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder,
         \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
-        \Magento\Store\Model\StoreManagerInterface $storeManager
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\App\Action\Action $request
     ) {
         $this->transportBuilder = $transportBuilder;
         $this->inlineTranslation = $inlineTranslation;
         $this->storeManager = $storeManager;
+        $this->request = $request;
     }
 
     public function send(): void
     {
+        $requestData = $this->request->getRequest()->getPostValue();
+
+        $customerName = $requestData['name'];
+        $customerEmail = $requestData['email'];
+        $sku = $requestData['sku'];
+        $customerQuestion = $requestData['question'];
+
         $templateVariables = [
-            'name' => 'Dv Campus',
-            'email' => 'email@example.com'
+            'name' => $customerName,
+            'email' => $customerEmail,
+            'sku' => $sku,
+            'question' => $customerQuestion,
         ];
 
         $this->inlineTranslation->suspend();
@@ -58,9 +74,9 @@ class EmailToAdmin
                     ]
                 )
                 ->setTemplateVars($templateVariables)
-                ->setFromByScope('support') //getConfig work with config
-                ->addTo('recipient@example.com') // добавити отримувача
-                ->setReplyTo('uzik.fk11@gmail.com', 'Iurii Stepanenko')
+                ->setFromByScope('support')
+                ->addTo('support@example.com')
+                ->setReplyTo('support@example.com', 'Administrator')
                 ->getTransport();
 
             $transport->sendMessage();

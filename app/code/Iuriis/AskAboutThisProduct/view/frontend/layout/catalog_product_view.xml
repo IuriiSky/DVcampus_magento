@@ -10,10 +10,11 @@
             />
         </referenceContainer>
         <referenceContainer name="content">
-            <block class="Magento\Contact\Block\ContactForm"
+            <block class="Iuriis\AskAboutThisProduct\Block\GetLoggedCustomerInfo"
                    name="ask.about.this.product.form"
                    after="catalog.product.related"
                    template="Iuriis_AskAboutThisProduct::product/ask_form.phtml"
+                   cacheable="false"
             >
                 <referenceBlock name="ask.about.this.product.form">
                     <block class="Iuriis\AskAboutThisProduct\Block\GetSkuProduct"

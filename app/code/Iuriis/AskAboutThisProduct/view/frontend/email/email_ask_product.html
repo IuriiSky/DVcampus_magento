@@ -2,6 +2,8 @@
 <!--@vars {
 "var email":"Your Email",
 "var name":"Your Name"
+"var sku":"Sku Product"
+"var question": "Question"
 } @-->
 
 {{template config_path="design/email/header_template"}}
@@ -14,6 +16,14 @@
     <tr>
         <td><strong>{{trans "Email:"}}</strong></td>
         <td><span class="variable-value">{{var email}}</span></td>
+    </tr>
+    <tr>
+        <td><strong>{{trans "SKU Product:"}}</strong></td>
+        <td><span class="variable-value">{{var sku}}</span></td>
+    </tr>
+    <tr>
+        <td><strong>{{trans "Question:"}}</strong></td>
+        <td><span class="variable-value">{{var question}}</span></td>
     </tr>
 </table>
 <p><strong>{{trans "Thank you for learning how to send emails"}}</strong></p>
