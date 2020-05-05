@@ -4,6 +4,7 @@
         <arguments>
             <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
         </arguments>
+        <plugin name="check_captcha_ajax" type="Iuriis\AskAboutThisProduct\Plugin\CheckCaptcha" sortOrder="50" />
     </type>
     <type name="Magento\Customer\Controller\Account\LoginPost">
         <arguments>

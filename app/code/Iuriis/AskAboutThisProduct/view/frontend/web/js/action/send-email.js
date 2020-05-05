@@ -15,11 +15,11 @@ define([
          * @private
          */
         _create: function () {
-            $(this.element).on('click.iuriis_sendMail', $.proxy(this.sendMail, this));
+            $('#submit_btn').on('click.iuriis_sendMail', $.proxy(this.sendMail, this));
         },
 
         _destroy: function () {
-            $(this.element).off('click.iuriis_sendMail');
+            $('#submit_btn').off('click.iuriis_sendMail');
         },
 
         sendMail: function () {
@@ -63,8 +63,8 @@ define([
                 success: function (response) {
                     $('body').trigger('processStop');
                     alert({
-                        title: $.mage.__('Success'),
-                        content: response.message,
+                        title: $.mage.__(response.title),
+                        content:$.mage.__(response.message),
                         buttons: [{
                             text: $.mage.__('Accept'),
                             class: 'action primary accept',

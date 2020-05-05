@@ -39,6 +39,9 @@ class GetLoggedCustomerInfo extends \Magento\Framework\View\Element\Template
         return $name;
     }
 
+    /**
+     * @return string
+     */
     public function getCustomerEmail(): string
     {
         if ($this->customerSession->isLoggedIn()) {

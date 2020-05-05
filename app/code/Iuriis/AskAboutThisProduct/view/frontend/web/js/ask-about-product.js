@@ -25,14 +25,14 @@ define([
 
         openModalWindow: function () {
             $('#ask-about-product').on('click', function () {
-                $('#ask-form').modal({
+                $('#ask_form').modal({
                     buttons: [],
                 }).modal('openModal');
             })
         },
 
         closeModalWindow: function () {
-            $('#ask-form').modal({
+            $('#ask_form').modal({
                 buttons: [],
             }).modal('closeModal');
         }

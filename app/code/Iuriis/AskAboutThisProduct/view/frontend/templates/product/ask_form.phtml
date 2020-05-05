@@ -1,7 +1,9 @@
 <?php /** @var \Iuriis\AskAboutThisProduct\Block\GetLoggedCustomerInfo $block */ ?>
 <form class="form contact"
       action="javascript:void(0);"
-      id="ask-form"
+      style="display: none"
+      id="ask_form"
+      name="ask_form"
       method="post"
       data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
       data-mage-init='{"iuriis_askaboutthisproduct_sendEmail":{
@@ -52,12 +54,15 @@
                           data-validate="{required:true}"></textarea>
             </div>
         </div>
-        <?= $block->getChildHtml('form.additional.info') ?>
+        <?php echo $block->getChildHtml('form.additional.info'); ?>
     </fieldset>
     <div class="actions-toolbar">
         <div class="primary" style="margin-bottom: 20px;">
             <input type="hidden" name="hideit" id="hideit" value=""/>
-            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+            <button type="submit"
+                    title="<?= $block->escapeHtmlAttr(__('Submit')) ?>"
+                    class="action submit primary"
+                    id="submit_btn">
                 <span><?= $block->escapeHtml(__('Submit')) ?></span>
             </button>
         </div>

@@ -36,11 +36,13 @@ class SendMailToAdmin extends \Magento\Framework\App\Action\Action implements
     {
         $this->emailToAdmin->send();
         $message = __('Your question has been send');
+        $title = __('Success');
 
         /** @var JsonResult $response */
         $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
         $response->setData([
-            'message' => $message
+            'message' => $message,
+            'title' => $title
         ]);
 
         return $response;
