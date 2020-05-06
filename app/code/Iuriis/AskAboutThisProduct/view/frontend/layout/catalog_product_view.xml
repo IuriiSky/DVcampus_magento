@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="ask.about.this.product"
+                   after="product.info.sku"
+                   template="Iuriis_AskAboutThisProduct::product/ask_about_this_product_button.phtml"
+            />
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Iuriis\AskAboutThisProduct\Block\GetLoggedCustomerInfo"
+                   name="ask.about.this.product.form"
+                   after="catalog.product.related"
+                   template="Iuriis_AskAboutThisProduct::product/ask_form.phtml"
+                   cacheable="false"
+            >
+                <referenceBlock name="ask.about.this.product.form">
+                    <container name="form.additional.info">
+                        <block class="Iuriis\AskAboutThisProduct\Block\GetSkuProduct"
+                               name="ask.about.this.product.form.sku"
+                               template="Iuriis_AskAboutThisProduct::product/product_sku.phtml"
+                        />
+                        <block class="Magento\Captcha\Block\Captcha"
+                               name="captcha"
+                               before="-"
+                               cacheable="false">
+                            <action method="setFormId">
+                                <argument name="formId" xsi:type="string">ask_form</argument>
+                            </action>
+                            <action method="setImgWidth">
+                                <argument name="width" xsi:type="string">230</argument>
+                            </action>
+                            <action method="setImgHeight">
+                                <argument name="width" xsi:type="string">50</argument>
+                            </action>
+                        </block>
+                    </container>
+                </referenceBlock>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components"
+                   name="captcha_page_head_components"
+                   template="Magento_Captcha::js/components.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

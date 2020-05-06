@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Iuriis\AskAboutThisProduct\Controller\Email\SendMailToAdmin">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+        <plugin name="check_captcha_ajax" type="Iuriis\AskAboutThisProduct\Plugin\CheckCaptcha" sortOrder="50" />
+    </type>
+    <type name="Magento\Customer\Controller\Account\LoginPost">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+</config>
