@@ -8,7 +8,8 @@
             "message": true,
             "website_id": true,
             "chat_hash": true,
-            "created_at": true
+            "created_at": true,
+            "message_priority": true
         },
         "index": {
             "IURIIS_CHATBOX_MESSAGE_ID": true,

@@ -26,6 +26,9 @@
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Creation Time"
         />
+        <column xsi:type="varchar" name="message_priority" nullable="false" length="127"
+                comment="Message Priority"
+        />
 
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="message_id"/>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="iuriis.chatbox.openButton"
+                   template="Iuriis_Chatbox::open_button.phtml"
+                   after="checkout.root"
+                   ifconfig="iuriis_chat_box/general/enabled"
+            >
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Iuriis\Chatbox\ViewModel\ShowOpenButton</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Template"
+                   name="iuriis.chatbox.chatBox"
+                   template="Iuriis_Chatbox::chatbox.phtml"
+                   ifconfig="iuriis_chat_box/general/enabled"
+                   after="checkout.root"
+            >
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="chatBoxMessages" xsi:type="array">
+                                <item name="component" xsi:type="string">iuriis_chatbox_chatBox</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">Iuriis_Chatbox/chat-box</item>
+                                    <item name="url" xsi:type="url" path="iuriis_chatbox/chatbox/save"/>
+                                    <item name="action" xsi:type="url" path="iuriis_chatbox/chatbox/getadminmessage"/>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

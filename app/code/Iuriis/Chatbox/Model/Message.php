@@ -19,12 +19,20 @@ use Magento\Framework\Exception\LocalizedException;
  * @method $this setChatHash(string $chatHash)
  * @method int getCreatedAt()
  * @method $this setCreatedAt(int $createdAt)
+ * @method string getMessagePriority()
+ * @method $this setMessagePriority(string $messagePriority)
  */
 class Message extends \Magento\Framework\Model\AbstractModel
 {
     public const AUTHOR_TYPE_CUSTOMER = 'customer';
 
     public const AUTHOR_TYPE_ADMIN = 'admin';
+
+    public const MESSAGE_PRIORITY_REGULAR = 'regular';
+
+    public const MESSAGE_PRIORITY_WAITING = 'waiting';
+
+    public const MESSAGE_PRIORITY_IMMEDIATE = 'immediate';
 
     /**
      * @inheritDoc

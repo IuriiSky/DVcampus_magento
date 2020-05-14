@@ -4,6 +4,7 @@
         <arguments>
             <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
         </arguments>
+<!--        <plugin name="check_is_checkout_page" type="Iuriis\Chatbox\Plugin\CheckoutPage" sortOrder="5"/>-->
     </type>
     <type name="Magento\Customer\CustomerData\SectionPoolInterface">
         <arguments>

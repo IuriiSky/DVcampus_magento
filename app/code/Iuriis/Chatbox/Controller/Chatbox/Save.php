@@ -15,6 +15,8 @@ class Save extends \Magento\Framework\App\Action\Action implements
 
     public const XML_PATH_ALLOW_FOR_GUESTS_GENERAL_ENABLED = 'iuriis_chat_box/general/allow_for_guests';
 
+    public const XML_PATH_TO_CHECKOUT_PAGE = 'checkout';
+
     /**
      * @var \Iuriis\Chatbox\Model\MessageFactory $messageFactory
      */
@@ -49,6 +51,18 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @var \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     private $scopeConfig;
+    /**
+     * @var \Magento\Framework\App\Request\Http
+     */
+    private $request;
+    /**
+     * @var \Magento\Framework\UrlInterface
+     */
+    private $urlManager;
+    /**
+     * @var \Magento\Framework\View\Page\Config
+     */
+    private $pageConfig;
 
     /**
      * @param \Iuriis\Chatbox\Model\MessageFactory $messageFactory
@@ -57,8 +71,12 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
-     * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Framework\App\Request\Http $request
+     * @param \Magento\Framework\UrlInterface $urlManager
+     * @param \Magento\Framework\View\Page\Config $pageConfig
+     * @param \Magento\Checkout\Helper\Data $checkoutHelper
+     * @param \Magento\Framework\App\Action\Context $context
      */
 
     public function __construct(
@@ -69,6 +87,10 @@ class Save extends \Magento\Framework\App\Action\Action implements
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\App\Request\Http $request,
+        \Magento\Framework\UrlInterface $urlManager,
+        \Magento\Framework\View\Page\Config $pageConfig,
+        \Magento\Checkout\Helper\Data $checkoutHelper,
         \Magento\Framework\App\Action\Context $context
     ) {
         parent::__construct($context);
@@ -79,6 +101,9 @@ class Save extends \Magento\Framework\App\Action\Action implements
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
         $this->scopeConfig = $scopeConfig;
+        $this->request = $request;
+        $this->urlManager = $urlManager;
+        $this->pageConfig = $pageConfig;
     }
 
     /**
@@ -103,6 +128,7 @@ class Save extends \Magento\Framework\App\Action\Action implements
             /** @var Message $message */
             $message = $this->messageFactory->create();
             $messageValues = $this->getRequest()->getParam('message');
+
             $message->setAuthorType(Message::AUTHOR_TYPE_CUSTOMER)
                 ->setMessage($messageValues)
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
@@ -111,6 +137,12 @@ class Save extends \Magento\Framework\App\Action\Action implements
             if ($this->customerSession->isLoggedIn()) {
                 $message->setAuthorName($this->customerSession->getCustomer()->getName())
                     ->setAuthorId($this->customerSession->getId());
+            }
+
+            if ($this->isCheckoutPage()) {
+                $message->setMessagePriority(Message::MESSAGE_PRIORITY_IMMEDIATE);
+            } else {
+                $message->setMessagePriority(Message::MESSAGE_PRIORITY_REGULAR);
             }
 
             $this->messageResource->save($message);
@@ -149,5 +181,9 @@ class Save extends \Magento\Framework\App\Action\Action implements
         }
 
         return $allowSendingMessages;
+    }
+
+    public function isCheckoutPage() {
+
     }
 }
