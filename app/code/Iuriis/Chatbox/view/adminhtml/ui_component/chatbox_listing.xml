@@ -136,6 +136,13 @@
             </settings>
         </column>
 
+        <column name="message_priority" sortOrder="90">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Message Priority</label>
+            </settings>
+        </column>
+
         <actionsColumn name="actions" class="Iuriis\Chatbox\Ui\Component\Listing\Column\Actions">
             <settings>
                 <indexField>chat_hash</indexField>

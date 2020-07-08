@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Iuriis\Chatbox\Controller\Chatbox;
@@ -14,8 +13,6 @@ class Save extends \Magento\Framework\App\Action\Action implements
     public const XML_PATH_IURIIS_CHAT_BOX_GENERAL_ENABLED = 'iuriis_chat_box/general/enabled';
 
     public const XML_PATH_ALLOW_FOR_GUESTS_GENERAL_ENABLED = 'iuriis_chat_box/general/allow_for_guests';
-
-    public const XML_PATH_TO_CHECKOUT_PAGE = 'checkout';
 
     /**
      * @var \Iuriis\Chatbox\Model\MessageFactory $messageFactory
@@ -51,18 +48,11 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @var \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     private $scopeConfig;
+
     /**
      * @var \Magento\Framework\App\Request\Http
      */
     private $request;
-    /**
-     * @var \Magento\Framework\UrlInterface
-     */
-    private $urlManager;
-    /**
-     * @var \Magento\Framework\View\Page\Config
-     */
-    private $pageConfig;
 
     /**
      * @param \Iuriis\Chatbox\Model\MessageFactory $messageFactory
@@ -73,9 +63,6 @@ class Save extends \Magento\Framework\App\Action\Action implements
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Framework\App\Request\Http $request
-     * @param \Magento\Framework\UrlInterface $urlManager
-     * @param \Magento\Framework\View\Page\Config $pageConfig
-     * @param \Magento\Checkout\Helper\Data $checkoutHelper
      * @param \Magento\Framework\App\Action\Context $context
      */
 
@@ -88,9 +75,6 @@ class Save extends \Magento\Framework\App\Action\Action implements
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\App\Request\Http $request,
-        \Magento\Framework\UrlInterface $urlManager,
-        \Magento\Framework\View\Page\Config $pageConfig,
-        \Magento\Checkout\Helper\Data $checkoutHelper,
         \Magento\Framework\App\Action\Context $context
     ) {
         parent::__construct($context);
@@ -102,8 +86,6 @@ class Save extends \Magento\Framework\App\Action\Action implements
         $this->formKeyValidator = $formKeyValidator;
         $this->scopeConfig = $scopeConfig;
         $this->request = $request;
-        $this->urlManager = $urlManager;
-        $this->pageConfig = $pageConfig;
     }
 
     /**
@@ -183,7 +165,8 @@ class Save extends \Magento\Framework\App\Action\Action implements
         return $allowSendingMessages;
     }
 
-    public function isCheckoutPage() {
-
+    public function isCheckoutPage()
+    {
+        return $this->request->getParam('is_checkout_page');
     }
 }

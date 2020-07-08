@@ -91,7 +91,8 @@ class Save extends \Magento\Backend\App\Action implements
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
                 ->setChatHash($chatHash)
                 ->setAuthorId((int)$this->authSession->getUser()->getId())
-                ->setAuthorName($this->authSession->getUser()->getName());
+                ->setAuthorName($this->authSession->getUser()->getName())
+                ->setMessagePriority(Message::MESSAGE_PRIORITY_REGULAR);
 
             $this->messageResource->save($message);
         } catch (\Exception $e) {
