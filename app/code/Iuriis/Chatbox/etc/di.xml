@@ -6,6 +6,7 @@
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="iuriis_chatbox_generate_messages" xsi:type="object">Iuriis\Chatbox\Console\Command\GenerateMessages</item>
+                <item name="iuriis_chatbox_update_status" xsi:type="object">Iuriis\Chatbox\Console\Command\UpdateStatusMessages</item>
             </argument>
         </arguments>
     </type>

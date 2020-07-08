@@ -40,6 +40,10 @@ class Save extends \Magento\Backend\App\Action implements
      * @var \Magento\Backend\Model\Auth\Session $authSession
      */
     private $authSession;
+    /**
+     * @var \Magento\Framework\Stdlib\DateTime\TimezoneInterface
+     */
+    private $timezone;
 
     /**
      * @param \Iuriis\Chatbox\Model\MessageFactory $messageFactory
@@ -48,6 +52,7 @@ class Save extends \Magento\Backend\App\Action implements
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      * @param \Magento\Backend\Model\Auth\Session $authSession
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezone
      * @param \Magento\Backend\App\Action\Context $context
      */
 
@@ -58,6 +63,7 @@ class Save extends \Magento\Backend\App\Action implements
         \Psr\Log\LoggerInterface $logger,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Backend\Model\Auth\Session $authSession,
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezone,
         \Magento\Backend\App\Action\Context $context
     ) {
         parent::__construct($context);
@@ -67,6 +73,7 @@ class Save extends \Magento\Backend\App\Action implements
         $this->logger = $logger;
         $this->formKeyValidator = $formKeyValidator;
         $this->authSession = $authSession;
+        $this->timezone = $timezone;
     }
 
     /**
@@ -82,6 +89,8 @@ class Save extends \Magento\Backend\App\Action implements
             $requestData = $this->getRequest()->getPostValue();
             $adminMessage = $requestData['answer'];
             $chatHash = $requestData['chat_hash'];
+            $currentTime = $this->timezone->date()->format('Y-m-d H:i:s');
+            $timeStamp = strtotime($currentTime);
 
             /** @var Message $message */
             $message = $this->messageFactory->create();
@@ -92,7 +101,8 @@ class Save extends \Magento\Backend\App\Action implements
                 ->setChatHash($chatHash)
                 ->setAuthorId((int)$this->authSession->getUser()->getId())
                 ->setAuthorName($this->authSession->getUser()->getName())
-                ->setMessagePriority(Message::MESSAGE_PRIORITY_REGULAR);
+                ->setMessagePriority(Message::MESSAGE_PRIORITY_REGULAR)
+                ->setCreatedAt($timeStamp);
 
             $this->messageResource->save($message);
         } catch (\Exception $e) {

@@ -31,6 +31,10 @@ class GenerateMessages extends \Symfony\Component\Console\Command\Command
      * @var \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory
      */
     private $messageCollectionFactory;
+    /**
+     * @var \Magento\Framework\Stdlib\DateTime\TimezoneInterface
+     */
+    private $timezone;
 
     /**
      * GenerateMessages constructor.
@@ -38,13 +42,14 @@ class GenerateMessages extends \Symfony\Component\Console\Command\Command
      * @param \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
      * @param \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource
      * @param \Psr\Log\LoggerInterface $logger
-     * @param null $name
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezone
      */
     public function __construct(
         \Iuriis\Chatbox\Model\MessageFactory $messageFactory,
         \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory,
         \Iuriis\Chatbox\Model\ResourceModel\Message $messageResource,
         \Psr\Log\LoggerInterface $logger,
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezone,
         $name = null
     ) {
         parent::__construct($name);
@@ -52,6 +57,7 @@ class GenerateMessages extends \Symfony\Component\Console\Command\Command
         $this->messageResource = $messageResource;
         $this->logger = $logger;
         $this->messageCollectionFactory = $messageCollectionFactory;
+        $this->timezone = $timezone;
     }
 
     /**
@@ -79,12 +85,16 @@ class GenerateMessages extends \Symfony\Component\Console\Command\Command
         $helper = $this->getHelper('question');
         $question = new Question('Please enter how many messages you want to generate ', 20);
         $countMessages = $helper->ask($input, $output, $question);
+        $currentTime = $this->timezone->date()->format('Y-m-d H:i:s');
 
         try {
             for ($i = 0; $i < $countMessages; $i++) {
+
                 $authorId = $this->getRandomAuthorId();
                 $hashId = uniqid('gen', true);
                 $randomMessage = Lorem::text(100);
+                $timeStamp = strtotime($currentTime);
+                $randomTime = $timeStamp - random_int(0, 7200);
 
                 /** @var Message $message */
                 $message = $this->messageFactory->create();
@@ -94,7 +104,8 @@ class GenerateMessages extends \Symfony\Component\Console\Command\Command
                     ->setWebsiteId(1)
                     ->setChatHash($hashId)
                     ->setMessagePriority(Message::MESSAGE_PRIORITY_REGULAR)
-                    ->setAuthorId($authorId);
+                    ->setAuthorId($authorId)
+                    ->setCreatedAt($randomTime);
 
                 $this->messageResource->save($message);
             }
