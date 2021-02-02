@@ -11,9 +11,9 @@ return [
         'connection' => [
             'default' => [
                 'host' => 'mysql',
-                'dbname' => 'iurii_stepanenko_local',
-                'username' => 'iurii_stepanenko_local',
-                'password' => 'iurii_stepanenko_local',
+                'dbname' => 'iurii_stepanenko_local_dev',
+                'username' => 'iurii_stepanenko_local_dev',
+                'password' => 'fgdsfhshtreh3453@#$fgdgddfg',
                 'model' => 'mysql4',
                 'engine' => 'innodb',
                 'initStatements' => 'SET NAMES utf8;',
@@ -88,7 +88,43 @@ return [
         'date' => 'Wed, 09 Oct 2019 16:54:42 +0000'
     ],
     'downloadable_domains' => [
-        'iurii-stepanenko.local',
-        'iurii-sky.local'
+        'iurii-stepanenko-dev.local',
+        'iurii-sky-dev.local'
+    ],
+    'system' => [
+        'default' => [
+            'web' => [
+                'unsecure' => [
+                    'base_url' => 'https://iurii-stepanenko-dev.local/',
+                    'base_link_url' => '{{unsecure_base_url}}',
+                    'base_static_url' => 'https://iurii-stepanenko-dev.local/static/',
+                    'base_media_url' => 'https://iurii-stepanenko-dev.local/media/'
+                ],
+                'secure' => [
+                    'base_url' => 'https://iurii-stepanenko.local/',
+                    'base_link_url' => '{{secure_base_url}}',
+                    'base_static_url' => 'https://iurii-stepanenko-dev.local/static/',
+                    'base_media_url' => 'https://iurii-stepanenko-dev.local/media/'
+                ],
+            ],
+        ],
+
+        'websites' => [
+            'additional_website' => [
+                'web' => [
+                    'unsecure' => [
+                        'base_url' => 'https://iurii-sky.local/',
+                        'base_static_url' => 'https://iurii-sky-dev.local/static/',
+                        'base_media_url' => 'https://iurii-sky-dev.local/media/'
+                    ],
+                    'secure' => [
+                        'base_url' => 'https://iurii-sky.local/',
+                        'base_static_url' => 'https://iurii-sky-dev.local/static/',
+                        'base_media_url' => 'https://iurii-sky-dev.local/media/'
+                    ]
+                ]
+            ]
+        ]
+
     ]
 ];
