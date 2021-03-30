@@ -30,24 +30,4 @@
             <argument name="resourceModel" xsi:type="string">Iuriis\Chatbox\Model\ResourceModel\Message</argument>
         </arguments>
     </type>
-
-    <!--    <virtualType name="Iuriis\Chatbox\Ui\DataProvider\DataProvider"-->
-    <!--                 type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"-->
-    <!--    >-->
-    <!--        <arguments>-->
-    <!--            <argument name="modifiersPool" xsi:type="object">Iuriis\Chatbox\Ui\DataProvider\Listing\Modifier\Pool</argument>-->
-    <!--        </arguments>-->
-    <!--    </virtualType>-->
-    <!--    <virtualType name="Iuriis\Chatbox\Ui\DataProvider\Listing\Modifier\Pool"-->
-    <!--                 type="Magento\Ui\DataProvider\Modifier\Pool"-->
-    <!--    >-->
-    <!--        <arguments>-->
-    <!--            <argument name="modifiers" xsi:type="array">-->
-    <!--                <item name="filter_url_parameter" xsi:type="array">-->
-    <!--                    <item name="class" xsi:type="string">Iuriis\Chatbox\Ui\DataProvider\Listing\Modifier\FilterUrlParameter</item>-->
-    <!--                    <item name="sortOrder" xsi:type="number">100</item>-->
-    <!--                </item>-->
-    <!--            </argument>-->
-    <!--        </arguments>-->
-    <!--    </virtualType>-->
 </config>

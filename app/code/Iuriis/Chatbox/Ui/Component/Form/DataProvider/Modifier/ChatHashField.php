@@ -5,7 +5,6 @@ namespace Iuriis\Chatbox\Ui\Component\Form\DataProvider\Modifier;
 
 class ChatHashField implements \Magento\Ui\DataProvider\Modifier\ModifierInterface
 {
-
     /**
      * @var \Magento\Framework\App\RequestInterface $request
      */

@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Iuriis\Chatbox\Model\ResourceModel\Message\Grid;
@@ -12,16 +11,6 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
     protected function _initSelect()
     {
         parent::_initSelect();
-        /*
-        SELECT ic.*
-        FROM m2_iuriis_chatbox AS ic
-         INNER JOIN (
-            SELECT MAX(message_id) as last_message_id, chat_hash
-            FROM m2_iuriis_chatbox
-            GROUP BY chat_hash
-         ) AS iclm
-        ON ic.message_id = iclm.last_message_id;
-         */
         $maxMessageIdSelect = $this->getConnection()->select();
         $maxMessageIdSelect->from(
             $this->getTable('iuriis_chatbox'),
@@ -43,5 +32,3 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
         return $this;
     }
 }
-
-//Зробити тута if

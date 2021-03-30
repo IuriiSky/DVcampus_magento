@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Iuriis\Chatbox\Plugin;
@@ -31,7 +30,6 @@ class MergeMessageAfterLogin
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\DB\TransactionFactory $transactionFactory
      */
-
     public function __construct(
         \Iuriis\Chatbox\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory,
         \Magento\Customer\Model\Session $customerSession,

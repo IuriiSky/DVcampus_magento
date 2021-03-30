@@ -96,7 +96,7 @@ define([
                 type: 'GET',
                 url: this.action,
                 dataType: 'json',
-              timeout: 5000,
+                timeout: 5000,
                 context: this,
                 async: true,
 
@@ -121,7 +121,7 @@ define([
         },
 
         reloadAdminMessages: function() {
-            setInterval(this.getAdminMessage, 10000)
+            setInterval(this.getAdminMessage, 60000)
             // this.getAdminMessage();
         },
     });

@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Iuriis\Chatbox\Ui\Component\Listing;

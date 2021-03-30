@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Iuriis\Chatbox\Ui\Component\Listing;
@@ -15,12 +14,10 @@ class Container extends \Magento\Ui\Component\Container
         $this->_data['config']['update_url'] = $this->context->getUrl(
             'mui/index/render',
             ['chat_hash' => (string) $this->context->getRequestParam('chat_hash')]
-//            ['chat_hash' => 123123213]
         );
         $this->_data['config']['render_url'] = $this->context->getUrl(
             'mui/index/render',
             ['chat_hash' => (string) $this->context->getRequestParam('chat_hash')]
-//            ['chat_hash' => 123123213]
         );
     }
 }
